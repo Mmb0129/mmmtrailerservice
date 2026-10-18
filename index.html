@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MMM Trailer Service – Expert in the art of Moving | Chennai</title>
+  <meta name="description" content="MMM Trailer Service offers 40-feet trailer trucks for hire in Chennai and across Tamil Nadu. Call 9384943004 for reliable, experienced transport solutions."/>
+  <meta property="og:title" content="MMM Trailer Service – Expert in the art of Moving"/>
+  <meta property="og:description" content="40-feet trailer trucks for hire. Serving Chennai & all over India."/>
+  <meta property="og:type" content="website"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Dancing+Script:wght@600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:   #0D1B3E;
+      --navy2:  #0a1530;
+      --gold:   #F5A800;
+      --gold2:  #F5C518;
+      --gold3:  #C8860A;
+      --m1:     #1565C0;
+      --m2:     #E65100;
+      --m3:     #2E7D32;
+      --white:  #ffffff;
+      --offwhite: #f7f5f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--navy2);
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    /* ── GOLD STRIPE ── */
+    .gold-stripe {
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold3), var(--gold2) 40%, var(--gold) 60%, var(--gold3));
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    nav {
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,.5);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 38px;
+      width: 38px;
+      object-fit: contain;
+    }
+    .nav-mmm { display: flex; gap: 1px; }
+    .nav-mmm span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .nm1 { color: var(--m1); }
+    .nm2 { color: var(--m2); }
+    .nm3 { color: var(--m3); }
+    .nav-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #c0cfe0;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-weight: 800 !important;
+    }
+    .nav-cta:hover { background: var(--gold2) !important; color: var(--navy) !important; }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .hero-truck-bg {
+      position: absolute;
+      right: 0; top: 0;
+      width: 58%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
+      opacity: 0.55;
+      clip-path: polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* dark gradient overlay on left so text is readable */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--navy) 40%, rgba(13,27,62,.15) 80%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 48px;
+      max-width: 580px;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 22px;
+    }
+    .logo-ring-wrap {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* spinning gold glow ring */
+    .logo-ring-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 60%, #f5a800 80%, #f5c518 90%, transparent 100%);
+      animation: spinRing 3s linear infinite;
+    }
+    .logo-ring-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: var(--navy);
+    }
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+    .hero-badge img {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,.7));
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+    @keyframes floatBadge {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    .hero-mmm {
+      display: flex;
+      gap: 2px;
+      line-height: .9;
+    }
+    .hero-mmm span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 88px;
+      letter-spacing: -5px;
+    }
+    .hm1 { color: var(--m1); }
+    .hm2 { color: var(--m2); }
+    .hm3 { color: var(--m3); }
+
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: #fff;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-top: -6px;
+      margin-left: 3px;
+    }
+
+    .hero-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--gold);
+      margin: 10px 0 24px 3px;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: #b0c4de;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 420px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1px;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(245,168,0,.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(245,168,0,.5);
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.4);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(245,168,0,.1);
+      color: var(--gold);
+    }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .scroll-hint span {
+      font-size: 9px;
+      color: rgba(255,255,255,.4);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .scroll-arrow {
+      width: 22px;
+      height: 22px;
+      border-right: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(45deg);
+      animation: scrollBounce 1.4s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+      50%      { transform: rotate(45deg) translateY(5px); opacity: .5; }
+    }
+
+    /* ══════════════════════════════════════
+       PROMO BAND
+    ══════════════════════════════════════ */
+    .promo-band {
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 14px 32px;
+    }
+    .promo-icon {
+      width: 42px; height: 42px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .promo-icon svg { width: 22px; height: 22px; fill: var(--gold); }
+    .promo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════
+       STATS BAR
+    ══════════════════════════════════════ */
+    .stats-bar {
+      background: var(--navy2);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+    }
+    .stat-item {
+      flex: 1;
+      max-width: 220px;
+      text-align: center;
+      padding: 28px 20px;
+      border-right: 1px solid rgba(255,255,255,.06);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 11px;
+      color: #8899bb;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+    }
+
+    /* ══════════════════════════════════════
+       SERVICES
+    ══════════════════════════════════════ */
+    .section {
+      padding: 80px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,168,0,.1);
+      border: 1px solid rgba(245,168,0,.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 14px;
+    }
+    .section-tag span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .section-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .section-title em { color: var(--gold); font-style: normal; }
+
+    .section-sub {
+      font-size: 15px;
+      color: #8899bb;
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: border-color .25s, transform .25s, background .25s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-color: var(--gold);
+      background: rgba(245,168,0,.06);
+      transform: translateY(-4px);
+    }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: rgba(245,168,0,.15);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .service-icon svg { width: 26px; height: 26px; fill: var(--gold); }
+    .service-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .service-desc {
+      font-size: 13px;
+      color: #7a8fb0;
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════
+       WHY US
+    ══════════════════════════════════════ */
+    .why-section {
+      background: rgba(255,255,255,.025);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .why-truck-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .why-truck-wrap img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+      box-shadow: 0 16px 60px rgba(0,0,0,.5);
+    }
+    .why-truck-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: var(--gold);
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .why-truck-badge svg { width: 18px; height: 18px; fill: var(--navy); }
+    .why-truck-badge span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--navy);
+    }
+
+    .why-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+    .why-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .why-check {
+      width: 26px; height: 26px;
+      background: rgba(245,168,0,.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .why-check svg { width: 13px; height: 13px; fill: var(--gold); }
+    .why-item-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .why-item-desc { font-size: 13px; color: #7a8fb0; line-height: 1.6; }
+
+    /* ══════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════ */
+    .contact-section {
+      background: var(--navy);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      padding: 18px 20px;
+      transition: border-color .2s;
+    }
+    .contact-card:hover { border-color: var(--gold); }
+    .contact-card-icon {
+      width: 40px; height: 40px;
+      background: rgba(245,168,0,.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card-icon svg { width: 20px; height: 20px; fill: var(--gold); }
+    .contact-card-lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .contact-card-val {
+      font-size: 14px;
+      color: #e0e8f0;
+      line-height: 1.5;
+    }
+    .contact-card-val a {
+      color: #e0e8f0;
+      text-decoration: none;
+    }
+    .contact-card-val a:hover { color: var(--gold); }
+
+    /* map embed placeholder */
+    .map-box {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      overflow: hidden;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+    .map-box iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      filter: grayscale(.3) invert(.05);
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--navy2);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 36px 48px 28px;
+      text-align: center;
+    }
+    .footer-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .footer-logo-row img { height: 44px; object-fit: contain; }
+    .footer-mmm { display: flex; gap: 1px; }
+    .footer-mmm span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+    .fm1 { color: var(--m1); }
+    .fm2 { color: var(--m2); }
+    .fm3 { color: var(--m3); }
+    .footer-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .footer-owner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 8px 0 16px;
+    }
+    .footer-rule { flex: 1; max-width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+    .footer-rule.r { background: linear-gradient(90deg, var(--gold), transparent); }
+    .footer-star { color: var(--gold); font-size: 14px; }
+    .footer-owner-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .footer-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 18px;
+      color: rgba(245,168,0,.6);
+      margin-bottom: 20px;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #445566;
+    }
+    .footer-copy a { color: #556677; text-decoration: none; }
+
+    /* ══════════════════════════════════════
+       PHONE FLOAT BUTTON (mobile)
+    ══════════════════════════════════════ */
+    .phone-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      background: var(--gold);
+      border-radius: 50%;
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(245,168,0,.5);
+      text-decoration: none;
+      transition: transform .2s;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .phone-float svg { width: 26px; height: 26px; fill: var(--navy); }
+    .phone-float:hover { transform: scale(1.1); }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(245,168,0,.5); }
+      50%      { box-shadow: 0 6px 40px rgba(245,168,0,.8); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-content { padding: 48px 24px; }
+      .hero-mmm span { font-size: 64px; }
+      .hero-title { font-size: 16px; letter-spacing: 3px; }
+      .hero-tagline { font-size: 20px; }
+      .hero-truck-bg { width: 100%; opacity: .2; clip-path: none; }
+      .hero::before { background: linear-gradient(180deg, rgba(13,27,62,.92) 0%, rgba(13,27,62,.7) 100%); }
+      .why-grid, .contact-grid { grid-template-columns: 1fr; }
+      .section { padding: 60px 24px; }
+      .section-title { font-size: 28px; }
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .promo-text { font-size: 13px; }
+      footer { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP GOLD STRIPE -->
+<div class="gold-stripe"></div>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <a class="nav-logo" href="#home">
+    <img src="MMM Logo.png" alt="Mazhai Malai Madha Logo"/>
+    <div>
+      <div class="nav-mmm">
+        <span class="nm1">M</span><span class="nm2">M</span><span class="nm3">M</span>
+      </div>
+      <div class="nav-sub">Trailer Service</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:9384943004" class="nav-cta">📞 Call Now</a></li>
+  </ul>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="home">
+  <img class="hero-truck-bg"
+    src="Truck Image.png"
+    alt="MMM Trailer Truck"/>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="logo-ring-wrap">
+        <img src="MMM Logo.png" alt="Mazhai Malai Madha"/>
+      </div>
+    </div>
+    <div class="hero-mmm">
+      <span class="hm1">M</span><span class="hm2">M</span><span class="hm3">M</span>
+    </div>
+    <div class="hero-title">Trailer Service</div>
+    <div class="hero-tagline">Expert in the art of Moving...</div>
+    <p class="hero-desc">
+      Reliable 40-feet trailer trucks for hire across Chennai and all over India.
+      Heavy load? Industrial goods? We move it — safely, on time, every time.
+    </p>
+    <div class="hero-buttons">
+      <a href="tel:9384943004" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Call 9384943004
+      </a>
+      <a href="#contact" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Get a Quote
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ══════ PROMO BAND ══════ -->
+<div class="promo-band">
+  <div class="promo-icon">
+    <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+  </div>
+  <div class="promo-text">40 Feet Trailer Trucks for Hire — All Over India</div>
+</div>
+
+<!-- ══════ STATS ══════ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">40<span style="font-size:20px;color:#c8860a;">ft</span></div>
+    <div class="stat-lbl">Trailer Size</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24<span style="font-size:20px;color:#c8860a;">/7</span></div>
+    <div class="stat-lbl">Availability</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">PAN</div>
+    <div class="stat-lbl">India Coverage</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100<span style="font-size:20px;color:#c8860a;">%</span></div>
+    <div class="stat-lbl">On-time Delivery</div>
+  </div>
+</div>
+
+<!-- ══════ SERVICES ══════ -->
+<section class="section" id="services">
+  <div class="section-tag"><span>What We Offer</span></div>
+  <h2 class="section-title">Built for <em>Heavy Loads</em>,<br/>Driven by Trust</h2>
+  <p class="section-sub">From industrial equipment to construction material — we handle large-scale cargo with care and precision across all major routes.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
+      </div>
+      <div class="service-name">40-Feet Trailer Hire</div>
+      <div class="service-desc">Full-length flatbed and container trailers for heavy cargo transport. Available for single trips and long-term hire.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </div>
+      <div class="service-name">Pan India Transport</div>
+      <div class="service-desc">We cover all major highways and industrial corridors — Chennai to Delhi, Mumbai, Kolkata and beyond.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+      </div>
+      <div class="service-name">Dedicated Fleet</div>
+      <div class="service-desc">Our own fleet of Ashok Leyland trailer trucks — maintained, insured, and driven by experienced professionals.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+      </div>
+      <div class="service-name">Safe &amp; Insured</div>
+      <div class="service-desc">Every consignment is fully covered. We take responsibility for your goods from pickup to delivery.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ WHY US ══════ -->
+<section class="why-section" id="why-us">
+  <div class="section" style="padding-top:70px;padding-bottom:70px;">
+    <div class="why-grid">
+      <div class="why-truck-wrap">
+        <img src="Truck Image.png" alt="MMM Trailer Truck"/>
+        <div class="why-truck-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span>Trusted Since Day One</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag"><span>Why Choose Us</span></div>
+        <h2 class="section-title" style="font-size:28px;">Moving with <em>Purpose</em>,<br/>Backed by Experience</h2>
+        <p class="section-sub" style="margin-bottom:28px;">We're not just a transport company — we're partners in your supply chain.</p>
+        <ul class="why-list">
+          <li class="why-item">
+            <div class="why-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+            <div>
+              <div class="why-item-title">Own Fleet, No Middlemen</div>
+              <div class="why-item-desc">We own our trucks. No brokers, no delays — you deal directly with us.</div>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+            <div>
+              <div class="why-item-title">Experienced Drivers</div>
+              <div class="why-item-desc">Long-haul specialists who know every route, every toll, every shortcut.</div>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+            <div>
+              <div class="why-item-title">Transparent Pricing</div>
+              <div class="why-item-desc">Hire Fixed + clear billing. No hidden charges. What we quote is what you pay.</div>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+            <div>
+              <div class="why-item-title">Based in Chennai, Pan-India Reach</div>
+              <div class="why-item-desc">Operating from MMDA Mathur, serving clients across all major states.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section class="contact-section" id="contact">
+  <div class="section">
+    <div class="section-tag"><span>Get In Touch</span></div>
+    <h2 class="section-title">Let's Move Your <em>Cargo</em></h2>
+    <p class="section-sub">Call us, send a message, or visit us in Chennai. We respond fast.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Call Us</div>
+            <div class="contact-card-val">
+              <a href="tel:9384943004">9384943004</a><br/>
+              <a href="tel:9842596918">9842596918</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Email</div>
+            <div class="contact-card-val">
+              <a href="mailto:mmmtrailerservice@gmail.com">mmmtrailerservice@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Our Office</div>
+            <div class="contact-card-val">No. 4688/4, 12th Street,<br/>MMDA Mathur, Chennai – 600068,<br/>Tamil Nadu, India</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Contact Person</div>
+            <div class="contact-card-val"><strong style="color:#fff;">Micheal Augustin</strong><br/>Owner &amp; Manager</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Map -->
+      <div class="map-box">
+        <iframe
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCbc4NP0mVWKx4UZeNg_C-rHkIABcJNSJ4&q=MMDA+Mathur,+Chennai,+Tamil+Nadu+600068"
+          title="MMM Trailer Service Location">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<div class="gold-stripe"></div>
+<footer>
+  <div class="footer-logo-row">
+    <img src="MMM Logo.png" alt="Logo"/>
+    <div>
+      <div class="footer-mmm">
+        <span class="fm1">M</span><span class="fm2">M</span><span class="fm3">M</span>
+      </div>
+      <div class="footer-sub">Trailer Service</div>
+    </div>
+  </div>
+  <div class="footer-owner">
+    <div class="footer-rule"></div>
+    <span class="footer-star">★</span>
+    <span class="footer-owner-name">Micheal Augustin</span>
+    <span class="footer-star">★</span>
+    <div class="footer-rule r"></div>
+  </div>
+  <div class="footer-tagline">Expert in the art of Moving...</div>
+  <p class="footer-copy">
+    © 2025 MMM Trailer Service. All rights reserved. &nbsp;|&nbsp;
+    <a href="tel:9384943004">9384943004</a> &nbsp;|&nbsp;
+    <a href="mailto:mmmtrailerservice@gmail.com">mmmtrailerservice@gmail.com</a>
+  </p>
+</footer>
+
+<!-- FLOATING CALL BUTTON -->
+<a href="tel:9384943004" class="phone-float" title="Call Now">
+  <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+</a>
+
+</body>
+</html>

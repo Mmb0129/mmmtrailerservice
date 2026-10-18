@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MMM Trailer Service – Bill Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Dancing+Script:wght@600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #b0b0b0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 16px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* ── A5 PAPER  (560 × 794 px) ── */
+    .bill {
+      width: 560px;
+      background: #ffffff;
+      box-shadow: 0 10px 50px rgba(0,0,0,.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 3px;
+    }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .header {
+      background: #0d1b3e;
+      display: grid;
+      grid-template-columns: 94px 1fr;
+      min-height: 132px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* left column */
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 8px 10px 10px;
+      z-index: 2;
+    }
+
+    .logo-img {
+      width: 78px;
+      height: 78px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.6));
+    }
+
+    /* right column — wordmark + truck */
+    .header-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 12px 0 0 6px;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .truck-img {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 132px;
+      width: 195px;
+      object-fit: cover;
+      object-position: left center;
+      /* diagonal clip so truck bleeds in from right */
+      clip-path: polygon(24% 0%, 100% 0%, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    /* subtle dark vignette so wordmark is readable */
+    .header-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #0d1b3e 38%, rgba(13,27,62,.0) 72%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .wordmark {
+      position: relative;
+      z-index: 2;
+    }
+
+    .mmm-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1px;
+      line-height: 1;
+    }
+    .mmm-row span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      letter-spacing: -3px;
+    }
+    .m1 { color: #1565C0; }
+    .m2 { color: #E65100; }
+    .m3 { color: #2E7D32; }
+
+    .ts-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: #ffffff;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: -4px;
+      margin-left: 2px;
+    }
+
+    .tagline {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #f5a800;
+      margin-top: 3px;
+      margin-left: 2px;
+    }
+
+    /* address strip inside header */
+    .addr-strip {
+      position: relative;
+      z-index: 2;
+      margin-top: 8px;
+    }
+    .addr-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+    .addr-item svg { width: 9px; height: 9px; fill: #f5a800; flex-shrink: 0; }
+    .addr-item span {
+      font-family: 'Roboto', sans-serif;
+      font-size: 8px;
+      color: #d0ddf0;
+      letter-spacing: .2px;
+    }
+
+    /* phone ribbon under header */
+    .phone-ribbon {
+      background: #0d1b3e;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 5px 14px;
+    }
+    .phone-pill-row {
+      background: #0d1b3e;
+      border: 2px solid #f5a800;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px;
+    }
+    .phone-pill-row .ph-icon {
+      width: 22px;
+      height: 22px;
+      background: #f5a800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .phone-pill-row .ph-icon svg { width: 12px; height: 12px; fill: #0d1b3e; }
+    .phone-pill-row .ph-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: .5px;
+    }
+
+    /* ── GOLD ACCENT STRIPE ── */
+    .gold-bar {
+      height: 5px;
+      background: linear-gradient(90deg, #8b5e00, #f5c518 35%, #f5a800 65%, #8b5e00);
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       PROMO BAND  "40 FEET TRAILER …"
+    ══════════════════════════════════════════ */
+    .promo-band {
+      background: #f5a800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 16px;
+    }
+    .promo-icon {
+      width: 32px;
+      height: 32px;
+      background: #0d1b3e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .promo-icon svg { width: 18px; height: 18px; fill: #f5a800; }
+    .promo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: #0d1b3e;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════
+       BILL BODY
+    ══════════════════════════════════════════ */
+    .bill-body {
+      flex: 1;
+      padding: 14px 18px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: #fff;
+    }
+
+    /* ── No / Date row ── */
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .meta-no {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .meta-no .lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #0d1b3e;
+    }
+    .meta-no .val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: #e53935;
+      letter-spacing: 2px;
+    }
+    .meta-date {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #0d1b3e;
+    }
+    .date-slots {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .date-blank {
+      display: inline-block;
+      width: 34px;
+      border-bottom: 1.5px solid #333;
+    }
+
+    /* ── dotted field rows ── */
+    .field {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .field .lbl {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      color: #0d1b3e;
+      white-space: nowrap;
+      padding-bottom: 2px;
+    }
+    .field .dots {
+      flex: 1;
+      border-bottom: 1.5px dotted #888;
+      height: 14px;
+    }
+
+    .field-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Amount box ── */
+    .amount-box {
+      border: 1.5px solid #f5a800;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 10px 0 10px;
+    }
+
+    .amount-row {
+      display: flex;
+      align-items: center;
+      padding: 7px 12px 7px 10px;
+      border-bottom: 1px solid #f0e0b0;
+      gap: 6px;
+    }
+    .amount-row:last-child { border-bottom: none; }
+
+    /* chevron bullet */
+    .chevron {
+      width: 0; height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid #f5a800;
+      flex-shrink: 0;
+    }
+
+    .amount-lbl {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      color: #0d1b3e;
+      flex: 1;
+    }
+    .amount-dots {
+      flex: 1;
+      border-bottom: 1.5px dotted #999;
+      height: 14px;
+    }
+    .rs-label {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      color: #0d1b3e;
+      white-space: nowrap;
+    }
+    .amount-box-field {
+      width: 110px;
+      height: 22px;
+      border: 1.5px solid #c0c0c0;
+      border-radius: 3px;
+      background: #fff;
+    }
+
+    /* Rupees in words */
+    .words-header {
+      background: #f5a800;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 14px 3px 10px;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      margin-bottom: 0;
+    }
+    .words-header span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 9.5px;
+      color: #0d1b3e;
+      font-style: italic;
+    }
+
+    .words-body {
+      border: 1.5px solid #f5a800;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+      padding: 6px 10px 8px;
+      margin-bottom: 12px;
+    }
+    .words-line {
+      border-bottom: 1.5px dotted #999;
+      height: 18px;
+      margin-bottom: 4px;
+    }
+    .words-line:last-child { margin-bottom: 0; }
+
+    /* ── Signature / footer row ── */
+    .sig-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-top: 4px;
+    }
+
+    .sig-block {
+      text-align: center;
+    }
+    .sig-for {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #0d1b3e;
+      margin-bottom: 4px;
+      text-align: right;
+    }
+    .sig-for .mmm-inline span {
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .sig-for .mmm-inline .m1i { color: #1565C0; }
+    .sig-for .mmm-inline .m2i { color: #E65100; }
+    .sig-for .mmm-inline .m3i { color: #2E7D32; }
+
+    .sig-line {
+      width: 170px;
+      border-bottom: 1.5px solid #333;
+      margin: 0 auto 4px;
+    }
+    .sig-lbl {
+      font-family: 'Roboto', sans-serif;
+      font-size: 9px;
+      color: #444;
+      text-align: center;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER — truck watermark + gold bar
+    ══════════════════════════════════════════ */
+    .footer-truck-strip {
+      position: relative;
+      height: 52px;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .footer-truck-img {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 100%;
+      width: 55%;
+      object-fit: cover;
+      object-position: center right;
+      opacity: 0.35;
+    }
+    .footer-gold-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #8b5e00, #f5c518 35%, #f5a800 65%, #8b5e00);
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: none; padding: 0; }
+      .bill { box-shadow: none; width: 148mm; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bill">
+
+  <!-- ══════ HEADER ══════ -->
+  <div class="header">
+
+    <!-- LEFT: logo only -->
+    <div class="header-left">
+      <img
+        class="logo-img"
+        src="/Users/micheal/Documents/Hobby_Proj/MMM Bill Book/MMM Logo.png"
+        alt="Mazhai Malai Madha Logo"
+      />
+    </div>
+
+    <!-- RIGHT: wordmark + truck + address -->
+    <div class="header-right">
+      <!-- truck bleeds in from right -->
+      <img
+        class="truck-img"
+        src="/Users/micheal/Documents/Hobby_Proj/MMM Bill Book/Truck Image.png"
+        alt="MMM Trailer Truck"
+      />
+
+      <!-- wordmark on top of gradient overlay -->
+      <div class="wordmark">
+        <div class="mmm-row">
+          <span class="m1">M</span><span class="m2">M</span><span class="m3">M</span>
+        </div>
+        <div class="ts-label">Trailer Service</div>
+        <div class="tagline">Expert in the art of Moving...</div>
+      </div>
+
+      <div class="addr-strip">
+        <div class="addr-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span>No. 4688/4, 12th St, MMDA Mathur, Chennai – 600068</span>
+        </div>
+        <div class="addr-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 17.93V18a1 1 0 00-1-1H8l-2.59-2.59A8 8 0 014.07 11H6a1 1 0 001-1V8l.85-.85A8.01 8.01 0 0119.93 11H18a1 1 0 00-1 1v2a1 1 0 001 1h1.93A8.01 8.01 0 0111 19.93z"/></svg>
+          <span>www.mmmtrailerservice.com &nbsp;|&nbsp;</span>
+          <svg viewBox="0 0 24 24" style="margin-left:-2px"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>mmmtrailerservice@gmail.com</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /header -->
+
+  <!-- PHONE RIBBON -->
+  <div class="phone-ribbon">
+    <div class="phone-pill-row">
+      <div class="ph-icon">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      </div>
+      <span class="ph-text">9384943004, 9842596918</span>
+    </div>
+  </div>
+
+  <!-- GOLD BAR -->
+  <div class="gold-bar"></div>
+
+  <!-- ══════ PROMO BAND ══════ -->
+  <div class="promo-band">
+    <div class="promo-icon">
+      <!-- truck icon -->
+      <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+    </div>
+    <div class="promo-text">40 Feet Trailer Trucks for Hire</div>
+  </div>
+
+  <!-- ══════ BILL BODY ══════ -->
+  <div class="bill-body">
+
+    <!-- No. + Date -->
+    <div class="meta-row">
+      <div class="meta-no">
+        <span class="lbl">No. :</span>
+        <span class="val">0001</span>
+      </div>
+      <div class="meta-date">
+        Date :&nbsp;
+        <span class="date-slots">
+          <span class="date-blank"></span>&nbsp;/&nbsp;
+          <span class="date-blank"></span>&nbsp;/&nbsp;20&nbsp;
+          <span class="date-blank"></span>
+        </span>
+      </div>
+    </div>
+
+    <!-- From … to … -->
+    <div class="field">
+      <span class="lbl">From</span>
+      <span class="dots" style="max-width:180px;"></span>
+      <span class="lbl" style="margin-left:4px;">to</span>
+      <span class="dots"></span>
+    </div>
+
+    <!-- Trailer No. -->
+    <div class="field">
+      <span class="lbl">Trailer No.</span>
+      <span class="dots"></span>
+    </div>
+
+    <!-- Transport Name -->
+    <div class="field">
+      <span class="lbl">Transport Name</span>
+      <span class="dots"></span>
+    </div>
+
+    <!-- Address (2 lines) -->
+    <div class="field">
+      <span class="lbl">Address</span>
+      <span class="dots"></span>
+    </div>
+    <div class="field" style="margin-top:-4px;">
+      <span class="dots" style="margin-left:0;"></span>
+    </div>
+
+    <!-- L.R. No. -->
+    <div class="field">
+      <span class="lbl">L.R. No.</span>
+      <span class="dots"></span>
+    </div>
+
+    <!-- ── AMOUNT BOX ── -->
+    <div class="amount-box">
+
+      <div class="amount-row">
+        <div class="chevron"></div>
+        <span class="amount-lbl">Hire Fixed</span>
+        <span class="amount-dots"></span>
+        <span class="rs-label">Rs.</span>
+        <div class="amount-box-field"></div>
+      </div>
+
+      <div class="amount-row">
+        <div class="chevron"></div>
+        <span class="amount-lbl">Advance Paid</span>
+        <span class="amount-dots"></span>
+        <span class="rs-label">Rs.</span>
+        <div class="amount-box-field"></div>
+      </div>
+
+      <div class="amount-row">
+        <div class="chevron"></div>
+        <span class="amount-lbl">Other Charges</span>
+        <span class="amount-dots"></span>
+        <span class="rs-label">Rs.</span>
+        <div class="amount-box-field"></div>
+      </div>
+
+      <div class="amount-row">
+        <div class="chevron"></div>
+        <span class="amount-lbl">Balance Paid</span>
+        <span class="amount-dots"></span>
+        <span class="rs-label">Rs.</span>
+        <div class="amount-box-field"></div>
+      </div>
+
+    </div><!-- /amount-box -->
+
+    <!-- ── Rupees in Words ── -->
+    <div class="words-header">
+      <span>(Rupees in Words)</span>
+    </div>
+    <div class="words-body">
+      <div class="words-line"></div>
+      <div class="words-line" style="margin-bottom:0;"></div>
+    </div>
+
+    <!-- ── Signature ── -->
+    <div class="sig-row">
+      <div class="sig-block">
+        <div class="sig-for">
+          For &nbsp;<span class="mmm-inline"><span class="m1i">M</span><span class="m2i">M</span><span class="m3i">M</span></span>&nbsp; TRAILER SERVICE
+        </div>
+        <div class="sig-line"></div>
+        <div class="sig-lbl">Authorised Signature</div>
+      </div>
+    </div>
+
+  </div><!-- /bill-body -->
+
+  <!-- ══════ FOOTER TRUCK STRIP ══════ -->
+  <div class="footer-truck-strip">
+    <img
+      class="footer-truck-img"
+      src="/Users/micheal/Documents/Hobby_Proj/MMM Bill Book/Truck Image.png"
+      alt=""
+    />
+    <div class="footer-gold-line"></div>
+  </div>
+
+</div><!-- /bill -->
+
+</body>
+</html>
