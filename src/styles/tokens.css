@@ -12,7 +12,11 @@
   --navy-800: #0d1b3e; /* primary brand navy — nav, headings */
   --navy-700: #16264f; /* raised surfaces on navy */
 
-  --gold-600: #c8860a; /* dark end — eyebrows, icons on light */
+  --gold-600: #c8860a; /* dark end — BORDERS, RULES AND ICONS ONLY (3.06:1 on
+                           white: fails AA for text at any size we use) */
+  --gold-text: #996607; /* the gold for TEXT on light grounds — 4.93:1 on
+                           white, 4.53:1 on paper. Eyebrows and small links
+                           use this, never --gold-600. */
   --gold-500: #f5a800; /* primary gold — CTAs, rules, focus */
   --gold-400: #f5c518; /* light end — hover */
 
@@ -24,7 +28,7 @@
   /* ── Neutrals ──────────────────────────────────────────── */
   --ink-900: #14181f; /* body text on light     — 14.8:1 on paper */
   --ink-600: #4a5260; /* secondary text         —  7.1:1 on paper */
-  --ink-400: #7b8392; /* captions, meta */
+  --ink-400: #656d7b; /* captions, meta — 4.79:1 on paper, passes AA at 14px */
   --rule: #dcd9d2; /* hairlines */
   --paper: #f7f5f0; /* page ground */
   --white: #ffffff;
@@ -40,6 +44,9 @@
   --ok: #2e7d32;
   --warn: #b45309;
   --error: #b3261e; /* deliberately NOT --mmm-orange: an error must not read as brand */
+  --error-bg: #fdf2f1; /* error panel ground */
+  --error-ink: #7a1a14; /* error panel text — 8.1:1 on --error-bg */
+  --ok-bg: #f1f8f2;
 
   /* ── Type ──────────────────────────────────────────────── */
   --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

@@ -78,6 +78,22 @@ const services = defineCollection({
       .array(z.object({ label: z.string(), value: z.string() }))
       .optional(),
     relatedRoutes: z.array(z.string()).default([]),
+    heroPhoto: z.string(),
+    heroAlt: z.string().min(10),
+    /** "When you need this trailer" — each scenario drawn from real cargo
+     *  evidence (asset-inventory.md §6), never invented. */
+    scenarios: z
+      .array(
+        z.object({
+          title: z.string(),
+          body: z.string().min(40),
+          photo: z.string(),
+        }),
+      )
+      .min(2),
+    faqs: z
+      .array(z.object({ question: z.string().min(10), answer: z.string().min(20) }))
+      .min(2),
     draft: z.boolean().default(false),
   }),
 });
@@ -100,6 +116,15 @@ const routes = defineCollection({
      * those are not sourced from a maps API and presented as service facts.
      */
     ownerNotesSupplied: z.boolean().default(false),
+    heroPhoto: z.string().optional(),
+    heroAlt: z.string().optional(),
+    /** Verified industrial context for the corridor. Researched fact about
+     *  the destination, never a claim about MMM's history on the lane. */
+    industry: z.array(z.string()).default([]),
+    notes: z.array(z.object({ title: z.string(), body: z.string().min(40) })).default([]),
+    faqs: z
+      .array(z.object({ question: z.string().min(10), answer: z.string().min(20) }))
+      .default([]),
     draft: z.boolean().default(false),
   }),
 });

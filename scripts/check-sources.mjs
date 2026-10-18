@@ -22,7 +22,8 @@ async function walk(dir) {
 const rules = [
   {
     name: 'contact details outside business.ts',
-    pattern: /9384943004|9842596918|mmmtrailerservice@gmail|MMDA Mathur/,
+    // Matches 9384943004, 93849 43004, 93849-43004, +91 93849 43004, etc.
+    pattern: /9\s*3\s*8\s*4\s*9[\s-]*4\s*3\s*0\s*0\s*4|9\s*8\s*4\s*2\s*5[\s-]*9\s*6\s*9\s*1\s*8|mmmtrailerservice@gmail|MMDA Mathur/,
     allow: ['src/data/business.ts'],
     exts: ['.astro', '.ts', '.js', '.mjs'],
   },

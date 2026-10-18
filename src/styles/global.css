@@ -85,7 +85,7 @@ a {
 }
 
 a:hover {
-  color: var(--gold-600);
+  color: var(--gold-text);
 }
 
 small,
@@ -162,4 +162,89 @@ figcaption {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ── Buttons ─────────────────────────────────────────────
+   Shared because they appear on every page; everything else
+   stays scoped to its component. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 48px;
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--gold-500);
+  color: var(--navy-800);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--gold-500);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    background var(--dur-base) var(--ease),
+    transform var(--dur-micro) var(--ease);
+}
+
+.btn:hover {
+  background: var(--gold-400);
+  border-color: var(--gold-400);
+  color: var(--navy-800);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--navy-800);
+  color: var(--navy-800);
+}
+
+.btn--outline:hover {
+  background: var(--navy-800);
+  border-color: var(--navy-800);
+  color: var(--white);
+}
+
+/* On navy grounds the navy outline disappears, so invert. */
+.btn--ghost {
+  background: transparent;
+  border-color: var(--gold-500);
+  color: var(--gold-500);
+}
+
+.btn--ghost:hover {
+  background: var(--gold-500);
+  color: var(--navy-800);
+}
+
+/* ── Section rhythm ──────────────────────────────────────── */
+.section {
+  padding-block: var(--sp-8);
+}
+
+@media (min-width: 900px) {
+  .section {
+    padding-block: var(--sp-9);
+  }
+}
+
+.section--navy {
+  background: var(--navy-800);
+  color: var(--on-navy-300);
+}
+
+.section--navy h2,
+.section--navy h3 {
+  color: var(--white);
+}
+
+.prose > * + * {
+  margin-top: var(--sp-4);
 }

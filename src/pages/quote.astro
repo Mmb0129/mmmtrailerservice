@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import EnquiryForm from '@/components/forms/EnquiryForm.astro';
+import Field from '@/components/forms/Field.astro';
+import { disclosures } from '@/data/business';
+
+// Lane pages link here with ?from=&to= so the route arrives prefilled.
+const from = Astro.url.searchParams.get('from') ?? undefined;
+const to = Astro.url.searchParams.get('to') ?? undefined;
+const today = new Date().toISOString().slice(0, 10);
+---
+
+<BaseLayout
+  title="Request a Trailer Transport Quote"
+  description="Tell us your route, cargo and dates and we will come back with what we can do. 40 ft high-bed, semi-low-bed and low-bed trailers from Chennai."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Request a quote', href: '/quote/' }]} />
+  </div>
+
+  <section class="section quote">
+    <div class="container">
+      <h1>Request a quote</h1>
+      <p class="quote__lede">
+        Four things are required — your name, a phone number, and where the load is going
+        from and to. Everything else helps us quote accurately, but leave it blank if you
+        do not know it yet.
+      </p>
+
+      <EnquiryForm
+        name="quote"
+        submitLabel="Send enquiry"
+        disclosure={disclosures.shipper}
+        successHeading="We have your enquiry"
+        successBody="We will get back to you as soon as we can. If it is urgent, call us — it is usually quicker."
+      >
+        <Field name="name" label="Your name" required autocomplete="name" />
+        <Field name="company" label="Company" help="Optional." autocomplete="organization" />
+        <Field
+          name="phone"
+          label="Phone"
+          type="tel"
+          required
+          inputmode="tel"
+          autocomplete="tel"
+          help="A 10-digit mobile is fine, with or without +91."
+        />
+        <Field
+          name="email"
+          label="Email"
+          type="email"
+          autocomplete="email"
+          help="Optional — we are happy to reply by phone or WhatsApp."
+        />
+        <Field name="pickup" label="Pickup location" required value={from} />
+        <Field name="delivery" label="Delivery location" required value={to} />
+        <Field
+          name="cargo"
+          label="What is the cargo?"
+          type="textarea"
+          required
+          placeholder="e.g. Genie boom lift, about 9 tonnes"
+        />
+        <Field name="weight" label="Approximate weight" help="A rough figure is fine — 'around 18 tonnes'." />
+        <Field name="dimensions" label="Dimensions (L × W × H)" help="If you know them." />
+        <Field
+          name="trailerType"
+          label="Trailer type"
+          type="select"
+          options={[
+            { value: 'Not sure — please advise', label: 'Not sure — please advise' },
+            { value: 'High-bed', label: 'High-bed' },
+            { value: 'Semi-low-bed', label: 'Semi-low-bed' },
+            { value: 'Low-bed', label: 'Low-bed' },
+            { value: 'Container / skeletal', label: 'Container / skeletal' },
+          ]}
+        />
+        <Field name="loadingDate" label="Preferred loading date" type="date" min={today} />
+        <Field name="notes" label="Anything else we should know?" type="textarea" rows={3} />
+      </EnquiryForm>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .quote__lede {
+    margin-block: var(--sp-4) var(--sp-7);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+</style>

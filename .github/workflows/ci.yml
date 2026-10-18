@@ -40,11 +40,30 @@ jobs:
         env:
           SITE_URL: https://mmmtrailerservice.com
 
+      - name: HTML validity
+        run: npm run check:html
+
       - name: SEO metadata gate
         run: npm run check:seo
 
       - name: Source discipline gate
         run: npm run check:sources
+
+      - name: Content gate (similarity, images, forbidden claims)
+        run: npm run check:content
+
+      - name: Colour contrast gate
+        run: npm run check:contrast
+
+      - name: Accessibility gate (axe-core, zero violations)
+        run: npm run check:a11y
+
+      - name: Link check
+        run: |
+          npx astro preview --port 4321 &
+          npx wait-on http://localhost:4321 --timeout 30000
+          npx linkinator http://localhost:4321 --recurse --silent \
+            --skip "mmmtrailerservice\.com|wa\.me|google\.com"
 
       - name: Upload build output
         uses: actions/upload-artifact@v4
@@ -64,12 +83,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Added as Phase 6 lands (tasks.md TEST-001..010):
-  #   a11y        — @axe-core/cli over every built page, zero violations
-  #   links       — lychee over dist/
-  #   html        — html-validate over dist/**/*.html
-  #   schema      — JSON-LD validation, asserting no aggregateRating/review
-  #   similarity  — pairwise body-text check across /services/* and /routes/*
-  #   images      — alt/caption/authenticity + no-upscale assertions
-  #   lighthouse  — budgets from architect.md §18.2
-  #   forms       — Playwright, including the mocked-500 "never show success" case
+  # Still to add (tasks.md TEST-009, TEST-001):
+  #   lighthouse  — budgets from architect.md §18.2, needs a CI Chrome
+  #   forms E2E   — Playwright, including the mocked-500 "never show
+  #                 success" case. The gate itself is verified by hand for
+  #                 now; see the build log in tasks.md.

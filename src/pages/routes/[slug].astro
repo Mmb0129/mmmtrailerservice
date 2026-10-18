@@ -1,0 +1,280 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import Figure from '@/components/media/Figure.astro';
+import Faq from '@/components/sections/Faq.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { photo } from '@/data/photos';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const routes = await getCollection('routes', ({ data }) => !data.draft);
+  return routes.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+};
+
+interface Props {
+  entry: CollectionEntry<'routes'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+
+const services = await getCollection('services', ({ data: s }) => !s.draft);
+const related = services.filter((s) => s.data.relatedRoutes.includes(entry.id));
+
+const quoteHref = `/quote/?from=${encodeURIComponent(data.origin)}&to=${encodeURIComponent(data.destination)}`;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  whatsappContext={`${data.origin} to ${data.destination}`}
+>
+  <div class="container">
+    <Breadcrumb
+      items={[
+        { label: 'Routes', href: '/routes/' },
+        { label: data.h1, href: `/routes/${entry.id}/` },
+      ]}
+    />
+  </div>
+
+  <section class="section rt-hero">
+    <div class="container rt-hero__inner">
+      <div>
+        <h1>{data.h1}</h1>
+        {
+          data.interstate && (
+            <p class="rt-hero__flag">
+              Interstate movement — {data.origin} is in Tamil Nadu and{' '}
+              {data.destination} is in {data.destinationState}, so this run crosses a
+              state border.
+            </p>
+          )
+        }
+        <p class="rt-hero__lede">{data.description}</p>
+        <p class="rt-hero__cta">
+          <a class="btn" href={quoteHref}>Get a quote for this route</a>
+        </p>
+      </div>
+      {
+        data.heroPhoto && data.heroAlt && (
+          <div class="rt-hero__media">
+            <Figure
+              src={photo(data.heroPhoto)}
+              alt={data.heroAlt}
+              ratio="3/2"
+              sizes="(min-width: 900px) 460px, 100vw"
+              widths={[460, 920]}
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    data.industry.length > 0 && (
+      <section class="section rt-industry">
+        <div class="container">
+          <h2>What is at this end</h2>
+          <ul class="rt-industry__list">
+            {data.industry.map((i) => (
+              <li>{i}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    data.notes.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <h2>What to know about this run</h2>
+          <div class="rt-notes">
+            {data.notes.map((n) => (
+              <div class="rt-notes__item">
+                <h3>{n.title}</h3>
+                <p>{n.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section rt-transit">
+    <div class="container">
+      <div class="rt-transit__panel">
+        <h2>Transit time</h2>
+        <p>
+          Transit time depends on the load, route conditions and any permits the cargo
+          needs. We will give you an estimate when we quote.
+        </p>
+        <p class="rt-transit__small">
+          We do not publish fixed transit times or road distances for this route. A
+          number we cannot stand behind is worse than no number.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="section rt-related">
+        <div class="container">
+          <h2>Trailers that suit this route</h2>
+          <ul class="rt-related__list">
+            {related.map((s) => (
+              <li>
+                <a href={`/services/${s.id}/`}>
+                  <h3>{s.data.h1}</h3>
+                  <p>{s.data.summary}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {data.faqs.length > 0 && <Faq items={data.faqs} heading="Questions about this route" schema={false} />}
+
+  <ContactBand context={`${data.origin} to ${data.destination}`} />
+</BaseLayout>
+
+<style>
+  .rt-hero {
+    background: var(--white);
+  }
+
+  .rt-hero__inner {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+
+  .rt-hero__flag {
+    max-width: none;
+    margin-top: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--navy-800);
+    color: var(--on-navy-200);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+
+  .rt-hero__lede {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+
+  .rt-hero__cta {
+    margin-top: var(--sp-6);
+  }
+
+  .rt-industry {
+    background: var(--paper);
+  }
+
+  .rt-industry__list {
+    margin-top: var(--sp-4);
+    padding-left: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    color: var(--ink-600);
+  }
+
+  .rt-notes {
+    display: grid;
+    gap: var(--sp-6);
+    margin-top: var(--sp-6);
+  }
+
+  .rt-notes__item {
+    padding-top: var(--sp-4);
+    border-top: 3px solid var(--gold-500);
+  }
+
+  .rt-notes__item p {
+    margin-top: var(--sp-3);
+    color: var(--ink-600);
+  }
+
+  .rt-transit {
+    background: var(--white);
+  }
+
+  .rt-transit__panel {
+    max-width: 680px;
+    padding: var(--sp-6);
+    background: var(--paper);
+    border-left: 4px solid var(--gold-500);
+    border-radius: var(--radius-md);
+  }
+
+  .rt-transit__panel p {
+    margin-top: var(--sp-3);
+    color: var(--ink-600);
+  }
+
+  .rt-transit__small {
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+  }
+
+  .rt-related__list {
+    display: grid;
+    gap: var(--sp-5);
+    list-style: none;
+    margin-top: var(--sp-6);
+  }
+
+  .rt-related__list li {
+    max-width: none;
+  }
+
+  .rt-related__list a {
+    display: block;
+    padding: var(--sp-5);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .rt-related__list a:hover {
+    border-color: var(--gold-500);
+  }
+
+  .rt-related__list p {
+    margin-top: var(--sp-2);
+    font-size: var(--fs-small);
+    color: var(--ink-600);
+  }
+
+  @media (min-width: 900px) {
+    .rt-hero__inner {
+      grid-template-columns: 1fr 460px;
+      gap: var(--sp-8);
+    }
+
+    .rt-notes {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .rt-related__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

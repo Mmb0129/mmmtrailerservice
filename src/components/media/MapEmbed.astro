@@ -1,0 +1,100 @@
+---
+/**
+ * Click-to-load map (architect.md §12.7).
+ *
+ * The iframe is NOT loaded on page view: it sets third-party cookies and
+ * costs several hundred KB. It mounts only when someone asks for it. If the
+ * embed key is missing, the component degrades to a plain link rather than
+ * rendering a broken frame.
+ */
+import { addressOneLine } from '@/data/business';
+
+const key = import.meta.env.PUBLIC_GOOGLE_MAPS_EMBED_KEY;
+const query = encodeURIComponent(addressOneLine);
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${query}`;
+const embedSrc = key
+  ? `https://www.google.com/maps/embed/v1/place?key=${key}&q=${query}`
+  : null;
+---
+
+<div class="map">
+  {
+    embedSrc ? (
+      <>
+        <button class="map__btn" type="button" data-map-show>
+          Show map
+        </button>
+        <div class="map__frame" data-map-frame hidden data-src={embedSrc} />
+        <p class="map__note">
+          The map loads from Google only when you ask for it, so nothing is requested
+          from a third party until then.
+        </p>
+      </>
+    ) : (
+      <p class="map__note">
+        <a href={mapsLink} rel="noopener">Open our address in Google Maps</a>
+      </p>
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-map-show]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const frame = btn.parentElement?.querySelector<HTMLElement>('[data-map-frame]');
+      const src = frame?.dataset.src;
+      if (!frame || !src) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.loading = 'lazy';
+      iframe.title = 'MMM Trailer Service location';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.allowFullscreen = true;
+      frame.appendChild(iframe);
+      frame.hidden = false;
+      btn.hidden = true;
+    });
+  });
+</script>
+
+<style>
+  .map__btn {
+    min-height: 48px;
+    padding: var(--sp-3) var(--sp-5);
+    background: transparent;
+    border: 2px solid var(--navy-800);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--navy-800);
+    cursor: pointer;
+  }
+
+  .map__btn:hover {
+    background: var(--navy-800);
+    color: var(--white);
+  }
+
+  .map__frame {
+    aspect-ratio: 16 / 10;
+    margin-top: var(--sp-4);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--rule);
+  }
+
+  .map__frame :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .map__note {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+  }
+</style>

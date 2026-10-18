@@ -1,0 +1,77 @@
+---
+/**
+ * The honest replacement for the old site's "Own Fleet, No Middlemen"
+ * (architect.md §4.3 C4, §8.3). Wording is fixed — it states the allocation
+ * order, which is both truthful and reassuring to a shipper.
+ */
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  heading?: string;
+  eyebrow?: string;
+}
+
+const { heading = 'How we work', eyebrow = 'Our trucks and our network' } = Astro.props;
+---
+
+<section class="section section--navy">
+  <div class="container">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+
+    <div class="hww">
+      <div class="hww__col">
+        <h3>We run our own trailers</h3>
+        <p>
+          40 ft high-bed, semi-low-bed and low-bed, out of Chennai. Your load goes on one
+          of our own vehicles first, whenever one suits the cargo and is free.
+        </p>
+      </div>
+
+      <div class="hww__col">
+        <h3>We work with trucks we know</h3>
+        <p>
+          Over a working lifetime in this trade, Micheal Augustin has built up a circle of
+          truck owners he knows and trusts. When our own vehicles are committed, or your
+          load needs something we do not run, we arrange it through that network and
+          coordinate the movement ourselves.
+        </p>
+      </div>
+    </div>
+
+    <p class="hww__promise">
+      Either way, you deal with one person — and we will always tell you which of the two
+      we are proposing.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hww {
+    display: grid;
+    gap: var(--sp-6);
+  }
+
+  .hww__col h3 {
+    padding-top: var(--sp-4);
+    border-top: 3px solid var(--gold-500);
+    margin-bottom: var(--sp-3);
+  }
+
+  .hww__promise {
+    max-width: none;
+    margin-top: var(--sp-7);
+    padding: var(--sp-5);
+    background: var(--navy-700);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-h3);
+    color: var(--white);
+  }
+
+  @media (min-width: 700px) {
+    .hww {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-7);
+    }
+  }
+</style>

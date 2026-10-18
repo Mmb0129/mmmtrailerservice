@@ -1,0 +1,106 @@
+---
+/**
+ * <details> accordion — zero JavaScript, keyboard operable and announced for
+ * free. The FAQPage JSON-LD is generated from the SAME array, so the markup
+ * can never drift from the visible text (architect.md §14.4).
+ *
+ * Note: Google restricted FAQ rich results to authoritative government and
+ * health sites in 2023, so this markup is for semantic clarity and answer
+ * engines, not for a snippet. Worth doing, not worth over-investing in.
+ */
+import SectionHeader from './SectionHeader.astro';
+
+import type { FaqItem } from '@/types';
+
+interface Props {
+  items: FaqItem[];
+  heading?: string;
+  eyebrow?: string;
+  /** Emit FAQPage JSON-LD. One page per site should, to avoid duplication. */
+  schema?: boolean;
+}
+
+const { items, heading = 'Common questions', eyebrow = 'FAQ', schema = true } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({
+    '@type': 'Question',
+    name: i.question,
+    acceptedAnswer: { '@type': 'Answer', text: i.answer },
+  })),
+};
+---
+
+<section class="section">
+  <div class="container faq__wrap">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="faq">
+      {
+        items.map((item) => (
+          <details class="faq__item">
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <div class="faq__answer">
+              <p set:html={item.answer} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
+
+<style>
+  .faq__wrap {
+    max-width: 820px;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-5) 0;
+    min-height: 44px;
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--navy-800);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary::after {
+    content: '+';
+    flex: none;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gold-text);
+    line-height: 1;
+  }
+
+  .faq__item[open] summary::after {
+    content: '–';
+  }
+
+  .faq__answer {
+    padding-bottom: var(--sp-5);
+  }
+
+  .faq__answer p {
+    color: var(--ink-600);
+  }
+</style>

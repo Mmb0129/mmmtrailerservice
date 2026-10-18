@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { primaryPhone, whatsappUrl, disclosures } from '@/data/business';
+---
+
+<BaseLayout
+  title="Thank You — MMM Trailer Service"
+  description="We have your enquiry and will come back to you as soon as we can."
+  noindex
+>
+  <section class="section ty">
+    <div class="container ty__inner">
+      <h1>We have your enquiry</h1>
+      <p class="ty__lede">
+        Thanks for getting in touch. We will come back to you as soon as we can.
+      </p>
+      <p class="ty__disclosure">{disclosures.shipper}</p>
+      <p class="ty__actions">
+        <a class="btn" href={primaryPhone.href} data-track="call_click">
+          Call&nbsp;{primaryPhone.display}
+        </a>
+        <a class="btn btn--outline" href={whatsappUrl()} rel="noopener" data-track="whatsapp_click">
+          WhatsApp
+        </a>
+        <a class="btn btn--outline" href="/">Back to the homepage</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ty__inner {
+    max-width: 680px;
+  }
+
+  .ty__lede {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+
+  .ty__disclosure {
+    max-width: none;
+    margin-top: var(--sp-6);
+    padding: var(--sp-4);
+    background: var(--white);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    color: var(--ink-600);
+  }
+
+  .ty__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+</style>

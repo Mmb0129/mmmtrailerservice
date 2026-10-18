@@ -15,8 +15,12 @@ function phone(raw: string) {
   return {
     /** 9384943004 — for comparisons and schema */
     raw: national,
-    /** 93849 43004 — how Indians read a mobile number aloud */
-    display: `${national.slice(0, 5)} ${national.slice(5)}`,
+    /**
+     * 93849 43004 — how Indians read a mobile number aloud.
+     * The separator is U+00A0 (no-break space) so the number can never be
+     * split across a line break, which would make it unreadable.
+     */
+    display: `${national.slice(0, 5)}\u00A0${national.slice(5)}`,
     /** +919384943004 — E.164, for tel: and schema */
     e164: `+91${national}`,
     /** tel:+919384943004 */

@@ -1,0 +1,211 @@
+---
+/**
+ * The gallery is the trust engine (architect.md §12.4). Only photographs
+ * classified confirmed-mmm or confirmed-operation render, and that filter
+ * lives in the data layer (galleryIsPublishable) so it cannot be forgotten
+ * in a template.
+ *
+ * Category filtering is CSS-only — radio inputs plus :has(). No JavaScript.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import Figure from '@/components/media/Figure.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { photo } from '@/data/photos';
+import { galleryIsPublishable } from '@/content.config';
+
+const all = await getCollection('gallery');
+const items = all.filter(galleryIsPublishable).sort((a, b) => a.data.order - b.data.order);
+const withheld = all.length - items.length;
+
+const CATEGORY_LABELS: Record<string, string> = {
+  machinery: 'Machinery',
+  plant: 'Plant',
+  'structural-steel': 'Steel',
+  pipe: 'Pipe',
+  'tanks-vessels': 'Tanks & vessels',
+  solar: 'Solar & sheet',
+  containers: 'Containers',
+  agricultural: 'Agricultural',
+  'export-crates': 'Crated cargo',
+  'night-operations': 'Night work',
+  'vehicle-portrait': 'Our vehicles',
+  'trailer-empty': 'Our trailers',
+};
+
+const used = [...new Set(items.map((i) => i.data.category))].filter((c) => CATEGORY_LABELS[c]);
+---
+
+<BaseLayout
+  title="Our Trailers & Loads — Photo Gallery"
+  description="Photographs of our own 40 ft trailers on real jobs: machinery, plant, steel, pipe, tanks, solar, containers and crated cargo. Nothing here is stock."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Fleet & gallery', href: '/fleet/' }]} />
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <h1>Our trailers, and what we have carried</h1>
+      <p class="lede">
+        Every photograph on this page is one of our own vehicles on a real job,
+        published as it was taken. No stock photography, and nothing retouched.
+      </p>
+
+      <div class="filters">
+        <fieldset>
+          <legend class="visually-hidden">Filter photographs by cargo type</legend>
+          <input type="radio" name="cat" id="cat-all" value="all" checked />
+          <label class="chip" for="cat-all">All ({items.length})</label>
+          {
+            used.map((c) => (
+              <>
+                <input type="radio" name="cat" id={`cat-${c}`} value={c} />
+                <label class="chip" for={`cat-${c}`}>
+                  {CATEGORY_LABELS[c]}
+                </label>
+              </>
+            ))
+          }
+        </fieldset>
+      </div>
+
+      <ul class="grid">
+        {
+          items.map((item) => (
+            <li class="grid__item" data-category={item.data.category}>
+              <Figure
+                src={photo(item.data.src)}
+                alt={item.data.alt}
+                caption={item.data.caption}
+                ratio="4/3"
+                sizes="(min-width: 1000px) 280px, (min-width: 600px) 45vw, 90vw"
+                widths={[320, 640]}
+              />
+            </li>
+          ))
+        }
+      </ul>
+
+      {
+        withheld > 0 && (
+          <p class="withheld">
+            {withheld} further photograph{withheld === 1 ? ' is' : 's are'} held back
+            pending confirmation — either someone identifiable appears in the frame and
+            we do not yet have their consent, or we have not confirmed the vehicle is
+            ours. We would rather show fewer photographs than mislabel one.
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <ContactBand />
+</BaseLayout>
+
+<style>
+  .lede {
+    margin-block: var(--sp-4) var(--sp-6);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+    max-width: 60ch;
+  }
+
+  .filters fieldset {
+    border: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+  }
+
+  .filters input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: var(--sp-2) var(--sp-4);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-600);
+    cursor: pointer;
+  }
+
+  .chip:hover {
+    border-color: var(--gold-500);
+  }
+
+  .filters input:checked + .chip {
+    background: var(--navy-800);
+    border-color: var(--navy-800);
+    color: var(--white);
+  }
+
+  .filters input:focus-visible + .chip {
+    outline: 3px solid var(--gold-500);
+    outline-offset: 2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-5);
+    list-style: none;
+    margin-top: var(--sp-7);
+  }
+
+  .grid__item {
+    max-width: none;
+  }
+
+  /* CSS-only filtering. :has() is supported in every browser this site
+     targets; where it is not, every photograph simply stays visible, which
+     is a perfectly good fallback. */
+  .filters:has(#cat-machinery:checked) ~ .grid .grid__item:not([data-category='machinery']),
+  .filters:has(#cat-plant:checked) ~ .grid .grid__item:not([data-category='plant']),
+  .filters:has(#cat-structural-steel:checked) ~ .grid .grid__item:not([data-category='structural-steel']),
+  .filters:has(#cat-pipe:checked) ~ .grid .grid__item:not([data-category='pipe']),
+  .filters:has(#cat-tanks-vessels:checked) ~ .grid .grid__item:not([data-category='tanks-vessels']),
+  .filters:has(#cat-solar:checked) ~ .grid .grid__item:not([data-category='solar']),
+  .filters:has(#cat-containers:checked) ~ .grid .grid__item:not([data-category='containers']),
+  .filters:has(#cat-agricultural:checked) ~ .grid .grid__item:not([data-category='agricultural']),
+  .filters:has(#cat-export-crates:checked) ~ .grid .grid__item:not([data-category='export-crates']),
+  .filters:has(#cat-night-operations:checked) ~ .grid .grid__item:not([data-category='night-operations']),
+  .filters:has(#cat-vehicle-portrait:checked) ~ .grid .grid__item:not([data-category='vehicle-portrait']),
+  .filters:has(#cat-trailer-empty:checked) ~ .grid .grid__item:not([data-category='trailer-empty']) {
+    display: none;
+  }
+
+  .withheld {
+    margin-top: var(--sp-7);
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--white);
+    border-left: 3px solid var(--rule);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+    max-width: 68ch;
+  }
+
+  @media (min-width: 600px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

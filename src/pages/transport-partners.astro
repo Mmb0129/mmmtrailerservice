@@ -1,0 +1,325 @@
+---
+/**
+ * The capacity side of the business (architect.md §12.6a).
+ *
+ * P0, and a landing page rather than a form with a heading. It sells before
+ * it asks: blocks 1-5 come first, the form is block 6. A truck owner's
+ * question is "do you have work for me?", and the H1 answers it.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import EnquiryForm from '@/components/forms/EnquiryForm.astro';
+import Field from '@/components/forms/Field.astro';
+import Figure from '@/components/media/Figure.astro';
+import { photo } from '@/data/photos';
+import { disclosures, primaryPhone, whatsappUrl } from '@/data/business';
+
+const steps = [
+  { n: '1', t: 'You register', b: 'Your vehicle type, where you are based, and the routes you run.' },
+  { n: '2', t: 'We call you', b: 'A proper conversation, not a form reply. We check what you run and how you work.' },
+  { n: '3', t: 'We send loads that suit', b: 'When we have work matching your vehicle and route, we come to you with the detail.' },
+  { n: '4', t: 'You decide each one', b: 'No obligation per load. You take the ones that work for you.' },
+];
+---
+
+<BaseLayout
+  title="Loads for 40 ft Trailers — Chennai Truck Owners"
+  description="We move freight for established clients out of Chennai, Tada and Sri City. When our own trailers are committed we place loads with truck owners we know."
+  whatsappContext="loads for my trailer"
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'For truck owners', href: '/transport-partners/' }]} />
+  </div>
+
+  <!-- 1. The offer -->
+  <section class="section tp-hero">
+    <div class="container tp-hero__inner">
+      <div>
+        <h1>We have loads. If you run a trailer, we would like to know you.</h1>
+        <div class="prose tp-hero__body">
+          <p>
+            We move freight for established clients out of Chennai, Tada and Sri City,
+            and across India. Our own trailers take that work first. When they are
+            committed, we place the load with a truck owner we know.
+          </p>
+          <p class="tp-hero__strong">
+            We are not a load board. We coordinate the movement ourselves, you deal with
+            us directly, and we tell you what the load is before you commit to it.
+          </p>
+        </div>
+        <!-- 7. Call / WhatsApp, ABOVE the form: most of this audience will
+             never fill a form, and that is a success, not a leak. -->
+        <div class="tp-hero__cta">
+          <a class="btn" href={whatsappUrl('loads for my trailer')} rel="noopener" data-track="whatsapp_click">
+            WhatsApp us now
+          </a>
+          <a class="btn btn--ghost" href={primaryPhone.href} data-track="call_click">
+            Call&nbsp;{primaryPhone.display}
+          </a>
+        </div>
+      </div>
+      <div class="tp-hero__media">
+        <Figure
+          src={photo('mmm-trailer-large-diameter-pipe-stack')}
+          alt="Large diameter steel pipes stacked on a trailer, seen from behind"
+          caption="The kind of work we place."
+          ratio="3/4"
+          sizes="(min-width: 900px) 380px, 100vw"
+          widths={[400, 760]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 + 3. What kind of loads, and what we need -->
+  <section class="section">
+    <div class="container tp-grid">
+      <div>
+        <h2>What kind of loads</h2>
+        <div class="prose">
+          <p>
+            Chennai local work, the Tada and Sri City corridor, and interstate movements
+            to and from Chennai.
+          </p>
+          <p>
+            Cargo is mostly industrial: machinery and plant, structural steel, pipe,
+            tanks and vessels, solar modules and sheet, containers, crated export cargo
+            and agricultural equipment.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2>What we need from you</h2>
+        <ul class="tp-list">
+          <li>A 40 ft high-bed, semi-low-bed, low-bed or container-skeletal trailer</li>
+          <li>Where you are based</li>
+          <li>The routes you actually run</li>
+          <li>A number we can reach you on</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. How it works -->
+  <section class="section tp-steps">
+    <div class="container">
+      <h2>How it works</h2>
+      <ol class="tp-steps__list">
+        {
+          steps.map((s) => (
+            <li>
+              <span class="tp-steps__n" aria-hidden="true">{s.n}</span>
+              <h3>{s.t}</h3>
+              <p>{s.b}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5. What we will not do -->
+  <section class="section">
+    <div class="container">
+      <div class="tp-wont">
+        <h2>What we will not do</h2>
+        <ul class="tp-list">
+          <li>We will not pass your number around.</li>
+          <li>We will not list your vehicle publicly anywhere on this site.</li>
+          <li>We will not ask you for documents before we have spoken.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. The form -->
+  <section class="section tp-form">
+    <div class="container">
+      <h2>Tell us about your truck</h2>
+      <EnquiryForm
+        name="transport-partner"
+        submitLabel="Register your vehicle"
+        disclosure={disclosures.truckOwner}
+        successHeading="Thanks — we have your details"
+        successBody="We will call you to talk it through. If you would rather not wait, message us on WhatsApp."
+      >
+        <Field name="name" label="Your name" required autocomplete="name" />
+        <Field name="businessName" label="Business name" help="Optional." autocomplete="organization" />
+        <Field name="phone" label="Phone" type="tel" required inputmode="tel" autocomplete="tel" />
+        <Field
+          name="baseLocation"
+          label="Where are you based?"
+          required
+          placeholder="e.g. Madhavaram, Chennai"
+        />
+        <Field
+          name="vehicleType"
+          label="What do you run?"
+          type="checkbox-group"
+          required
+          options={[
+            { value: '40 ft high-bed', label: '40 ft high-bed' },
+            { value: '40 ft semi-low-bed', label: '40 ft semi-low-bed' },
+            { value: '40 ft low-bed', label: '40 ft low-bed' },
+            { value: 'Container / skeletal', label: 'Container / skeletal' },
+            { value: 'Other', label: 'Other' },
+          ]}
+        />
+        <Field
+          name="vehicleCount"
+          label="How many vehicles?"
+          type="select"
+          options={[
+            { value: '1', label: '1' },
+            { value: '2-5', label: '2–5' },
+            { value: '6-10', label: '6–10' },
+            { value: '10+', label: 'More than 10' },
+          ]}
+        />
+        <Field
+          name="routesServed"
+          label="Which routes do you run?"
+          type="textarea"
+          required
+          placeholder="e.g. Chennai to Bengaluru and back, occasional Hyderabad"
+        />
+        <Field
+          name="availability"
+          label="When are you available?"
+          type="select"
+          options={[
+            { value: 'Immediately', label: 'Immediately' },
+            { value: 'Within a week', label: 'Within a week' },
+            { value: 'Planning ahead', label: 'Planning ahead' },
+          ]}
+        />
+        <Field name="notes" label="Anything else?" type="textarea" rows={3} />
+      </EnquiryForm>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tp-hero {
+    background: var(--navy-800);
+    color: var(--on-navy-300);
+  }
+
+  .tp-hero h1 {
+    color: var(--white);
+    font-size: var(--fs-display);
+    max-width: 16ch;
+  }
+
+  .tp-hero__body {
+    margin-top: var(--sp-5);
+    font-size: var(--fs-h3);
+    line-height: 1.55;
+  }
+
+  .tp-hero__strong {
+    color: var(--white);
+    border-left: 3px solid var(--gold-500);
+    padding-left: var(--sp-4);
+  }
+
+  .tp-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  .tp-hero__inner {
+    display: grid;
+    gap: var(--sp-7);
+    align-items: center;
+  }
+
+  .tp-hero__media {
+    max-width: 380px;
+  }
+
+  .tp-grid {
+    display: grid;
+    gap: var(--sp-7);
+  }
+
+  .tp-list {
+    margin-top: var(--sp-4);
+    padding-left: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    color: var(--ink-600);
+  }
+
+  .tp-steps {
+    background: var(--white);
+  }
+
+  .tp-steps__list {
+    display: grid;
+    gap: var(--sp-6);
+    list-style: none;
+    margin-top: var(--sp-6);
+  }
+
+  .tp-steps__list li {
+    max-width: none;
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .tp-steps__n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--gold-500);
+    color: var(--navy-800);
+    font-family: var(--font-display);
+    font-weight: 800;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--sp-3);
+  }
+
+  .tp-steps__list p {
+    margin-top: var(--sp-2);
+    font-size: var(--fs-small);
+    color: var(--ink-600);
+  }
+
+  .tp-wont {
+    max-width: 680px;
+    padding: var(--sp-6);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--gold-500);
+    border-radius: var(--radius-md);
+  }
+
+  .tp-form {
+    background: var(--white);
+  }
+
+  .tp-form h2 {
+    margin-bottom: var(--sp-6);
+  }
+
+  @media (min-width: 900px) {
+    .tp-hero__inner {
+      grid-template-columns: 1.5fr 1fr;
+      gap: var(--sp-8);
+    }
+
+    .tp-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .tp-steps__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

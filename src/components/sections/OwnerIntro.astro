@@ -1,0 +1,85 @@
+---
+/**
+ * The owner portrait is the single highest-credibility asset available
+ * (asset-inventory.md §10) and the old site did not use it at all.
+ *
+ * Copy here states only what is verified: a lifetime in the trade. No
+ * founding year, no years-of-experience number, no awards — those need
+ * architect.md §28 Q2.
+ */
+import Figure from '@/components/media/Figure.astro';
+import { photo } from '@/data/photos';
+import { business } from '@/data/business';
+---
+
+<section class="section owner">
+  <div class="container owner__inner">
+    <div class="owner__media">
+      <Figure
+        src={photo('owner-micheal-augustin-portrait')}
+        alt={`${business.owner}, proprietor of ${business.name}`}
+        ratio="4/5"
+        sizes="(min-width: 900px) 360px, 70vw"
+        widths={[360, 720]}
+      />
+    </div>
+
+    <div class="owner__text">
+      <p class="owner__eyebrow">Who you are dealing with</p>
+      <h2>A lifetime in the transport trade</h2>
+      <div class="prose">
+        <p>
+          {business.name} is run by {business.owner}, who has spent his working life in
+          transport. When you call, you are talking to the person who decides whether the
+          job can be done and how.
+        </p>
+        <p>
+          The name comes from <strong>{business.nameMeaning}</strong> — it is painted on
+          the trucks, and it is where the three Ms come from.
+        </p>
+      </div>
+      <a class="btn btn--outline" href="/about/">About MMM Trailer Service</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .owner {
+    background: var(--white);
+  }
+
+  .owner__inner {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+
+  .owner__media {
+    max-width: 320px;
+  }
+
+  .owner__eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin-bottom: var(--sp-3);
+  }
+
+  .owner__text .btn {
+    margin-top: var(--sp-5);
+  }
+
+  @media (min-width: 800px) {
+    .owner__inner {
+      grid-template-columns: 340px 1fr;
+      gap: var(--sp-8);
+    }
+
+    .owner__media {
+      max-width: none;
+    }
+  }
+</style>

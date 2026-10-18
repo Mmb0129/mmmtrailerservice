@@ -1,126 +1,111 @@
 ---
-/**
- * Homepage — scaffold only (WEB-001 builds the real blocks).
- * Exists at this stage to prove the layout, tokens and metadata pipeline.
- */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { business, primaryPhone, whatsappUrl } from '@/data/business';
-import Figure from '@/components/media/Figure.astro';
-import vessel from '@/assets/photos/mmm-trailer-pressure-vessel-highway-01.jpg';
-import boomLift from '@/assets/photos/mmm-trailer-boom-lift-loaded-01.jpg';
-import container from '@/assets/photos/mmm-trailer-container-night-01.jpg';
+import Hero from '@/components/sections/Hero.astro';
+import CargoGrid from '@/components/sections/CargoGrid.astro';
+import HowWeWork from '@/components/sections/HowWeWork.astro';
+import TrailerTypes from '@/components/sections/TrailerTypes.astro';
+import OwnerIntro from '@/components/sections/OwnerIntro.astro';
+import EnquirySteps from '@/components/sections/EnquirySteps.astro';
+import TruckOwnerBand from '@/components/sections/TruckOwnerBand.astro';
+import Faq from '@/components/sections/Faq.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import { homeFaqs } from '@/data/faqs';
+
+const lanes = [
+  { label: 'Within Chennai', href: '/routes/chennai-local/' },
+  { label: 'Chennai ⇄ Tada and Sri City', href: '/routes/chennai-tada-sri-city/' },
+  { label: 'Chennai ⇄ Bengaluru', href: '/routes/chennai-bengaluru/' },
+  { label: 'Chennai ⇄ Hyderabad', href: '/routes/chennai-hyderabad/' },
+  { label: 'Chennai ⇄ Thoothukudi', href: '/routes/chennai-thoothukudi/' },
+  { label: 'Chennai ⇄ Tiruchirappalli', href: '/routes/chennai-trichy/' },
+  { label: 'Chennai ⇄ Tirunelveli & Gangaikondan', href: '/routes/chennai-tirunelveli-gangaikondan/' },
+];
 ---
 
 <BaseLayout
   title="MMM Trailer Service — 40 ft Trailer Hire, Chennai"
-  description="40-feet high-bed, semi-low-bed and low-bed trailers for hire from Chennai. Machinery, steel, tanks and project cargo across Tamil Nadu and India."
+  description="40 ft high-bed, semi-low-bed and low-bed trailers for hire from Chennai. Machinery, steel, tanks, containers and project cargo across India."
 >
-  <section class="container scaffold">
-    <p class="eyebrow">Foundation build</p>
-    <h1>{business.name}</h1>
-    <p class="lede">{business.tagline}</p>
-    <p>
-      Astro foundation in place. Page content is built by WEB-001 onward —
-      see <code>tasks.md</code>.
-    </p>
-    <div class="pipeline-demo">
-      <Figure
-        src={vessel}
-        alt="MMM tractor unit hauling a large wrapped cylindrical vessel on a highway"
-        caption="A wrapped pressure vessel on one of our 40 ft trailers."
-        ratio="16/9"
-        priority
-      />
-      <Figure
-        src={boomLift}
-        alt="Self-propelled boom lift loaded and secured on a flatbed trailer at dusk"
-        caption="A boom lift secured for transport — usually a semi-low-bed job."
-        ratio="16/9"
-      />
-      <Figure
-        src={container}
-        alt="Forty-foot shipping container on a skeletal trailer at night"
-        caption="A 40 ft container on a skeletal trailer."
-        ratio="16/9"
-      />
-    </div>
+  <!-- 1. Hero  2. Capability strip (inside Hero) -->
+  <Hero />
 
-    <p class="actions">
-      <a class="btn" href={primaryPhone.href}>Call {primaryPhone.display}</a>
-      <a class="btn btn--outline" href={whatsappUrl()} rel="noopener">WhatsApp</a>
-    </p>
+  <!-- 3. What we move -->
+  <CargoGrid />
+
+  <!-- 4. How we work — the honest replacement for "Own Fleet, No Middlemen" -->
+  <HowWeWork />
+
+  <!-- 5. Trailer types -->
+  <TrailerTypes />
+
+  <!-- 6. Owner introduction -->
+  <OwnerIntro />
+
+  <!-- 7. Where we run -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Where we run"
+        heading="Our regular corridors"
+        standfirst="These are the lanes we work most. We also take enquiries for movements to and from locations across India."
+      />
+      <ul class="lanes">
+        {lanes.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <p class="lanes__more">
+        <a class="btn btn--outline" href="/routes/">All routes and service areas</a>
+      </p>
+    </div>
   </section>
+
+  <!-- 8. How an enquiry works -->
+  <EnquirySteps />
+
+  <!-- 9. For truck owners — the capacity side of the business -->
+  <TruckOwnerBand />
+
+  <!-- 10. FAQ -->
+  <Faq items={homeFaqs} />
+
+  <!-- 11. Contact -->
+  <ContactBand />
 </BaseLayout>
 
 <style>
-  .scaffold {
-    padding-block: var(--sp-9);
-  }
-
-  .eyebrow {
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gold-600);
-    margin-bottom: var(--sp-3);
-  }
-
-  .lede {
-    font-size: var(--fs-h3);
-    color: var(--ink-600);
-    margin-block: var(--sp-3) var(--sp-5);
-  }
-
-  .pipeline-demo {
+  .lanes {
     display: grid;
-    gap: var(--sp-5);
+    gap: var(--sp-3);
+    list-style: none;
+  }
+
+  .lanes li {
+    max-width: none;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .lanes a {
+    display: block;
+    padding: var(--sp-4) 0;
+    min-height: 44px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--navy-800);
+    text-decoration: none;
+  }
+
+  .lanes a:hover {
+    color: var(--gold-text);
+  }
+
+  .lanes__more {
     margin-top: var(--sp-6);
   }
 
   @media (min-width: 700px) {
-    .pipeline-demo {
-      grid-template-columns: repeat(3, 1fr);
+    .lanes {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--sp-7);
     }
-  }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-3);
-    margin-top: var(--sp-6);
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: var(--sp-3) var(--sp-5);
-    background: var(--gold-500);
-    color: var(--navy-800);
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    transition: background var(--dur-base) var(--ease);
-  }
-
-  .btn:hover {
-    background: var(--gold-400);
-    color: var(--navy-800);
-  }
-
-  .btn--outline {
-    background: transparent;
-    border: 2px solid var(--navy-800);
-  }
-
-  .btn--outline:hover {
-    background: var(--navy-800);
-    color: var(--white);
   }
 </style>
