@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "MMM Trailer Service — 40 ft trailer hire, Chennai",
+  "description": "MMM Trailer Service \u2014 40 ft trailer hire, Chennai",
   "engines": {
     "node": ">=22"
   },
@@ -18,7 +18,8 @@
     "check:a11y": "node scripts/check-a11y.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:html": "html-validate \"dist/**/*.html\"",
-    "test": "npm run check && npm run build && npm run check:html && npm run check:seo && npm run check:sources && npm run check:content && npm run check:contrast && npm run check:a11y"
+    "test": "npm run check && npm run build && npm run check:html && npm run check:seo && npm run check:sources && npm run check:content && npm run check:contrast && npm run check:weight && npm run check:a11y",
+    "check:weight": "node scripts/check-weight.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",

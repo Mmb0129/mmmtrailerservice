@@ -55,6 +55,9 @@ jobs:
       - name: Colour contrast gate
         run: npm run check:contrast
 
+      - name: Page weight budgets
+        run: npm run check:weight
+
       - name: Accessibility gate (axe-core, zero violations)
         run: npm run check:a11y
 
