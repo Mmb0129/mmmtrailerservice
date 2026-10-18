@@ -1,0 +1,44 @@
+---
+/**
+ * Organization schema, emitted site-wide (architect.md §14.4).
+ *
+ * Deliberately absent, and must stay absent: aggregateRating, review, award,
+ * hasCredential, numberOfEmployees, foundingDate. None of them is verified,
+ * and inventing them is exactly what §25 exists to prevent.
+ */
+import { business, phones } from '@/data/business';
+
+const site = Astro.site?.href ?? 'https://mmmtrailerservice.com/';
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: business.name,
+  alternateName: business.nameMeaning,
+  url: site,
+  logo: new URL('/logo.png', site).href,
+  email: business.email,
+  telephone: phones.map((p) => p.e164),
+  description:
+    '40-feet high-bed, semi-low-bed and low-bed trailer hire from Chennai for machinery, steel, tanks, containers and project cargo.',
+  founder: {
+    '@type': 'Person',
+    name: business.owner,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${business.address.line1}, ${business.address.line2}`,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.postalCode,
+    addressCountry: business.address.country,
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Chennai' },
+    { '@type': 'State', name: 'Tamil Nadu' },
+    { '@type': 'Country', name: 'India' },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(organization)} is:inline />

@@ -1,31 +1,53 @@
-# MMM Trailer Service — Netlify configuration
+# MMM Trailer Service — Netlify configuration (architect.md §22.4)
 #
-# Interim config for the CURRENT static site. No [build] section: Netlify keeps
-# publishing the repository root as it does today. The Astro rebuild will add a
-# build command and a publish directory when it lands.
+# Netlify owns every build and deploy. GitHub Actions runs quality gates only
+# and holds no deploy credentials (decisions.md D-008).
 #
 # The www -> apex and HTTP -> HTTPS redirects are handled by Netlify's domain
 # settings and are deliberately NOT duplicated here.
 
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--no-audit --no-fund"
+
+[context.production.environment]
+  SITE_URL = "https://mmmtrailerservice.com"
+
+[context.deploy-preview.environment]
+  SITE_URL = "$DEPLOY_PRIME_URL"
+
+[context.branch-deploy.environment]
+  SITE_URL = "$DEPLOY_PRIME_URL"
+
+# ── A preview must never be indexable. src/pages/robots.txt.ts also serves
+#    Disallow: / outside production; this is the second lock.
+[[context.deploy-preview.headers]]
+  for = "/*"
+  [context.deploy-preview.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[context.branch-deploy.headers]]
+  for = "/*"
+  [context.branch-deploy.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # ── bill.html was an internal document that should never have been published.
-#    410, not 301: nothing replaces it, and 410 asks for prompt de-indexing.
+#    410 rather than 301: nothing replaces it, and 410 asks for prompt
+#    de-indexing instead of passing authority to a substitute.
 [[redirects]]
   from = "/bill.html"
   to = "/410.html"
   status = 410
   force = true
 
-[[redirects]]
-  from = "/index.html"
-  to = "/"
-  status = 301
-  force = true
-
 # ── Security headers.
-#    Content-Security-Policy is deliberately omitted until the rebuild: the
-#    current page relies on an inline <style> block, Google Fonts and a Google
-#    Maps iframe, so a strict policy would need loosening to the point of
-#    being theatre. The rebuild removes those dependencies and adds a real CSP.
+#    style-src needs 'unsafe-inline' for Astro's scoped-style injection;
+#    everything else is strict. form-action 'self' is what lets the Netlify
+#    Forms POST through while blocking exfiltration to any other origin.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -33,12 +55,22 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://*.gstatic.com; font-src 'self'; frame-src https://www.google.com; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 
-# ── Images are currently unhashed, so they cannot be marked immutable.
-#    One day of caching is still a large improvement on the present
-#    `max-age=0, must-revalidate`, which re-validates a 2.47 MB PNG on
-#    every single page load.
+# ── Astro emits content-hashed filenames under /_astro, so these are safe to
+#    cache forever. This is the fix for the old site's 2.47 MB hero being
+#    revalidated on every page load.
 [[headers]]
-  for = "/*.png"
+  for = "/_astro/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

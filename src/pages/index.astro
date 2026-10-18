@@ -1,0 +1,88 @@
+---
+/**
+ * Homepage — scaffold only (WEB-001 builds the real blocks).
+ * Exists at this stage to prove the layout, tokens and metadata pipeline.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { business, primaryPhone, whatsappUrl } from '@/data/business';
+---
+
+<BaseLayout
+  title="MMM Trailer Service — 40 ft Trailer Hire, Chennai"
+  description="40-feet high-bed, semi-low-bed and low-bed trailers for hire from Chennai. Machinery, steel, tanks and project cargo across Tamil Nadu and India."
+>
+  <section class="container scaffold">
+    <p class="eyebrow">Foundation build</p>
+    <h1>{business.name}</h1>
+    <p class="lede">{business.tagline}</p>
+    <p>
+      Astro foundation in place. Page content is built by WEB-001 onward —
+      see <code>tasks.md</code>.
+    </p>
+    <p class="actions">
+      <a class="btn" href={primaryPhone.href}>Call {primaryPhone.display}</a>
+      <a class="btn btn--outline" href={whatsappUrl()} rel="noopener">WhatsApp</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .scaffold {
+    padding-block: var(--sp-9);
+  }
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-600);
+    margin-bottom: var(--sp-3);
+  }
+
+  .lede {
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+    margin-block: var(--sp-3) var(--sp-5);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--sp-3) var(--sp-5);
+    background: var(--gold-500);
+    color: var(--navy-800);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: background var(--dur-base) var(--ease);
+  }
+
+  .btn:hover {
+    background: var(--gold-400);
+    color: var(--navy-800);
+  }
+
+  .btn--outline {
+    background: transparent;
+    border: 2px solid var(--navy-800);
+  }
+
+  .btn--outline:hover {
+    background: var(--navy-800);
+    color: var(--white);
+  }
+</style>

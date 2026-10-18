@@ -1,0 +1,46 @@
+---
+/**
+ * The only document skeleton on the site (architect.md §15.3).
+ * Every page goes through here, so every page gets the landmarks, the skip
+ * link and the metadata whether its author remembered them or not.
+ */
+import SeoHead from '@/components/seo/SeoHead.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const { title, description, canonical, ogImage, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      noindex={noindex}
+    />
+    <JsonLd />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <slot name="header" />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+    <slot name="action-bar" />
+  </body>
+</html>
