@@ -1,0 +1,44 @@
+# MMM Trailer Service — Netlify configuration
+#
+# Interim config for the CURRENT static site. No [build] section: Netlify keeps
+# publishing the repository root as it does today. The Astro rebuild will add a
+# build command and a publish directory when it lands.
+#
+# The www -> apex and HTTP -> HTTPS redirects are handled by Netlify's domain
+# settings and are deliberately NOT duplicated here.
+
+# ── bill.html was an internal document that should never have been published.
+#    410, not 301: nothing replaces it, and 410 asks for prompt de-indexing.
+[[redirects]]
+  from = "/bill.html"
+  to = "/410.html"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+# ── Security headers.
+#    Content-Security-Policy is deliberately omitted until the rebuild: the
+#    current page relies on an inline <style> block, Google Fonts and a Google
+#    Maps iframe, so a strict policy would need loosening to the point of
+#    being theatre. The rebuild removes those dependencies and adds a real CSP.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+
+# ── Images are currently unhashed, so they cannot be marked immutable.
+#    One day of caching is still a large improvement on the present
+#    `max-age=0, must-revalidate`, which re-validates a 2.47 MB PNG on
+#    every single page load.
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
