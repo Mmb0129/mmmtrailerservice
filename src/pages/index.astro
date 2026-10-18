@@ -5,6 +5,10 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { business, primaryPhone, whatsappUrl } from '@/data/business';
+import Figure from '@/components/media/Figure.astro';
+import vessel from '@/assets/photos/mmm-trailer-pressure-vessel-highway-01.jpg';
+import boomLift from '@/assets/photos/mmm-trailer-boom-lift-loaded-01.jpg';
+import container from '@/assets/photos/mmm-trailer-container-night-01.jpg';
 ---
 
 <BaseLayout
@@ -19,6 +23,28 @@ import { business, primaryPhone, whatsappUrl } from '@/data/business';
       Astro foundation in place. Page content is built by WEB-001 onward —
       see <code>tasks.md</code>.
     </p>
+    <div class="pipeline-demo">
+      <Figure
+        src={vessel}
+        alt="MMM tractor unit hauling a large wrapped cylindrical vessel on a highway"
+        caption="A wrapped pressure vessel on one of our 40 ft trailers."
+        ratio="16/9"
+        priority
+      />
+      <Figure
+        src={boomLift}
+        alt="Self-propelled boom lift loaded and secured on a flatbed trailer at dusk"
+        caption="A boom lift secured for transport — usually a semi-low-bed job."
+        ratio="16/9"
+      />
+      <Figure
+        src={container}
+        alt="Forty-foot shipping container on a skeletal trailer at night"
+        caption="A 40 ft container on a skeletal trailer."
+        ratio="16/9"
+      />
+    </div>
+
     <p class="actions">
       <a class="btn" href={primaryPhone.href}>Call {primaryPhone.display}</a>
       <a class="btn btn--outline" href={whatsappUrl()} rel="noopener">WhatsApp</a>
@@ -45,6 +71,18 @@ import { business, primaryPhone, whatsappUrl } from '@/data/business';
     font-size: var(--fs-h3);
     color: var(--ink-600);
     margin-block: var(--sp-3) var(--sp-5);
+  }
+
+  .pipeline-demo {
+    display: grid;
+    gap: var(--sp-5);
+    margin-top: var(--sp-6);
+  }
+
+  @media (min-width: 700px) {
+    .pipeline-demo {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .actions {

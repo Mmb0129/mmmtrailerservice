@@ -14,6 +14,8 @@ export const brandColors = {
   navy: '#0D1B3E',
   /** --gold-500 */
   gold: '#F5A800',
+  /** --on-navy-100 */
+  white: '#FFFFFF',
   /** The tricolour M-M-M wordmark. Accents only, never body text. */
   mmmBlue: '#1565C0',
   mmmOrange: '#E65100',

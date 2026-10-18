@@ -1,11 +1,16 @@
 ---
 /**
  * The only document skeleton on the site (architect.md §15.3).
- * Every page goes through here, so every page gets the landmarks, the skip
- * link and the metadata whether its author remembered them or not.
+ *
+ * Header, footer and the mobile action bar are rendered here rather than
+ * passed in per page, so no page can ship without them — and the one-tap
+ * call/WhatsApp guarantee (O3) holds everywhere by construction.
  */
 import SeoHead from '@/components/seo/SeoHead.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import MobileActionBar from '@/components/layout/MobileActionBar.astro';
 import '@/styles/global.css';
 
 interface Props {
@@ -14,9 +19,11 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   noindex?: boolean;
+  /** Prefills the WhatsApp message on this page, e.g. a lane or trailer type. */
+  whatsappContext?: string;
 }
 
-const { title, description, canonical, ogImage, noindex } = Astro.props;
+const { title, description, canonical, ogImage, noindex, whatsappContext } = Astro.props;
 ---
 
 <!doctype html>
@@ -34,13 +41,13 @@ const { title, description, canonical, ogImage, noindex } = Astro.props;
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <slot name="header" />
+    <Header />
 
     <main id="main" tabindex="-1">
       <slot />
     </main>
 
-    <slot name="footer" />
-    <slot name="action-bar" />
+    <Footer />
+    <MobileActionBar context={whatsappContext} />
   </body>
 </html>

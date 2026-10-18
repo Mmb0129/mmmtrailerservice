@@ -1,0 +1,75 @@
+# Quality gates only. Netlify owns every build and deploy, and this workflow
+# holds no deploy credentials (architect.md §22.1, decisions.md D-008).
+# There must never be a `netlify deploy` step here.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Build & quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Type & content schema check
+        run: npm run check
+
+      - name: Production build
+        run: npm run build
+        env:
+          SITE_URL: https://mmmtrailerservice.com
+
+      - name: SEO metadata gate
+        run: npm run check:seo
+
+      - name: Source discipline gate
+        run: npm run check:sources
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Added as Phase 6 lands (tasks.md TEST-001..010):
+  #   a11y        — @axe-core/cli over every built page, zero violations
+  #   links       — lychee over dist/
+  #   html        — html-validate over dist/**/*.html
+  #   schema      — JSON-LD validation, asserting no aggregateRating/review
+  #   similarity  — pairwise body-text check across /services/* and /routes/*
+  #   images      — alt/caption/authenticity + no-upscale assertions
+  #   lighthouse  — budgets from architect.md §18.2
+  #   forms       — Playwright, including the mocked-500 "never show success" case

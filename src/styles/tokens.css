@@ -29,6 +29,13 @@
   --paper: #f7f5f0; /* page ground */
   --white: #ffffff;
 
+  /* Text on navy grounds — header, footer, action bar. Contrast against
+     --navy-800: on-navy-100 15.6:1, -200 11.9:1, -300 8.4:1, -400 6.6:1. */
+  --on-navy-100: #ffffff;
+  --on-navy-200: #e8eef6;
+  --on-navy-300: #c0cfe0;
+  --on-navy-400: #a8b6cc;
+
   /* ── Semantic ──────────────────────────────────────────── */
   --ok: #2e7d32;
   --warn: #b45309;

@@ -1,0 +1,109 @@
+---
+/**
+ * The only way an image reaches a page (architect.md §13.3, §18.3).
+ *
+ * The hard rule this component exists to enforce: NEVER UPSCALE. Every
+ * photograph in the library is a WhatsApp derivative capped at 1600px on its
+ * long edge, so asking for a 2400px variant would produce a soft, larger file
+ * that looks worse than the original. Requested widths are filtered against
+ * the source width before they reach Sharp.
+ *
+ * Captions are mandatory, not optional: a photograph of a load means nothing
+ * to a buyer who cannot tell what the load is.
+ *
+ * FORMATS — measured, not assumed (decisions.md D-018). AVIF came out 29-59%
+ * LARGER than WebP on every one of the 12 variants tested, because the whole
+ * current library is already heavily JPEG-compressed (WhatsApp derivatives):
+ * AVIF spends bits reproducing the existing ringing and blocking, while WebP's
+ * DCT model absorbs them more cheaply. Since <picture> offers formats in
+ * order, shipping AVIF first would have made every modern browser download
+ * the bigger file. So: WebP, with a JPEG fallback. Re-test with `avif` once
+ * clean camera originals arrive (ASSET-001) — AVIF should win on those.
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+  /** Candidate widths. Any wider than the source are dropped. */
+  widths?: number[];
+  sizes?: string;
+  /** Only the hero sets this. Everything else lazy-loads. */
+  priority?: boolean;
+  /** CSS aspect-ratio for the frame, e.g. "3/2". Prevents layout shift. */
+  ratio?: string;
+  /** 72 suits vehicle photographs against sky, which band badly below ~65. */
+  quality?: number;
+  /** Opt in to AVIF. Only worth it for clean, high-resolution sources. */
+  avif?: boolean;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  widths = [480, 768, 1200],
+  sizes = '(min-width: 900px) 720px, 100vw',
+  priority = false,
+  ratio,
+  quality = 72,
+  avif = false,
+  class: className,
+} = Astro.props;
+
+// The width cap. Keep every candidate narrower than the source, then add the
+// source width itself so the sharpest variant is always offered.
+const capped = [...new Set(widths.filter((w) => w < src.width).concat(src.width))].sort(
+  (a, b) => a - b,
+);
+
+const formats: ('avif' | 'webp')[] = avif ? ['avif', 'webp'] : ['webp'];
+
+if (!alt.trim()) {
+  throw new Error(`Figure: alt text is required (src: ${src.src})`);
+}
+---
+
+<figure class:list={['fig', className]} style={ratio ? `--ratio:${ratio}` : undefined}>
+  <div class="fig__frame">
+    <Picture
+      src={src}
+      alt={alt}
+      widths={capped}
+      sizes={sizes}
+      formats={formats}
+      fallbackFormat="jpg"
+      quality={quality}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding={priority ? 'sync' : 'async'}
+      fetchpriority={priority ? 'high' : 'auto'}
+    />
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .fig {
+    margin: 0;
+  }
+
+  .fig__frame {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--rule);
+    aspect-ratio: var(--ratio, auto);
+  }
+
+  .fig__frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  figcaption {
+    margin-top: var(--sp-2);
+  }
+</style>

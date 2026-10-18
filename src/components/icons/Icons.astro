@@ -1,0 +1,43 @@
+---
+/**
+ * The site's complete icon set (architect.md §9.6): 24x24, 1.75px stroke,
+ * currentColor, one grid. Twelve maximum across the whole site — adding a
+ * thirteenth means reconsidering whether it is needed.
+ */
+interface Props {
+  name: 'phone' | 'whatsapp' | 'mail' | 'pin' | 'menu' | 'chevron';
+  size?: number;
+  /** Set only when the icon is the sole label for a control. */
+  label?: string;
+}
+
+const { name, size = 24, label } = Astro.props;
+
+const paths: Record<Props['name'], string> = {
+  phone:
+    'M6.5 3h3l1.5 4.5-2 1.5a13 13 0 0 0 6 6l1.5-2L21 14.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4 5.2 2 2 0 0 1 6 3Z',
+  mail: 'M3 6.5h18v11H3zM3 7l9 6 9-6',
+  pin: 'M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
+  menu: 'M4 7h16M4 12h16M4 17h16',
+  chevron: 'M9 5l7 7-7 7',
+  whatsapp:
+    'M3.5 20.5l1.3-4.6A8.2 8.2 0 1 1 8.2 19l-4.7 1.5Z M8.8 8.1c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.5c-.1.2-.3.3-.1.6a7 7 0 0 0 3.2 2.8c.3.1.5.1.6-.1l.6-.7c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.4a2 2 0 0 1-1.4 1.8c-.6.2-1.4.2-3.6-.8a9.5 9.5 0 0 1-4-3.9c-.9-1.6-.7-2.6-.5-3.2Z',
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="square"
+  stroke-linejoin="miter"
+  role={label ? 'img' : undefined}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+>
+  {label && <title>{label}</title>}
+  <path d={paths[name]} />
+</svg>

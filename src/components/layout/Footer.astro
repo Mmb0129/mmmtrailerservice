@@ -1,0 +1,173 @@
+---
+import Logo from './Logo.astro';
+import { footerNav, legalNav } from '@/data/nav';
+import { business, phones, disclosures } from '@/data/business';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <Logo size={36} tone="light" />
+        <p class="ftr__tagline">{business.tagline}</p>
+        <address class="ftr__addr">
+          <span class="ftr__addr-label">{business.address.label}</span>
+          {business.address.line1}<br />
+          {business.address.line2}<br />
+          {business.address.city} {business.address.postalCode}<br />
+          {business.address.state}, {business.address.countryName}
+        </address>
+        <ul class="ftr__contact">
+          {
+            phones.map((p) => (
+              <li>
+                <a href={p.href} data-track="call_click">
+                  {p.display}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href={`mailto:${business.email}`}>{business.email}</a></li>
+        </ul>
+      </div>
+
+      {
+        footerNav.map((group) => (
+          <nav class="ftr__group" aria-label={group.heading}>
+            <h2 class="ftr__heading">{group.heading}</h2>
+            <ul>
+              {group.items.map((item) => (
+                <li>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <p class="ftr__disclosure">{disclosures.shipper}</p>
+
+    <div class="ftr__base">
+      <p class="ftr__copy">
+        © {year} {business.name}. Proprietor: {business.owner}.
+      </p>
+      <ul class="ftr__legal">
+        {
+          legalNav.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--navy-900);
+    color: var(--on-navy-400);
+    padding-block: var(--sp-8) var(--sp-6);
+    border-top: 4px solid var(--gold-500);
+  }
+
+  .ftr__top {
+    display: grid;
+    gap: var(--sp-7);
+    grid-template-columns: 1fr;
+  }
+
+  .ftr__tagline {
+    margin-top: var(--sp-3);
+    font-style: italic;
+    color: var(--gold-500);
+  }
+
+  .ftr__addr {
+    margin-top: var(--sp-5);
+    font-style: normal;
+    line-height: 1.7;
+  }
+
+  .ftr__addr-label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-400);
+    margin-bottom: var(--sp-2);
+  }
+
+  .ftr__contact {
+    margin-top: var(--sp-4);
+    list-style: none;
+    line-height: 1.9;
+  }
+
+  .ftr__heading {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: var(--sp-4);
+  }
+
+  .ftr__group ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .ftr a {
+    color: var(--on-navy-400);
+    text-decoration: none;
+  }
+
+  .ftr a:hover {
+    color: var(--gold-500);
+    text-decoration: underline;
+  }
+
+  .ftr__disclosure {
+    max-width: none;
+    margin-top: var(--sp-8);
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--navy-700);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    color: var(--on-navy-300);
+  }
+
+  .ftr__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-5);
+    border-top: 1px solid rgb(255 255 255 / 8%);
+    font-size: var(--fs-small);
+  }
+
+  .ftr__legal {
+    display: flex;
+    gap: var(--sp-5);
+    list-style: none;
+  }
+
+  @media (min-width: 700px) {
+    .ftr__top {
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+  }
+</style>

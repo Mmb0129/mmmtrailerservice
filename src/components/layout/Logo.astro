@@ -1,0 +1,53 @@
+---
+/**
+ * The MMM wordmark: three letters in the tricolour, over "TRAILER SERVICE".
+ * Drawn as SVG so it stays sharp and costs no image request.
+ *
+ * The Mazhai Malai Madha roundel is NOT here yet — the only copy available is
+ * a 500x500 PNG, which would soften at any size. MEDIA-004 adds it once the
+ * original artwork arrives (architect.md §28 Q11).
+ */
+import { brandColors } from '@/data/theme';
+
+interface Props {
+  /** Height of the wordmark block in px. */
+  size?: number;
+  /** Light wordmark for navy grounds, dark for paper. */
+  tone?: 'light' | 'dark';
+}
+
+const { size = 34, tone = 'light' } = Astro.props;
+const subColor = tone === 'light' ? brandColors.white : brandColors.navy;
+---
+
+<svg
+  class="logo"
+  width={size * 3.1}
+  height={size}
+  viewBox="0 0 155 50"
+  role="img"
+  aria-label="MMM Trailer Service"
+  focusable="false"
+>
+  <title>MMM Trailer Service</title>
+  <g font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="34" letter-spacing="-1">
+    <text x="0" y="30" fill={brandColors.mmmBlue}>M</text>
+    <text x="29" y="30" fill={brandColors.mmmOrange}>M</text>
+    <text x="58" y="30" fill={brandColors.mmmGreen}>M</text>
+  </g>
+  <text
+    x="1"
+    y="45"
+    font-family="Montserrat, Arial, sans-serif"
+    font-weight="700"
+    font-size="10.5"
+    letter-spacing="2.6"
+    fill={subColor}>TRAILER SERVICE</text>
+</svg>
+
+<style>
+  .logo {
+    display: block;
+    height: auto;
+  }
+</style>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "MMM Trailer Service — 40 ft trailer hire, Chennai",
+  "description": "MMM Trailer Service \u2014 40 ft trailer hire, Chennai",
   "engines": {
     "node": ">=22"
   },
@@ -11,7 +11,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "check:seo": "node scripts/check-seo.mjs",
+    "check:sources": "node scripts/check-sources.mjs",
+    "test": "npm run check && npm run build && npm run check:seo && npm run check:sources"
   },
   "dependencies": {
     "astro": "^5.0.0",
