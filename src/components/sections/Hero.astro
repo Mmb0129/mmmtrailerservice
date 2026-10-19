@@ -8,12 +8,39 @@
  * happens to look nothing like the overlay-text-on-photo hero that every
  * competitor uses.
  */
+import { Picture } from 'astro:assets';
 import Figure from '@/components/media/Figure.astro';
 import { photo } from '@/data/photos';
 import { primaryPhone, whatsappUrl } from '@/data/business';
 
-const desktop = photo('mmm-trailer-pressure-vessel-highway-01');
-const mobile = photo('mmm-tractor-cab-front-portrait');
+/**
+ * Three real photographs, cross-fading. Motion built from genuine images —
+ * nothing generated, nothing retouched (decisions.md D-015).
+ *
+ * CSS-only: no JavaScript, and the whole animation is switched off under
+ * prefers-reduced-motion, where the first frame simply stays put.
+ *
+ * Slide 1 is the LCP element and loads eagerly at high priority. Slides 2
+ * and 3 are not needed for seven seconds, so they load lazily and must not
+ * compete with it for bandwidth — that keeps the homepage's initial
+ * transfer at ~211 KB rather than ~345 KB.
+ */
+const slides = [
+  {
+    img: photo('mmm-trailer-pressure-vessel-highway-01'),
+    alt: 'MMM tractor unit hauling a large wrapped cylindrical vessel on a highway',
+  },
+  {
+    img: photo('mmm-trailer-genie-boom-lift'),
+    alt: 'Self-propelled boom lift loaded and secured on an MMM semi-low-bed trailer',
+  },
+  {
+    img: photo('mmm-trailer-two-40ft-containers'),
+    alt: 'Two 40 ft shipping containers loaded end to end on an MMM trailer',
+  },
+];
+
+const mobile = photo('mmm-trailer-steel-pipe-roadside');
 ---
 
 <section class="hero">
@@ -50,7 +77,7 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
       </p>
 
       <p class="hero__strip">
-        High-bed · Semi-low-bed · Low-bed · Container &nbsp;|&nbsp; Tamil Nadu ·
+        High-bed · Semi-low-bed · Low-bed · Container · ODC &nbsp;|&nbsp; Tamil Nadu ·
         Andhra Pradesh · Karnataka · Telangana · anywhere in India
       </p>
 
@@ -58,23 +85,36 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
 
     <div class="hero__media">
       <div class="hero__desktop">
-        <Figure
-          src={desktop}
-          alt="MMM tractor unit hauling a large wrapped cylindrical vessel on a highway"
-          caption="A wrapped pressure vessel on one of our 40 ft trailers."
-          ratio="16/9"
-          sizes="(min-width: 900px) 720px, 100vw"
-          priority
-        />
+        <figure class="hero__show">
+          <div class="hero__stage">
+            {
+              slides.map((s, i) => (
+                <Picture
+                  class:list={['hero__slide', `hero__slide--${i + 1}`]}
+                  src={s.img}
+                  alt={s.alt}
+                  widths={[620, 1240]}
+                  sizes="(min-width: 1100px) 620px, (min-width: 900px) 48vw, 100vw"
+                  formats={['webp']}
+                  quality={i === 0 ? 72 : 66}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={i === 0 ? 'high' : 'low'}
+                  decoding={i === 0 ? 'sync' : 'async'}
+                />
+              ))
+            }
+          </div>
+          <figcaption>Our own 40 ft trailers, on real jobs.</figcaption>
+        </figure>
       </div>
       <div class="hero__mobile">
         <Figure
           src={mobile}
-          alt="Front view of an MMM Ashok Leyland tractor unit under an overcast sky"
-          caption="One of our tractor units."
+          alt="Long steel pipes loaded lengthways on an MMM 40 ft trailer"
+          caption="Our own 40 ft trailers, on real jobs."
           ratio="4/5"
           sizes="100vw"
-          widths={[360, 540]}
+          widths={[420, 720]}
           priority
         />
       </div>
@@ -96,9 +136,9 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
 
   .hero h1 {
     color: var(--white);
-    font-size: var(--fs-display);
-    line-height: var(--lh-display);
-    max-width: 18ch;
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.75rem);
+    line-height: 1.12;
+    max-width: 24ch;
   }
 
   .hero__lede {
@@ -184,17 +224,92 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
     }
   }
 
-  @media (min-width: 900px) {
-    .hero__inner {
-      grid-template-columns: 7fr 5fr;
-      align-items: center;
-      gap: var(--sp-8);
+  /* ── The cross-fade ────────────────────────────────────────── */
+  .hero__show {
+    margin: 0;
+  }
+
+  .hero__stage {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--navy-900);
+  }
+
+  .hero__stage :global(.hero__slide),
+  .hero__stage :global(.hero__slide img) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__stage :global(.hero__slide) {
+    opacity: 0;
+    animation: heroFade 21s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .hero__stage :global(.hero__slide--1) {
+    animation-delay: 0s;
+    opacity: 1;
+  }
+  .hero__stage :global(.hero__slide--2) {
+    animation-delay: 7s;
+  }
+  .hero__stage :global(.hero__slide--3) {
+    animation-delay: 14s;
+  }
+
+  @keyframes heroFade {
+    0% {
+      opacity: 0;
+    }
+    4%,
+    29% {
+      opacity: 1;
+    }
+    33%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .hero__show figcaption {
+    margin-top: var(--sp-2);
+    color: var(--on-navy-400);
+  }
+
+  /* Reduced motion: hold the first frame, no cross-fade at all. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__stage :global(.hero__slide) {
+      animation: none;
+      opacity: 0;
     }
 
-    /* Hard cap: the source is 1600px wide, so the column must never ask
-       for more than it can sharply provide. */
+    .hero__stage :global(.hero__slide--1) {
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1.02fr 1fr;
+      align-items: center;
+      gap: var(--sp-7);
+    }
+
+    /* Capped so the 1600px sources are never asked to upscale. */
     .hero__media {
-      max-width: 720px;
+      max-width: 620px;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .hero__inner {
+      gap: var(--sp-8);
     }
   }
 </style>

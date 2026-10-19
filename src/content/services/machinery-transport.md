@@ -6,7 +6,7 @@ primaryKeyword: machinery transportation by trailer
 secondaryKeywords:
   - heavy machinery transport Chennai
   - boom lift transport Chennai
-order: 7
+order: 6
 summary: Machinery is a different job from freight. The vehicle is chosen around the machine.
 trailerType: not-applicable
 heroPhoto: mmm-trailer-crusher-plant-section

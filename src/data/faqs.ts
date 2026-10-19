@@ -33,6 +33,11 @@ export const homeFaqs: FaqItem[] = [
       'Pickup and delivery locations, what the cargo is, roughly what it weighs, its dimensions if you know them, how it will be loaded, and when you need it. The quickest way is to call — if you are not sure which trailer suits, we will advise.',
   },
   {
+    question: 'Do you handle ODC loads?',
+    answer:
+      'Yes. ODC — Over Dimensional Cargo — is a load that exceeds the standard dimensions or permissible weight for the vehicle. Plant sections, long vessels and tall machinery are the usual cases. These movements need the route checked and permissions obtained first, so tell us early rather than close to the date.',
+  },
+  {
     question: 'Can we hire a trailer for a period rather than per trip?',
     answer:
       'Yes. We lease trailers for a fixed period where the work justifies it — projects, sustained volume, seasonal runs. The terms are set per arrangement rather than from a price list, so call us with the dates and what the vehicle would be doing.',

@@ -26,6 +26,8 @@ scenarios:
     body: Machinery moving between sites, often loading somewhere without a proper hard standing.
     photo: mmm-trailer-plant-machinery-yard
 faqs:
+  - question: Is an over-dimensional load the same as ODC?
+    answer: Yes — ODC stands for Over Dimensional Cargo. If your load exceeds the standard dimensions or permissible weight it is an ODC movement, which needs the route planned and permissions obtained first. We cover that on our ODC page.
   - question: My machine is over-dimensional — can you still move it?
     answer: Often yes, but it depends on the actual dimensions and the route. Over-dimensional movements may need permits, a planned route and sometimes an escort. Send us the dimensions and the two locations and we will tell you honestly what is involved.
   - question: Do you arrange permits?

@@ -6,7 +6,7 @@ primaryKeyword: 40 ft container trailer transport Chennai
 secondaryKeywords:
   - container trailer Chennai port
   - skeletal trailer hire Chennai
-order: 4
+order: 5
 summary: 40 ft containers on skeletal trailers, around Chennai and onward.
 trailerType: container-skeletal
 heroPhoto: mmm-trailer-two-40ft-containers

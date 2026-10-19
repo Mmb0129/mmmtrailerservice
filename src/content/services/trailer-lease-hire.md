@@ -7,7 +7,7 @@ secondaryKeywords:
   - monthly trailer hire
   - trailer hire for project
   - long term trailer rental India
-order: 6
+order: 8
 summary: A trailer committed to you for a fixed period, instead of booking trip by trip.
 trailerType: not-applicable
 heroPhoto: mmm-high-bed-trailer-empty-dusk
