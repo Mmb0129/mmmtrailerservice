@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import EnquiryForm from '@/components/forms/EnquiryForm.astro';
 import Field from '@/components/forms/Field.astro';
-import { disclosures } from '@/data/business';
 
 // Lane pages link here with ?from=&to= so the route arrives prefilled.
 const from = Astro.url.searchParams.get('from') ?? undefined;
@@ -31,7 +30,6 @@ const today = new Date().toISOString().slice(0, 10);
       <EnquiryForm
         name="quote"
         submitLabel="Send enquiry"
-        disclosure={disclosures.shipper}
         successHeading="We have your enquiry"
         successBody="We will get back to you as soon as we can. If it is urgent, call us — it is usually quicker."
       >

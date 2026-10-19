@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { primaryPhone, whatsappUrl, disclosures } from '@/data/business';
+import { primaryPhone, whatsappUrl } from '@/data/business';
 ---
 
 <BaseLayout
@@ -14,7 +14,6 @@ import { primaryPhone, whatsappUrl, disclosures } from '@/data/business';
       <p class="ty__lede">
         Thanks for getting in touch. We will come back to you as soon as we can.
       </p>
-      <p class="ty__disclosure">{disclosures.shipper}</p>
       <p class="ty__actions">
         <a class="btn" href={primaryPhone.href} data-track="call_click">
           Call&nbsp;{primaryPhone.display}
@@ -39,16 +38,6 @@ import { primaryPhone, whatsappUrl, disclosures } from '@/data/business';
     color: var(--ink-600);
   }
 
-  .ty__disclosure {
-    max-width: none;
-    margin-top: var(--sp-6);
-    padding: var(--sp-4);
-    background: var(--white);
-    border-left: 3px solid var(--gold-500);
-    border-radius: var(--radius-sm);
-    font-size: var(--fs-small);
-    color: var(--ink-600);
-  }
 
   .ty__actions {
     display: flex;

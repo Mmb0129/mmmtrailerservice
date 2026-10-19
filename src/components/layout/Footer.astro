@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { footerNav, legalNav } from '@/data/nav';
-import { business, phones, disclosures } from '@/data/business';
+import { business, phones } from '@/data/business';
 
 const year = new Date().getFullYear();
 ---
@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="ftr__top">
       <div class="ftr__brand">
-        <Logo size={36} tone="light" />
+        <Logo size={52} tone="light" />
         <p class="ftr__tagline">{business.tagline}</p>
         <address class="ftr__addr">
           <span class="ftr__addr-label">{business.address.label}</span>
@@ -48,8 +48,6 @@ const year = new Date().getFullYear();
         ))
       }
     </div>
-
-    <p class="ftr__disclosure">{disclosures.shipper}</p>
 
     <div class="ftr__base">
       <p class="ftr__copy">
@@ -137,16 +135,6 @@ const year = new Date().getFullYear();
     text-decoration: underline;
   }
 
-  .ftr__disclosure {
-    max-width: none;
-    margin-top: var(--sp-8);
-    padding: var(--sp-4) var(--sp-5);
-    background: var(--navy-700);
-    border-left: 3px solid var(--gold-500);
-    border-radius: var(--radius-sm);
-    font-size: var(--fs-small);
-    color: var(--on-navy-300);
-  }
 
   .ftr__base {
     display: flex;

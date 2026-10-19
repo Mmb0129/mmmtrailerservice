@@ -87,8 +87,14 @@ export function whatsappUrl(context?: string): string {
 }
 
 /**
- * Required disclosures (architect.md §8.4 rule 7). These appear above the
- * submit button on every form and must not be softened or paraphrased.
+ * Enquiry disclosures.
+ *
+ * `truckOwner` appears above the submit button on /transport-partners/.
+ *
+ * `shipper` was removed from the cargo-side forms, the footer and the
+ * thank-you page at the owner's request (2026-10-19). Its substance is
+ * retained on /terms/ under "Enquiries are not bookings", which is where it
+ * carries legal weight. Kept here so it is one edit to restore.
  */
 export const disclosures = {
   /** /quote/ and /load-enquiry/ — the cargo side. */
