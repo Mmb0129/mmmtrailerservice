@@ -21,11 +21,26 @@ Three forms on the site, all delivered the same way:
 | `/load-enquiry/` | Forwarders and companies with regular volume |
 | `/transport-partners/` | Truck owners who want loads |
 
-Every submission does two things:
+Every submission is saved in Netlify, at **Netlify → your site → Forms**.
 
-1. **Sends an email** to `mmmtrailerservice@gmail.com`.
-2. **Saves a copy in Netlify**, at Netlify → your site → Forms. This is the
-   backup if an email is ever lost or deleted.
+**⚠ Email notifications are not set up yet.** Until they are, an enquiry lands
+in the Netlify dashboard and nobody is told about it. To fix:
+
+> Netlify → your site → **Forms** → **Form submission notifications** →
+> **Add notification** → **Email notification** → send to
+> `mmmtrailerservice@gmail.com`.
+>
+> Add one per form and set the subject to `[QUOTE]`, `[LOAD]` and
+> `[PARTNER]` so you can tell them apart at a glance.
+
+Two things worth knowing about how this was set up:
+
+- Netlify's **form detection** has to be switched on (Site configuration →
+  Forms) and it only scans at build time, so turning it on needs one fresh
+  deploy before forms start working.
+- `/__forms.html` is a generated file that exists purely so Netlify can find
+  the forms. Do not edit it by hand — it is rebuilt from the real pages on
+  every build.
 
 **Set up three Gmail filters** so you can tell them apart at a glance — one
 each for the subject prefixes `[QUOTE]`, `[LOAD]` and `[PARTNER]`, each with
