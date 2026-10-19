@@ -1,0 +1,129 @@
+---
+/**
+ * What MMM actually moves, every tile backed by a photograph
+ * (architect.md §12.1 block 3). No generic icons: the point is that each
+ * one is provable, which is exactly what the old site could not do.
+ */
+import SectionHeader from './SectionHeader.astro';
+import Figure from '@/components/media/Figure.astro';
+import { photo } from '@/data/photos';
+
+const tiles = [
+  {
+    slug: 'mmm-trailer-concrete-transit-mixer',
+    title: 'Machinery & plant',
+    body: 'Boom lifts, transit mixers, crusher sections, construction plant.',
+    href: '/services/machinery-transport/',
+    alt: 'Concrete transit mixer truck carried as cargo on a low-bed trailer',
+  },
+  {
+    slug: 'mmm-trailer-structural-steel-beams',
+    title: 'Steel & pipe',
+    body: 'Structural beams, fabricated sections, large-diameter pipe, scaffolding.',
+    href: '/services/high-bed-trailer-hire/',
+    alt: 'Fabricated structural steel beams loaded on a trailer against the sky',
+  },
+  {
+    slug: 'mmm-trailer-hdpe-water-tanks',
+    title: 'Tanks & vessels',
+    body: 'Moulded tanks, fabricated vessels, bulky low-density loads.',
+    href: '/services/high-bed-trailer-hire/',
+    alt: 'Stacked black HDPE water tanks loaded on a trailer at the roadside',
+  },
+  {
+    slug: 'mmm-trailer-solar-modules-steel-sheet',
+    title: 'Solar & sheet',
+    body: 'Solar modules and profiled steel sheet — flat, wide, easily damaged.',
+    href: '/services/high-bed-trailer-hire/',
+    alt: 'Solar modules and profiled steel sheet loaded on a long flatbed trailer',
+  },
+  {
+    slug: 'mmm-skeletal-trailer-container-lit',
+    title: 'Containers',
+    body: '40 ft containers on skeletal trailers, including night yard work.',
+    href: '/services/container-trailer-transport/',
+    alt: 'Forty-foot shipping container on a skeletal trailer, lit at night',
+  },
+  {
+    slug: 'mmm-trailer-farm-tractors-loaded',
+    title: 'Agricultural equipment',
+    body: 'Tractors and implements, several units to a deck where weight allows.',
+    href: '/services/high-bed-trailer-hire/',
+    alt: 'Four farm tractors loaded together on a flatbed trailer',
+  },
+];
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHeader
+      eyebrow="What we move"
+      heading="Loads that will not fit a lorry"
+      standfirst="Every photograph below is one of our own trailers on a real job. Nothing here is stock."
+    />
+
+    <ul class="cargo">
+      {
+        tiles.map((t) => (
+          <li class="cargo__item">
+            <a href={t.href}>
+              <Figure
+                src={photo(t.slug)}
+                alt={t.alt}
+                ratio="3/2"
+                sizes="(min-width: 900px) 360px, (min-width: 600px) 50vw, 100vw"
+                widths={[400, 720]}
+              />
+              <h3>{t.title}</h3>
+              <p>{t.body}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cargo {
+    display: grid;
+    gap: var(--sp-6);
+    list-style: none;
+  }
+
+  .cargo__item {
+    max-width: none;
+  }
+
+  .cargo__item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .cargo__item h3 {
+    margin-top: var(--sp-4);
+    color: var(--navy-800);
+  }
+
+  .cargo__item a:hover h3 {
+    color: var(--gold-text);
+  }
+
+  .cargo__item p {
+    margin-top: var(--sp-2);
+    color: var(--ink-600);
+  }
+
+  @media (min-width: 600px) {
+    .cargo {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .cargo {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

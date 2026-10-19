@@ -1,0 +1,71 @@
+---
+/**
+ * Fixed bottom bar, below 900px only (architect.md §9.5).
+ *
+ * Two EQUAL targets. The previous site had a single floating call button,
+ * which hid half the conversion paths — in this market WhatsApp is usually
+ * the first contact, not the second.
+ */
+import Icon from '@/components/icons/Icons.astro';
+import { primaryPhone, whatsappUrl } from '@/data/business';
+
+interface Props {
+  /** Prefills the WhatsApp message, e.g. a lane or trailer type. */
+  context?: string;
+}
+
+const { context } = Astro.props;
+---
+
+<div class="bar">
+  <a class="bar__btn" href={primaryPhone.href} data-track="call_click">
+    <Icon name="phone" size={20} />
+    <span>Call</span>
+  </a>
+  <a class="bar__btn bar__btn--wa" href={whatsappUrl(context)} rel="noopener" data-track="whatsapp_click">
+    <Icon name="whatsapp" size={20} />
+    <span>WhatsApp</span>
+  </a>
+</div>
+
+<style>
+  .bar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--navy-800);
+    border-top: 1px solid rgb(255 255 255 / 10%);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .bar__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    min-height: var(--action-bar-h);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .bar__btn:first-child {
+    border-right: 1px solid rgb(255 255 255 / 10%);
+  }
+
+  .bar__btn--wa {
+    color: var(--gold-500);
+  }
+
+  @media (min-width: 900px) {
+    .bar {
+      display: none;
+    }
+  }
+</style>

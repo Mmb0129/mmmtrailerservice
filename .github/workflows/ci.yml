@@ -1,0 +1,93 @@
+# Quality gates only. Netlify owns every build and deploy, and this workflow
+# holds no deploy credentials (architect.md §22.1, decisions.md D-008).
+# There must never be a `netlify deploy` step here.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Build & quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Type & content schema check
+        run: npm run check
+
+      - name: Production build
+        run: npm run build
+        env:
+          SITE_URL: https://mmmtrailerservice.com
+
+      - name: HTML validity
+        run: npm run check:html
+
+      - name: SEO metadata gate
+        run: npm run check:seo
+
+      - name: Source discipline gate
+        run: npm run check:sources
+
+      - name: Content gate (similarity, images, forbidden claims)
+        run: npm run check:content
+
+      - name: Colour contrast gate
+        run: npm run check:contrast
+
+      - name: Page weight budgets
+        run: npm run check:weight
+
+      - name: Accessibility gate (axe-core, zero violations)
+        run: npm run check:a11y
+
+      - name: Link check
+        run: |
+          npx astro preview --port 4321 &
+          npx wait-on http://localhost:4321 --timeout 30000
+          npx linkinator http://localhost:4321 --recurse --silent \
+            --skip "mmmtrailerservice\.com|wa\.me|google\.com"
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Still to add (tasks.md TEST-009, TEST-001):
+  #   lighthouse  — budgets from architect.md §18.2, needs a CI Chrome
+  #   forms E2E   — Playwright, including the mocked-500 "never show
+  #                 success" case. The gate itself is verified by hand for
+  #                 now; see the build log in tasks.md.

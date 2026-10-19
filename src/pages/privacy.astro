@@ -1,0 +1,109 @@
+---
+/**
+ * Written to describe what this site ACTUALLY does, not generated
+ * (architect.md §19.7, WEB-011). If the site's behaviour changes, this
+ * page changes with it.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import { business, addressOneLine } from '@/data/business';
+---
+
+<BaseLayout
+  title="Privacy Policy — MMM Trailer Service"
+  description="What MMM Trailer Service collects when you send an enquiry, where it goes, how long we keep it and how to ask us to delete it."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Privacy', href: '/privacy/' }]} />
+  </div>
+
+  <section class="section">
+    <div class="container legal">
+      <h1>Privacy policy</h1>
+      <p class="legal__intro">
+        This page describes what this website actually does. It is short because the
+        site does very little with your data.
+      </p>
+
+      <h2>What we collect</h2>
+      <p>
+        Only what you type into one of our enquiry forms: your name, your company if you
+        give one, a phone number, an email address if you choose to give one, and the
+        details of the movement or vehicle you are telling us about.
+      </p>
+      <p>
+        We do not ask for anything else, and there is no account to create.
+      </p>
+
+      <h2>Where it goes</h2>
+      <p>
+        Form submissions are handled by Netlify, who host this website, and are
+        forwarded by email to {business.email}. They are stored in the Netlify account
+        for this site and in that email inbox. They go nowhere else, and we do not sell
+        or share them.
+      </p>
+
+      <h2>What we use it for</h2>
+      <p>
+        Answering your enquiry, and following up about it. We do not send marketing
+        email.
+      </p>
+
+      <h2>Analytics</h2>
+      <p>
+        We use privacy-friendly analytics that count page views without cookies and
+        without identifying individual visitors. There is no advertising tracking on
+        this site, which is why you are not being asked to accept cookies.
+      </p>
+
+      <h2>The map on our contact page</h2>
+      <p>
+        The Google map on our contact page does not load until you press "Show map". If
+        you press it, your browser connects to Google and Google's own terms apply to
+        that connection. If you never press it, nothing is requested from Google.
+      </p>
+
+      <h2>How long we keep it</h2>
+      <p>
+        Enquiries are kept while they are useful to us for answering you and for our own
+        records. We clear out old submissions periodically.
+      </p>
+
+      <h2>Asking us to delete your details</h2>
+      <p>
+        Email {business.email} and ask, and we will delete what we hold about you. You
+        do not need to give a reason.
+      </p>
+
+      <h2>Who we are</h2>
+      <p>
+        {business.name}, proprietor {business.owner}.<br />
+        {addressOneLine}.<br />
+        {business.email}
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 68ch;
+  }
+
+  .legal__intro {
+    margin-block: var(--sp-4) var(--sp-6);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+
+  .legal h2 {
+    margin-top: var(--sp-7);
+    margin-bottom: var(--sp-3);
+    font-size: var(--fs-h3);
+  }
+
+  .legal p {
+    margin-top: var(--sp-3);
+    color: var(--ink-600);
+  }
+</style>

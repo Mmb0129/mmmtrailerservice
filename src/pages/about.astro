@@ -1,0 +1,187 @@
+---
+/**
+ * architect.md §12.2.
+ *
+ * HARD CONSTRAINT: no founding year, no years-of-experience number, no
+ * awards, no certifications, no customer names. The brief states that
+ * Micheal Augustin has spent his working life in transport — that is the
+ * claim made, in those terms, and it is not converted into a number.
+ * Anything more specific needs §28 Q2.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import Figure from '@/components/media/Figure.astro';
+import HowWeWork from '@/components/sections/HowWeWork.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { photo } from '@/data/photos';
+import { business } from '@/data/business';
+---
+
+<BaseLayout
+  title="About MMM Trailer Service & Micheal Augustin"
+  description="MMM Trailer Service is a Chennai trailer transport business run by Micheal Augustin, who has spent his working life in the trade."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'About', href: '/about/' }]} />
+  </div>
+
+  <section class="section">
+    <div class="container ab__inner">
+      <div class="ab__media">
+        <Figure
+          src={photo('owner-micheal-augustin-portrait')}
+          alt={`${business.owner}, proprietor of ${business.name}`}
+          caption={`${business.owner}, proprietor.`}
+          ratio="4/5"
+          sizes="(min-width: 900px) 360px, 70vw"
+          widths={[360, 720]}
+        />
+      </div>
+
+      <div>
+        <h1>A lifetime in the transport trade</h1>
+        <div class="prose ab__body">
+          <p>
+            {business.name} is run by {business.owner}. He has spent his working life in
+            transport, and when you call this business you are talking to the person who
+            decides whether a job can be done and how.
+          </p>
+          <p>
+            We are based in Chennai and we hire out 40 ft trailers — high-bed,
+            semi-low-bed and low-bed. The work is industrial: machinery and plant,
+            structural steel, pipe, tanks and vessels, solar modules, containers and
+            crated export cargo. The photographs on this site are all our own vehicles
+            on real jobs.
+          </p>
+          <p>
+            That is a deliberate choice. It is easy to buy a photograph of a clean truck
+            on an empty motorway. It is harder, and more useful to you, to show the
+            actual loads we have carried.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ab-name">
+    <div class="container ab-name__inner">
+      <div>
+        <h2>Where the name comes from</h2>
+        <div class="prose">
+          <p>
+            MMM stands for <strong>{business.nameMeaning}</strong>. It is painted across
+            the windscreen of the trucks in Tamil, and it is on the roundel we have used
+            since the beginning.
+          </p>
+          <p>
+            Our vehicles still carry the earlier livery they were painted in. They are
+            the same trucks, run by the same people.
+          </p>
+        </div>
+      </div>
+      <Figure
+        src={photo('mmm-ashok-leyland-cab-tamil-band')}
+        alt="Ashok Leyland tractor unit cab front with Mazhai Malai Madha lettering in Tamil"
+        caption="The name across the windscreen."
+        ratio="3/4"
+        sizes="(min-width: 900px) 320px, 70vw"
+        widths={[320, 640]}
+      />
+    </div>
+  </section>
+
+  <HowWeWork heading="Our trucks, and the trucks we know" eyebrow="How the business works" />
+
+  <section class="section">
+    <div class="container ab-work">
+      <h2>How we work with customers</h2>
+      <div class="prose">
+        <p>
+          We quote per movement, based on what the cargo actually is and what the job
+          actually involves. We will tell you what could change the figure — waiting
+          time, permits, tolls — before you commit, rather than after.
+        </p>
+        <p>
+          We do not promise guaranteed transit times or instant confirmation. Trailer
+          work depends on vehicle availability, route conditions and permits, and a
+          promise we cannot keep is worth nothing to either of us.
+        </p>
+        <p>
+          Enquiries are welcome any day. If it is urgent, call rather than email — it is
+          usually quicker.
+        </p>
+      </div>
+      <p class="ab-work__cta">
+        <a class="btn" href="/quote/">Request a quote</a>
+        <a class="btn btn--outline" href="/fleet/">See the trailers</a>
+      </p>
+    </div>
+  </section>
+
+  <ContactBand />
+</BaseLayout>
+
+<style>
+  .ab__inner {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  .ab__media {
+    max-width: 320px;
+  }
+
+  .ab__body {
+    margin-top: var(--sp-5);
+    font-size: var(--fs-h3);
+    line-height: 1.6;
+    color: var(--ink-600);
+  }
+
+  .ab-name {
+    background: var(--white);
+  }
+
+  .ab-name__inner {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+
+  .ab-name__inner :global(.fig) {
+    max-width: 320px;
+  }
+
+  .ab-work {
+    max-width: 68ch;
+  }
+
+  .ab-work .prose {
+    margin-top: var(--sp-5);
+    color: var(--ink-600);
+  }
+
+  .ab-work__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  @media (min-width: 900px) {
+    .ab__inner {
+      grid-template-columns: 360px 1fr;
+      gap: var(--sp-8);
+    }
+
+    .ab__media {
+      max-width: none;
+    }
+
+    .ab-name__inner {
+      grid-template-columns: 1fr 320px;
+      gap: var(--sp-8);
+    }
+  }
+</style>

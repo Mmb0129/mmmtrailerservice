@@ -1,0 +1,212 @@
+---
+/**
+ * One accessible field primitive (architect.md §19.1).
+ *
+ * Labels are always visible and always real <label> elements — a placeholder
+ * is not a label, and disappears exactly when the user needs it. Help and
+ * error text are wired through aria-describedby.
+ */
+import type { FieldType, SelectOption } from '@/types';
+
+interface Props {
+  name: string;
+  label: string;
+  type?: FieldType;
+  required?: boolean;
+  help?: string;
+  placeholder?: string;
+  autocomplete?: string;
+  inputmode?: 'text' | 'tel' | 'email' | 'numeric';
+  options?: SelectOption[];
+  rows?: number;
+  min?: string;
+  value?: string;
+}
+
+const {
+  name,
+  label,
+  type = 'text',
+  required = false,
+  help,
+  placeholder,
+  autocomplete,
+  inputmode,
+  options = [],
+  rows = 4,
+  min,
+  value,
+} = Astro.props;
+
+const helpId = help ? `${name}-help` : undefined;
+const errId = `${name}-error`;
+const describedBy = [helpId, errId].filter(Boolean).join(' ');
+---
+
+<div class="field" data-field={name}>
+  {
+    type === 'checkbox-group' ? (
+      <fieldset class="field__set">
+        <legend class="field__label">
+          {label}
+          {required && <span class="field__req" aria-hidden="true">*</span>}
+        </legend>
+        {help && <p class="field__help" id={helpId}>{help}</p>}
+        <div class="field__checks">
+          {options.map((o) => (
+            <label class="field__check">
+              <input type="checkbox" name={name} value={o.value} />
+              <span>{o.label}</span>
+            </label>
+          ))}
+        </div>
+        <p class="field__error" id={errId} role="alert" hidden />
+      </fieldset>
+    ) : (
+      <>
+        <label class="field__label" for={name}>
+          {label}
+          {required && <span class="field__req" aria-hidden="true">*</span>}
+          {required && <span class="visually-hidden">(required)</span>}
+        </label>
+        {help && <p class="field__help" id={helpId}>{help}</p>}
+
+        {type === 'textarea' ? (
+          <textarea
+            id={name}
+            name={name}
+            rows={rows}
+            required={required}
+            placeholder={placeholder}
+            aria-describedby={describedBy || undefined}
+          />
+        ) : type === 'select' ? (
+          <select id={name} name={name} required={required} aria-describedby={describedBy || undefined}>
+            {options.map((o) => (
+              <option value={o.value}>{o.label}</option>
+            ))}
+          </select>
+        ) : (
+          <input
+            id={name}
+            name={name}
+            type={type}
+            required={required}
+            placeholder={placeholder}
+            autocomplete={autocomplete}
+            inputmode={inputmode}
+            min={min}
+            value={value}
+            aria-describedby={describedBy || undefined}
+          />
+        )}
+
+        <p class="field__error" id={errId} role="alert" hidden />
+      </>
+    )
+  }
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .field__set {
+    border: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .field__label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--navy-800);
+    padding: 0;
+  }
+
+  .field__req {
+    color: var(--error);
+    margin-left: 2px;
+  }
+
+  .field__help {
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+    margin: 0;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: var(--sp-3) var(--sp-4);
+    /* 16px prevents iOS zooming the viewport on focus. */
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--ink-900);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+  }
+
+  textarea {
+    min-height: auto;
+    resize: vertical;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    border-color: var(--gold-500);
+  }
+
+  .field__checks {
+    display: grid;
+    gap: var(--sp-2);
+  }
+
+  .field__check {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    min-height: 44px;
+    font-size: var(--fs-body);
+  }
+
+  .field__check input {
+    width: 20px;
+    min-height: 20px;
+    height: 20px;
+    flex: none;
+    accent-color: var(--gold-text);
+  }
+
+  .field__error {
+    margin: 0;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--error);
+  }
+
+  .field[data-invalid] input,
+  .field[data-invalid] select,
+  .field[data-invalid] textarea {
+    border-width: 2px;
+    border-color: var(--error);
+  }
+
+  @media (min-width: 600px) {
+    .field__checks {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

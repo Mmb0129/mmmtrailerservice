@@ -1,0 +1,134 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import Figure from '@/components/media/Figure.astro';
+import { photo } from '@/data/photos';
+
+const types = [
+  {
+    href: '/services/high-bed-trailer-hire/',
+    title: 'High-bed',
+    best: 'Best for steel, pipe, crated cargo, tanks and anything that can be craned or forklifted on.',
+    slug: 'mmm-high-bed-trailer-empty-rear',
+    alt: 'Empty 40 foot high-bed flatbed trailer photographed from behind',
+  },
+  {
+    href: '/services/semi-low-bed-trailer-hire/',
+    title: 'Semi-low-bed',
+    best: 'Best for wheeled and tracked machinery that drives on — boom lifts, compactors, smaller plant.',
+    slug: 'mmm-trailer-genie-boom-lift',
+    alt: 'Self-propelled boom lift loaded and secured on a trailer beside containers',
+  },
+  {
+    href: '/services/low-bed-trailer-hire/',
+    title: 'Low-bed',
+    best: 'Best for tall or heavy plant where deck height decides whether the load can travel at all.',
+    slug: 'mmm-trailer-concrete-transit-mixer',
+    alt: 'Concrete transit mixer truck carried as cargo on a low-bed trailer',
+  },
+];
+---
+
+<section class="section tt-section">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Three configurations"
+      heading="Which trailer your load needs"
+      standfirst="If you are not sure, say so on the enquiry — telling you which trailer suits the job is part of what we do."
+    />
+
+    <ul class="tt">
+      {
+        types.map((t) => (
+          <li class="tt__card">
+            <Figure
+              src={photo(t.slug)}
+              alt={t.alt}
+              ratio="3/2"
+              sizes="(min-width: 900px) 360px, 100vw"
+              widths={[400, 720]}
+            />
+            <div class="tt__body">
+              <h3>{t.title}</h3>
+              <p>{t.best}</p>
+              <a class="tt__link" href={t.href}>
+                About {t.title.toLowerCase()} hire
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .tt-section {
+    background: var(--white);
+  }
+
+  .tt {
+    display: grid;
+    gap: var(--sp-5);
+    list-style: none;
+  }
+
+  .tt__card {
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow-1);
+    transition:
+      border-color var(--dur-base) var(--ease),
+      box-shadow var(--dur-base) var(--ease);
+  }
+
+  .tt__card:hover {
+    border-color: var(--gold-500);
+    box-shadow: var(--shadow-2);
+  }
+
+  .tt__card :global(.fig__frame) {
+    border-radius: 0;
+  }
+
+  .tt__card :global(figcaption) {
+    display: none;
+  }
+
+  .tt__body {
+    padding: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    flex: 1;
+  }
+
+  .tt__body p {
+    color: var(--ink-600);
+    flex: 1;
+  }
+
+  .tt__link {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    text-decoration: none;
+  }
+
+  .tt__link:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 900px) {
+    .tt {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

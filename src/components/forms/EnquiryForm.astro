@@ -1,0 +1,167 @@
+---
+/**
+ * Netlify Forms wrapper (architect.md §17).
+ *
+ * The form must exist as static HTML at build time for Netlify to register
+ * it, hence data-netlify and the hidden form-name. Without JavaScript it
+ * posts natively and lands on /thank-you/; with JavaScript, form-submit.ts
+ * intercepts and gates the success state on a 2xx.
+ */
+import { primaryPhone, whatsappUrl } from '@/data/business';
+
+interface Props {
+  name: string;
+  submitLabel: string;
+  disclosure: string;
+  successHeading: string;
+  successBody: string;
+}
+
+const { name, submitLabel, disclosure, successHeading, successBody } = Astro.props;
+---
+
+<div class="ef">
+  <form
+    class="ef__form"
+    name={name}
+    method="POST"
+    action="/thank-you/"
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
+    data-enquiry-form
+    novalidate
+  >
+    <input type="hidden" name="form-name" value={name} />
+    <p class="ef__hp">
+      <label>
+        Leave this field empty
+        <input type="text" name="bot-field" tabindex="-1" autocomplete="off" />
+      </label>
+    </p>
+
+    <div class="ef__fields">
+      <slot />
+    </div>
+
+    <p class="ef__disclosure">{disclosure}</p>
+
+    <button class="btn ef__submit" type="submit">{submitLabel}</button>
+
+    <p class="ef__privacy">
+      We use your details only to answer this enquiry. See our
+      <a href="/privacy/">privacy policy</a>.
+    </p>
+  </form>
+
+  <p class="ef__status" data-form-status role="alert" hidden></p>
+
+  <div class="ef__success" data-form-success hidden>
+    <h2 tabindex="-1" data-success-heading>{successHeading}</h2>
+    <p>{successBody}</p>
+    <p class="ef__disclosure">{disclosure}</p>
+    <p class="ef__success-actions">
+      <a class="btn btn--outline" href={primaryPhone.href} data-track="call_click">
+        Call&nbsp;{primaryPhone.display}
+      </a>
+      <a class="btn btn--outline" href={whatsappUrl()} rel="noopener" data-track="whatsapp_click">
+        WhatsApp
+      </a>
+    </p>
+  </div>
+</div>
+
+<script>
+  import '@/scripts/form-submit';
+</script>
+
+<style>
+  .ef {
+    max-width: 680px;
+  }
+
+  .ef__fields {
+    display: grid;
+    gap: var(--sp-5);
+  }
+
+  /* Off-screen rather than display:none — some bots skip hidden inputs. */
+  .ef__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .ef__disclosure {
+    max-width: none;
+    margin-top: var(--sp-6);
+    padding: var(--sp-4);
+    background: var(--paper);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    color: var(--ink-600);
+  }
+
+  .ef__submit {
+    margin-top: var(--sp-5);
+    width: 100%;
+  }
+
+  .ef__submit:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .ef__privacy {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+  }
+
+  .ef__status {
+    max-width: none;
+    margin-top: var(--sp-5);
+    padding: var(--sp-4);
+    background: var(--error-bg);
+    border: 2px solid var(--error);
+    border-radius: var(--radius-md);
+    color: var(--error-ink);
+    font-weight: 600;
+  }
+
+  .ef__success {
+    padding: var(--sp-6);
+    background: var(--white);
+    border: 2px solid var(--ok);
+    border-radius: var(--radius-md);
+  }
+
+  .ef__success h2 {
+    color: var(--ok);
+  }
+
+  .ef__success h2:focus-visible {
+    outline: 3px solid var(--gold-500);
+    outline-offset: 4px;
+  }
+
+  .ef__success p {
+    margin-top: var(--sp-3);
+  }
+
+  .ef__success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-5);
+  }
+
+  @media (min-width: 600px) {
+    .ef__submit {
+      width: auto;
+      min-width: 240px;
+    }
+  }
+</style>

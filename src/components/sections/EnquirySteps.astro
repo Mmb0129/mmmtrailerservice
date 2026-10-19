@@ -1,0 +1,105 @@
+---
+/**
+ * Sets expectations and removes the "instant quote" assumption
+ * (architect.md §12.1 block 8).
+ */
+import SectionHeader from './SectionHeader.astro';
+
+const steps = [
+  {
+    n: '1',
+    title: 'You send the details',
+    body: 'Pickup, delivery, what the cargo is, roughly what it weighs and measures, and when you need it.',
+  },
+  {
+    n: '2',
+    title: 'We check a suitable vehicle',
+    body: 'Our own trailers first. If none is free or suitable, we look to the truck owners we work with.',
+  },
+  {
+    n: '3',
+    title: 'We confirm availability and rate',
+    body: 'We come back to you with what we can do, what it costs, and anything that could change the figure.',
+  },
+  {
+    n: '4',
+    title: 'Loading is arranged',
+    body: 'We agree the loading point, timing and any permits or escorts the load needs.',
+  },
+];
+---
+
+<section class="section steps-section">
+  <div class="container">
+    <SectionHeader
+      eyebrow="How an enquiry works"
+      heading="What happens after you send it"
+      standfirst="No instant quotes. Trailer rates depend on the cargo, the route, the permits and the return load, so we work it out and tell you."
+    />
+
+    <ol class="steps">
+      {
+        steps.map((s) => (
+          <li class="steps__item">
+            <span class="steps__n" aria-hidden="true">
+              {s.n}
+            </span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps-section {
+    background: var(--white);
+  }
+
+  .steps {
+    display: grid;
+    gap: var(--sp-6);
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .steps__item {
+    max-width: none;
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .steps__n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--gold-500);
+    color: var(--navy-800);
+    font-family: var(--font-display);
+    font-weight: 800;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--sp-3);
+  }
+
+  .steps__item p {
+    margin-top: var(--sp-2);
+    color: var(--ink-600);
+    font-size: var(--fs-small);
+  }
+
+  @media (min-width: 700px) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,219 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import MapEmbed from '@/components/media/MapEmbed.astro';
+import Icon from '@/components/icons/Icons.astro';
+import { business, phones, primaryPhone, whatsappUrl } from '@/data/business';
+
+/**
+ * LocalBusiness schema. Deliberately absent: openingHours (unconfirmed —
+ * §28 Q14; a wrong value is worse than none), aggregateRating and review
+ * (no authorised reviews exist).
+ */
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: business.name,
+  image: new URL('/og-default.jpg', Astro.site).href,
+  url: new URL('/contact/', Astro.site).href,
+  telephone: phones.map((p) => p.e164),
+  email: business.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${business.address.line1}, ${business.address.line2}`,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.postalCode,
+    addressCountry: business.address.country,
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Chennai' },
+    { '@type': 'City', name: 'Sri City' },
+    { '@type': 'City', name: 'Bengaluru' },
+    { '@type': 'City', name: 'Hyderabad' },
+    { '@type': 'State', name: 'Tamil Nadu' },
+  ],
+  knowsAbout: [
+    '40 ft trailer transport',
+    'low bed trailer hire',
+    'machinery transportation',
+    'container trailer transport',
+  ],
+};
+---
+
+<BaseLayout
+  title="Contact MMM Trailer Service, Chennai"
+  description="Call, WhatsApp or email MMM Trailer Service in Chennai about 40 ft trailer hire. Enquiries welcome any day."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Contact', href: '/contact/' }]} />
+  </div>
+
+  <section class="section">
+    <div class="container ct">
+      <div>
+        <h1>Contact us</h1>
+        <p class="ct__lede">
+          Enquiries welcome any day. If it is urgent, call — it is usually quicker than
+          email.
+        </p>
+
+        <ul class="ct__list">
+          <li>
+            <span class="ct__icon"><Icon name="phone" size={20} /></span>
+            <div>
+              <span class="ct__label">Call</span>
+              {
+                phones.map((p) => (
+                  <a class="ct__value" href={p.href} data-track="call_click">
+                    {p.display}
+                  </a>
+                ))
+              }
+            </div>
+          </li>
+          <li>
+            <span class="ct__icon"><Icon name="whatsapp" size={20} /></span>
+            <div>
+              <span class="ct__label">WhatsApp</span>
+              <a
+                class="ct__value"
+                href={whatsappUrl()}
+                rel="noopener"
+                data-track="whatsapp_click">{primaryPhone.display}</a
+              >
+            </div>
+          </li>
+          <li>
+            <span class="ct__icon"><Icon name="mail" size={20} /></span>
+            <div>
+              <span class="ct__label">Email</span>
+              <a class="ct__value" href={`mailto:${business.email}`}>{business.email}</a>
+            </div>
+          </li>
+          <li>
+            <span class="ct__icon"><Icon name="pin" size={20} /></span>
+            <div>
+              <span class="ct__label">{business.address.label}</span>
+              <address class="ct__addr">
+                {business.address.line1}<br />
+                {business.address.line2}<br />
+                {business.address.city} – {business.address.postalCode}<br />
+                {business.address.state}, {business.address.countryName}
+              </address>
+              <p class="ct__addr-note">
+                This is our office address. Our trailers work out on the road rather than
+                from a yard here, so please call before coming to see us.
+              </p>
+            </div>
+          </li>
+        </ul>
+
+        <p class="ct__cta">
+          <a class="btn" href="/quote/">Request a quote</a>
+          <a class="btn btn--outline" href="/transport-partners/">I run a trailer</a>
+        </p>
+      </div>
+
+      <div class="ct__map">
+        <h2>Finding us</h2>
+        <MapEmbed />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(localBusiness)} is:inline />
+
+<style>
+  .ct {
+    display: grid;
+    gap: var(--sp-7);
+    align-items: start;
+  }
+
+  .ct__lede {
+    margin-block: var(--sp-4) var(--sp-6);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+
+  .ct__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+
+  .ct__list li {
+    max-width: none;
+    display: flex;
+    gap: var(--sp-4);
+    padding-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ct__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--navy-800);
+    color: var(--gold-500);
+    border-radius: var(--radius-md);
+  }
+
+  .ct__label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-400);
+    margin-bottom: var(--sp-1);
+  }
+
+  .ct__value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--navy-800);
+    text-decoration: none;
+    min-height: 32px;
+  }
+
+  .ct__value:hover {
+    color: var(--gold-text);
+  }
+
+  .ct__addr {
+    font-style: normal;
+    line-height: 1.7;
+    color: var(--ink-600);
+  }
+
+  .ct__addr-note {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+  }
+
+  .ct__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  @media (min-width: 900px) {
+    .ct {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--sp-8);
+    }
+  }
+</style>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MMM Trailer Service">
+  <title>MMM Trailer Service</title>
+  <rect width="64" height="64" rx="8" fill="#0D1B3E"/>
+  <g font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="20" text-anchor="middle">
+    <text x="14" y="39" fill="#1565C0">M</text>
+    <text x="32" y="39" fill="#E65100">M</text>
+    <text x="50" y="39" fill="#2E7D32">M</text>
+  </g>
+  <rect x="10" y="46" width="44" height="3" rx="1.5" fill="#F5A800"/>
+</svg>

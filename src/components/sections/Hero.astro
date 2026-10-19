@@ -1,0 +1,174 @@
+---
+/**
+ * Split hero (architect.md §10.2).
+ *
+ * NOT full-bleed, deliberately. The best photograph in the library is
+ * 1600x900, so a full-bleed desktop hero would have to upscale it. Capping
+ * the image column at 720 CSS px keeps it sharp at every breakpoint and
+ * happens to look nothing like the overlay-text-on-photo hero that every
+ * competitor uses.
+ */
+import Figure from '@/components/media/Figure.astro';
+import { photo } from '@/data/photos';
+import { primaryPhone, whatsappUrl } from '@/data/business';
+
+const desktop = photo('mmm-trailer-pressure-vessel-highway-01');
+const mobile = photo('mmm-tractor-cab-front-portrait');
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <h1>40 ft trailer hire from Chennai — high-bed, semi-low-bed and low-bed</h1>
+      <p class="hero__lede">
+        Loads that will not fit a lorry — machinery, steel, tanks, containers, project
+        cargo. Moved on our own 40 ft trailers, or on a suitable truck arranged through
+        our transport network. Chennai local, Tada and Sri City, and across India.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn" href="/quote/">Get a quote</a>
+        <a class="btn btn--ghost" href={whatsappUrl()} rel="noopener" data-track="whatsapp_click">
+          WhatsApp us
+        </a>
+      </div>
+
+      <p class="hero__tertiary">
+        <a href="/load-enquiry/">Have loads to move regularly?</a>
+        <span aria-hidden="true">·</span>
+        <a href="/transport-partners/">Run a trailer? We have loads.</a>
+      </p>
+
+      <p class="hero__strip">
+        High-bed · Semi-low-bed · Low-bed · Container · Chennai local · Tada &amp; Sri City ·
+        Interstate
+      </p>
+
+      <p class="hero__call">
+        Or call <a href={primaryPhone.href} data-track="call_click">{primaryPhone.display}</a>
+      </p>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__desktop">
+        <Figure
+          src={desktop}
+          alt="MMM tractor unit hauling a large wrapped cylindrical vessel on a highway"
+          caption="A wrapped pressure vessel on one of our 40 ft trailers."
+          ratio="16/9"
+          sizes="(min-width: 900px) 720px, 100vw"
+          priority
+        />
+      </div>
+      <div class="hero__mobile">
+        <Figure
+          src={mobile}
+          alt="Front view of an MMM Ashok Leyland tractor unit under an overcast sky"
+          caption="One of our tractor units."
+          ratio="4/5"
+          sizes="100vw"
+          widths={[360, 540]}
+          priority
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--navy-800);
+    color: var(--on-navy-300);
+    padding-block: var(--sp-7) var(--sp-8);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--sp-7);
+  }
+
+  .hero h1 {
+    color: var(--white);
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    max-width: 18ch;
+  }
+
+  .hero__lede {
+    margin-top: var(--sp-5);
+    font-size: var(--fs-h3);
+    line-height: 1.55;
+    color: var(--on-navy-300);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  .hero__tertiary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-top: var(--sp-5);
+    font-size: var(--fs-small);
+  }
+
+  .hero__tertiary a {
+    color: var(--gold-500);
+  }
+
+  .hero__strip {
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-5);
+    border-top: 1px solid rgb(255 255 255 / 12%);
+    font-size: var(--fs-small);
+    color: var(--on-navy-400);
+    max-width: none;
+  }
+
+  .hero__call {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-small);
+    color: var(--on-navy-400);
+  }
+
+  .hero__call a {
+    color: var(--gold-500);
+    font-weight: 700;
+  }
+
+  .hero__mobile {
+    display: block;
+  }
+
+  .hero__desktop {
+    display: none;
+  }
+
+  @media (min-width: 600px) {
+    .hero__mobile {
+      display: none;
+    }
+
+    .hero__desktop {
+      display: block;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 7fr 5fr;
+      align-items: center;
+      gap: var(--sp-8);
+    }
+
+    /* Hard cap: the source is 1600px wide, so the column must never ask
+       for more than it can sharply provide. */
+    .hero__media {
+      max-width: 720px;
+    }
+  }
+</style>

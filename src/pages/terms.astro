@@ -1,0 +1,109 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import { business, disclosures } from '@/data/business';
+---
+
+<BaseLayout
+  title="Terms & Transport Disclaimer"
+  description="How enquiries, quotes and movements work with MMM Trailer Service, and what this website does and does not promise."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Terms', href: '/terms/' }]} />
+  </div>
+
+  <section class="section">
+    <div class="container legal">
+      <h1>Terms and disclaimer</h1>
+      <p class="legal__intro">
+        Plain terms covering what this website is for and what an enquiry does and does
+        not commit either of us to.
+      </p>
+
+      <h2>Enquiries are not bookings</h2>
+      <p>{disclosures.shipper}</p>
+      <p>
+        Nothing on this website is an offer capable of acceptance. A movement is agreed
+        when we have confirmed it with you directly.
+      </p>
+
+      <h2>For truck owners</h2>
+      <p>{disclosures.truckOwner}</p>
+
+      <h2>Our own trailers and our transport network</h2>
+      <p>
+        We operate our own 40 ft trailers, and we also coordinate movements using trucks
+        belonging to owners we work with. Where a movement is carried on a vehicle that
+        is not ours, we will tell you so. We do not present other operators' vehicles as
+        our own.
+      </p>
+
+      <h2>Quotes</h2>
+      <p>
+        Quotes are given per movement on the basis of the information you provide. If
+        the cargo, dimensions, weight, loading arrangements or dates turn out to differ
+        from what was described, the quote may change. Charges such as waiting time,
+        tolls, permits and escorts depend on the job and we will tell you where they
+        apply.
+      </p>
+
+      <h2>Transit times</h2>
+      <p>
+        Any transit time we give is an estimate. Road conditions, loading delays,
+        permits and checks are outside our control, and we do not guarantee delivery
+        times.
+      </p>
+
+      <h2>Insurance and liability</h2>
+      <p>
+        Insurance cover for a consignment is agreed per movement. Please raise it with
+        us before loading if cover matters for your cargo — do not assume it from
+        anything on this website.
+      </p>
+
+      <h2>Permits and documentation</h2>
+      <p>
+        Consignment documentation, including e-way bills where they apply, is normally
+        raised by the consignor. We will tell you what the driver needs to carry. For
+        over-dimensional movements we will advise what permissions are required.
+      </p>
+
+      <h2>This website</h2>
+      <p>
+        We keep the information here accurate and up to date as far as we reasonably
+        can. Photographs show our own vehicles on real jobs and are published as taken.
+        Specifications and capabilities should be confirmed with us for your particular
+        load rather than assumed from a page.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        {business.name}, proprietor {business.owner}. Questions about these terms:{' '}
+        {business.email}.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 68ch;
+  }
+
+  .legal__intro {
+    margin-block: var(--sp-4) var(--sp-6);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+
+  .legal h2 {
+    margin-top: var(--sp-7);
+    margin-bottom: var(--sp-3);
+    font-size: var(--fs-h3);
+  }
+
+  .legal p {
+    margin-top: var(--sp-3);
+    color: var(--ink-600);
+  }
+</style>

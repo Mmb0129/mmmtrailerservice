@@ -1,0 +1,11 @@
+# WITHHELD — an identifiable person is in frame and we do not have consent.
+# Tracked here rather than left out so the gate is exercised and the count
+# on /fleet/ is honest (architect.md §13.6).
+src: mmm-trailer-night-worker-chock
+alt: Worker placing a wheel chock beside a loaded trailer at night
+caption: Placing chocks before unloading.
+category: night-operations
+trailerType: high-bed
+authenticity: confirmed-mmm
+consentRequired: true
+order: 90

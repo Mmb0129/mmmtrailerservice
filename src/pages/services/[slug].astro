@@ -1,0 +1,314 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import Figure from '@/components/media/Figure.astro';
+import Faq from '@/components/sections/Faq.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { photo } from '@/data/photos';
+import { business } from '@/data/business';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const services = await getCollection('services', ({ data }) => !data.draft);
+  return services.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+};
+
+interface Props {
+  entry: CollectionEntry<'services'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const routes = await getCollection('routes', ({ data: r }) => !r.draft);
+const related = routes.filter((r) => data.relatedRoutes.includes(r.id));
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: data.h1,
+  serviceType: data.primaryKeyword,
+  description: data.description,
+  provider: { '@type': 'Organization', name: business.name, url: Astro.site?.href },
+  areaServed: [
+    { '@type': 'City', name: 'Chennai' },
+    { '@type': 'Country', name: 'India' },
+  ],
+};
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  whatsappContext={data.h1.toLowerCase()}
+>
+  <div class="container">
+    <Breadcrumb
+      items={[
+        { label: 'Services', href: '/services/' },
+        { label: data.h1, href: `/services/${entry.id}/` },
+      ]}
+    />
+  </div>
+
+  <section class="section svc-hero">
+    <div class="container svc-hero__inner">
+      <div>
+        <h1>{data.h1}</h1>
+        <div class="prose svc-hero__body"><Content /></div>
+        <p class="svc-hero__cta">
+          <a class="btn" href="/quote/">Get a quote</a>
+        </p>
+      </div>
+      <div class="svc-hero__media">
+        <Figure
+          src={photo(data.heroPhoto)}
+          alt={data.heroAlt}
+          ratio="3/2"
+          sizes="(min-width: 900px) 520px, 100vw"
+          widths={[520, 1040]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section scenarios">
+    <div class="container">
+      <h2>When you need this trailer</h2>
+      <ul class="scenarios__list">
+        {
+          data.scenarios.map((s) => (
+            <li>
+              <Figure
+                src={photo(s.photo)}
+                alt={s.title}
+                ratio="3/2"
+                sizes="(min-width: 900px) 300px, 100vw"
+                widths={[360, 720]}
+              />
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section specs">
+    <div class="container">
+      <h2>Specifications</h2>
+      {
+        data.specifications && data.specifications.length ? (
+          <table class="specs__table">
+            <caption>Deck dimensions and payload for our {data.h1.toLowerCase()}</caption>
+            <tbody>
+              {data.specifications.map((row) => (
+                <tr>
+                  <th scope="row">{row.label}</th>
+                  <td>{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          /* Deliberately not estimated and never copied from a competitor
+             (decisions.md D-012). A buyer who plans a load around a wrong
+             deck height ends up with cargo that will not fit. */
+          <div class="specs__pending">
+            <p>
+              <strong>Specifications on request.</strong> Deck length, deck height and
+              payload vary between vehicles, and the figure that matters depends on your
+              cargo. Call us with the load and we will give you the exact dimensions of
+              the vehicle we would send.
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section ask">
+    <div class="container">
+      <h2>What we will ask you</h2>
+      <ol class="ask__list">
+        <li>Where it is loading and where it is going.</li>
+        <li>What the cargo is and roughly what it weighs.</li>
+        <li>Its dimensions — especially height.</li>
+        <li>How it will be loaded: crane, forklift, or driven on.</li>
+        <li>When you need it.</li>
+      </ol>
+      <p class="ask__note">
+        If you do not know all of it yet, send what you have. We would rather start the
+        conversation than wait for a complete spec.
+      </p>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="section related">
+        <div class="container">
+          <h2>Routes this often runs on</h2>
+          <ul class="related__list">
+            {related.map((r) => (
+              <li>
+                <a href={`/routes/${r.id}/`}>{r.data.h1}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <Faq items={data.faqs} heading="Questions about this trailer" schema={false} />
+
+  <ContactBand context={data.h1.toLowerCase()} />
+</BaseLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+
+<style>
+  .svc-hero {
+    background: var(--white);
+  }
+
+  .svc-hero__inner {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+
+  .svc-hero__body {
+    margin-top: var(--sp-5);
+    font-size: var(--fs-h3);
+    line-height: 1.55;
+    color: var(--ink-600);
+  }
+
+  .svc-hero__cta {
+    margin-top: var(--sp-6);
+  }
+
+  .scenarios__list {
+    display: grid;
+    gap: var(--sp-6);
+    list-style: none;
+    margin-top: var(--sp-6);
+  }
+
+  .scenarios__list li {
+    max-width: none;
+  }
+
+  .scenarios__list h3 {
+    margin-top: var(--sp-4);
+  }
+
+  .scenarios__list p {
+    margin-top: var(--sp-2);
+    color: var(--ink-600);
+    font-size: var(--fs-small);
+  }
+
+  .specs {
+    background: var(--white);
+  }
+
+  .specs__table {
+    width: 100%;
+    max-width: 680px;
+    margin-top: var(--sp-5);
+    border-collapse: collapse;
+  }
+
+  .specs__table caption {
+    text-align: left;
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+    padding-bottom: var(--sp-3);
+  }
+
+  .specs__table th,
+  .specs__table td {
+    padding: var(--sp-3) var(--sp-4);
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .specs__table tr:nth-child(odd) {
+    background: var(--paper);
+  }
+
+  .specs__pending {
+    max-width: 680px;
+    margin-top: var(--sp-5);
+    padding: var(--sp-5);
+    background: var(--paper);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+  }
+
+  .ask__list {
+    margin-top: var(--sp-5);
+    padding-left: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    color: var(--ink-600);
+  }
+
+  .ask__note {
+    margin-top: var(--sp-5);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
+  }
+
+  .related {
+    background: var(--white);
+  }
+
+  .related__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    list-style: none;
+    margin-top: var(--sp-5);
+  }
+
+  .related__list li {
+    max-width: none;
+  }
+
+  .related__list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--sp-2) var(--sp-4);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+
+  .related__list a:hover {
+    border-color: var(--gold-500);
+    color: var(--gold-text);
+  }
+
+  @media (min-width: 900px) {
+    .svc-hero__inner {
+      grid-template-columns: 1fr 520px;
+      gap: var(--sp-8);
+    }
+
+    .scenarios__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

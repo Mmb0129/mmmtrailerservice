@@ -1,0 +1,114 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import EnquiryForm from '@/components/forms/EnquiryForm.astro';
+import Field from '@/components/forms/Field.astro';
+import { disclosures } from '@/data/business';
+---
+
+<BaseLayout
+  title="Regular & Contract Trailer Work — Load Enquiry"
+  description="For forwarders, logistics companies and manufacturers with repeat trailer volume out of Chennai. Tell us your lanes and we will say what we can cover."
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Regular & contract loads', href: '/load-enquiry/' }]} />
+  </div>
+
+  <section class="section le">
+    <div class="container">
+      <h1>Regular loads and subcontract work</h1>
+      <p class="le__lede">
+        If you move trailer freight regularly — as a forwarder, a logistics company or a
+        manufacturer with steady outbound volume — it is worth us having a proper
+        conversation rather than quoting one load at a time.
+      </p>
+
+      <div class="le__points">
+        <p>
+          We can cover lanes on our own trailers and, where volume needs more than we
+          run, coordinate additional trucks through owners we work with. We will always
+          be clear about which is which.
+        </p>
+      </div>
+
+      <EnquiryForm
+        name="load-enquiry"
+        submitLabel="Send enquiry"
+        disclosure={disclosures.shipper}
+        successHeading="We have your enquiry"
+        successBody="We will come back to you to talk through your lanes and what we can cover."
+      >
+        <Field name="companyName" label="Company name" required autocomplete="organization" />
+        <Field name="contactName" label="Your name" required autocomplete="name" />
+        <Field name="phone" label="Phone" type="tel" required inputmode="tel" autocomplete="tel" />
+        <Field name="email" label="Email" type="email" autocomplete="email" help="Optional." />
+        <Field
+          name="businessType"
+          label="What kind of business?"
+          type="select"
+          options={[
+            { value: 'Manufacturer', label: 'Manufacturer' },
+            { value: 'Freight forwarder', label: 'Freight forwarder' },
+            { value: 'Logistics company', label: 'Logistics company' },
+            { value: 'Transport broker', label: 'Transport broker' },
+            { value: 'Other', label: 'Other' },
+          ]}
+        />
+        <Field
+          name="lanes"
+          label="Which routes?"
+          type="textarea"
+          required
+          placeholder="e.g. Chennai to Sri City weekly, occasional Chennai to Hyderabad"
+        />
+        <Field
+          name="frequency"
+          label="How often?"
+          type="select"
+          options={[
+            { value: 'One-off', label: 'One-off' },
+            { value: 'Weekly', label: 'Weekly' },
+            { value: 'Monthly', label: 'Monthly' },
+            { value: 'Ongoing contract', label: 'Ongoing contract' },
+          ]}
+        />
+        <Field
+          name="cargoProfile"
+          label="What do you move?"
+          type="textarea"
+          required
+          placeholder="e.g. packaged machinery on pallets, 12–20 tonnes a load"
+        />
+        <Field
+          name="trailerTypes"
+          label="Trailer types you need"
+          type="checkbox-group"
+          options={[
+            { value: 'High-bed', label: 'High-bed' },
+            { value: 'Semi-low-bed', label: 'Semi-low-bed' },
+            { value: 'Low-bed', label: 'Low-bed' },
+            { value: 'Container / skeletal', label: 'Container / skeletal' },
+          ]}
+        />
+        <Field name="notes" label="Anything else?" type="textarea" rows={3} />
+      </EnquiryForm>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .le__lede {
+    margin-block: var(--sp-4) var(--sp-5);
+    font-size: var(--fs-h3);
+    color: var(--ink-600);
+  }
+
+  .le__points {
+    max-width: 680px;
+    margin-bottom: var(--sp-7);
+    padding: var(--sp-5);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+/**
+ * Per-page metadata, in one place (architect.md §14.2).
+ * Every page supplies title + description; everything else is derived.
+ * CI fails the build on a missing or duplicate title (TEST-005).
+ */
+import { business } from '@/data/business';
+import { brandColors } from '@/data/theme';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Override only when a page must canonicalise elsewhere. */
+  canonical?: string;
+  /** Path under /src/assets or /public to a 1200x630 share image. */
+  ogImage?: string;
+  /** /thank-you/ and /404 only. */
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-default.jpg',
+  noindex = false,
+  ogType = 'website',
+} = Astro.props;
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
+
+if (title.length > 60) {
+  throw new Error(`SEO: title is ${title.length} chars (max 60): "${title}"`);
+}
+if (description.length > 155) {
+  throw new Error(
+    `SEO: description is ${description.length} chars (max 155) on ${Astro.url.pathname}`,
+  );
+}
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:site_name" content={business.name} />
+<meta property="og:locale" content="en_IN" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<link
+  rel="preload"
+  href="/fonts/montserrat-latin.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+
+<meta name="theme-color" content={brandColors.navy} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />

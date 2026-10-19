@@ -1,0 +1,98 @@
+---
+/**
+ * Homepage block 9 (architect.md §12.1).
+ *
+ * A full-width band, not a card, because it addresses a different reader
+ * entirely. The visual break is what makes a truck owner realise the page is
+ * talking to him. It leads with the offer — "we have loads" — because that is
+ * his actual question, and because MMM supplies loads to trucks as much as
+ * trucks to shippers (§8.1). No competitor researched offers a truck owner
+ * anything at all.
+ */
+import { whatsappUrl } from '@/data/business';
+---
+
+<section class="tob">
+  <div class="container tob__inner">
+    <div>
+      <p class="tob__eyebrow">For truck owners</p>
+      <h2>Run a trailer? We have loads.</h2>
+      <p class="tob__body">
+        We move freight for established clients out of Chennai, Tada and Sri City, and
+        across India. Our own trailers take that work first. When they are committed, we
+        place the load with a truck owner we know.
+      </p>
+      <p class="tob__body tob__body--muted">
+        We are not a load board. We coordinate the movement ourselves, you deal with us
+        directly, and we tell you what the load is before you commit to it.
+      </p>
+    </div>
+
+    <div class="tob__actions">
+      <a class="btn" href="/transport-partners/">Tell us about your truck</a>
+      <a
+        class="btn btn--ghost"
+        href={whatsappUrl('loads for my trailer')}
+        rel="noopener"
+        data-track="whatsapp_click">WhatsApp us</a
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .tob {
+    background: var(--navy-900);
+    color: var(--on-navy-300);
+    padding-block: var(--sp-8);
+    border-block: 4px solid var(--gold-500);
+  }
+
+  .tob__inner {
+    display: grid;
+    gap: var(--sp-6);
+    align-items: center;
+  }
+
+  .tob__eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-500);
+    margin-bottom: var(--sp-3);
+  }
+
+  .tob h2 {
+    color: var(--white);
+    font-size: var(--fs-h1);
+  }
+
+  .tob__body {
+    margin-top: var(--sp-4);
+  }
+
+  .tob__body--muted {
+    color: var(--on-navy-400);
+    font-size: var(--fs-small);
+  }
+
+  .tob__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+
+  @media (min-width: 900px) {
+    .tob__inner {
+      grid-template-columns: 1.6fr 1fr;
+      gap: var(--sp-8);
+    }
+
+    .tob__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

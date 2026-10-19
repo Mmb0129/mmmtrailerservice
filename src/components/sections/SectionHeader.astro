@@ -1,0 +1,59 @@
+---
+/** One section-heading pattern, used everywhere (architect.md §9.5). */
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  standfirst?: string;
+  /** h2 by default; h1 only on a page's lead section. */
+  as?: 'h1' | 'h2';
+  align?: 'start' | 'center';
+}
+
+const { eyebrow, heading, standfirst, as: Tag = 'h2', align = 'start' } = Astro.props;
+---
+
+<div class:list={['sh', align === 'center' && 'sh--center']}>
+  {eyebrow && <p class="sh__eyebrow">{eyebrow}</p>}
+  <Tag class="sh__heading">{heading}</Tag>
+  {standfirst && <p class="sh__standfirst">{standfirst}</p>}
+</div>
+
+<style>
+  .sh {
+    margin-bottom: var(--sp-6);
+  }
+
+  .sh--center {
+    text-align: center;
+  }
+
+  .sh--center .sh__standfirst {
+    margin-inline: auto;
+  }
+
+  .sh__eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin-bottom: var(--sp-3);
+  }
+
+  :global(.section--navy) .sh__eyebrow {
+    color: var(--gold-500);
+  }
+
+  .sh__standfirst {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-h3);
+    line-height: 1.5;
+    color: var(--ink-600);
+    max-width: 60ch;
+  }
+
+  :global(.section--navy) .sh__standfirst {
+    color: var(--on-navy-300);
+  }
+</style>
