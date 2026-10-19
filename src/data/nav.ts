@@ -27,6 +27,7 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
       { label: 'Semi-low-bed trailer hire', href: '/services/semi-low-bed-trailer-hire/' },
       { label: 'Low-bed trailer hire', href: '/services/low-bed-trailer-hire/' },
       { label: 'Container transport', href: '/services/container-trailer-transport/' },
+      { label: 'Trailer lease & period hire', href: '/services/trailer-lease-hire/' },
       { label: 'Machinery transport', href: '/services/machinery-transport/' },
     ],
   },

@@ -77,6 +77,18 @@ const today = new Date().toISOString().slice(0, 10);
             { value: 'Container / skeletal', label: 'Container / skeletal' },
           ]}
         />
+        <Field
+          name="hireType"
+          label="Type of hire"
+          type="select"
+          help="Leasing a trailer for a period? Say so here and we will quote it that way."
+          options={[
+            { value: 'Single movement', label: 'Single movement' },
+            { value: 'Several movements', label: 'Several movements' },
+            { value: 'Lease for a period', label: 'Lease for a period' },
+            { value: 'Not sure yet', label: 'Not sure yet' },
+          ]}
+        />
         <Field name="loadingDate" label="Preferred loading date" type="date" min={today} />
         <Field name="notes" label="Anything else we should know?" type="textarea" rows={3} />
       </EnquiryForm>

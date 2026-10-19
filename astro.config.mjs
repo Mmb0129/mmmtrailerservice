@@ -33,4 +33,14 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  vite: {
+    build: {
+      // Astro inlines small scripts as <script type="module">...</script>.
+      // Our CSP is script-src 'self', which forbids inline scripts, so an
+      // inlined bundle is silently blocked in production. Forcing every
+      // script out to its own file keeps the strict CSP and the progressive
+      // enhancement working together.
+      assetsInlineLimit: 0,
+    },
+  },
 });

@@ -102,6 +102,25 @@ for (const file of htmlFiles) {
   }
 }
 
+/* ── 3b. Inline scripts vs the CSP ────────────────────────────────── */
+// netlify.toml sets script-src 'self', which forbids inline scripts. Astro
+// will inline a small bundle unless told not to, and the result is silently
+// blocked in the browser — forms keep working via native POST, but the
+// progressive enhancement never runs. This catches that regression.
+for (const file of htmlFiles) {
+  const page = '/' + relative(DIST, file).replace(/index\.html$/, '');
+  const html = await readFile(file, 'utf8');
+  for (const tag of html.match(/<script\b[^>]*>/gi) ?? []) {
+    const isJsonLd = /type=["']application\/ld\+json["']/.test(tag);
+    const hasSrc = /\ssrc=/.test(tag);
+    if (!isJsonLd && !hasSrc) {
+      errors.push(
+        `${page}: inline <script> would be blocked by script-src 'self' — ${tag.slice(0, 70)}`,
+      );
+    }
+  }
+}
+
 /* ── 3. No upscaling ──────────────────────────────────────────────── */
 let sourceWidths = new Map();
 try {

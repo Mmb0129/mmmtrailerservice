@@ -33,6 +33,11 @@ export const homeFaqs: FaqItem[] = [
       'Pickup and delivery locations, what the cargo is, roughly what it weighs, its dimensions if you know them, how it will be loaded, and when you need it. The quickest way is to call — if you are not sure which trailer suits, we will advise.',
   },
   {
+    question: 'Can we hire a trailer for a period rather than per trip?',
+    answer:
+      'Yes. We lease trailers for a fixed period where the work justifies it — projects, sustained volume, seasonal runs. The terms are set per arrangement rather than from a price list, so call us with the dates and what the vehicle would be doing.',
+  },
+  {
     question: 'I own a trailer — do you have loads?',
     answer:
       'Yes. When our own trailers are committed we place loads with truck owners we know. Give us a call with your vehicle type, base location and the routes you run, and we will come back to you when we have work that suits.',

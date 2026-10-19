@@ -33,8 +33,13 @@ const types = [
     <SectionHeader
       eyebrow="Three configurations"
       heading="Which trailer your load needs"
-      standfirst="If you are not sure, say so on the enquiry — telling you which trailer suits the job is part of what we do."
+      standfirst="If you are not sure, say so when you call — telling you which trailer suits the job is part of what we do."
     />
+
+    <p class="tt__lease">
+      Need a trailer for a period rather than a single trip?
+      <a href="/services/trailer-lease-hire/">We lease trailers too.</a>
+    </p>
 
     <ul class="tt">
       {
@@ -64,6 +69,22 @@ const types = [
 <style>
   .tt-section {
     background: var(--white);
+  }
+
+  .tt__lease {
+    margin: calc(var(--sp-5) * -1) 0 var(--sp-6);
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--paper);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    color: var(--ink-600);
+    max-width: none;
+  }
+
+  .tt__lease a {
+    color: var(--gold-text);
+    font-weight: 700;
   }
 
   .tt {

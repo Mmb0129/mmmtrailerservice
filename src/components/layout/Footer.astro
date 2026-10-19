@@ -51,7 +51,7 @@ const year = new Date().getFullYear();
 
     <div class="ftr__base">
       <p class="ftr__copy">
-        © {year} {business.name}. Proprietor: {business.owner}.
+        © <span data-current-year>{year}</span> {business.name}. Proprietor: {business.owner}.
       </p>
       <ul class="ftr__legal">
         {
@@ -65,6 +65,10 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<script>
+  import '@/scripts/current-year';
+</script>
 
 <style>
   .ftr {
