@@ -45,13 +45,11 @@ const mobile = photo('mmm-trailer-steel-pipe-roadside');
 
 <section class="hero">
   <div class="container hero__inner">
-    <div class="hero__text">
+    <div class="hero__head">
       <h1>40 ft trailer hire across India — high-bed, semi-low-bed and low-bed</h1>
       <p class="hero__lede">
         Containers, machinery, steel, tanks and project cargo — the loads that will not
-        fit a lorry. Moved on our own 40 ft trailers, or on a suitable truck arranged
-        through our transport network. We are based in Chennai, but your load does not
-        have to start there: we load and deliver anywhere in India.
+        fit a lorry. Based in Chennai, loading and delivering anywhere in India.
       </p>
 
       <div class="hero__cta">
@@ -64,7 +62,9 @@ const mobile = photo('mmm-trailer-steel-pipe-roadside');
           WhatsApp us
         </a>
       </div>
+    </div>
 
+    <div class="hero__rest">
       <p class="hero__fallback">
         Can't call right now? <a href="/quote/">Send your load details</a> and we will come
         back to you.
@@ -126,12 +126,34 @@ const mobile = photo('mmm-trailer-steel-pipe-roadside');
   .hero {
     background: var(--navy-800);
     color: var(--on-navy-300);
-    padding-block: var(--sp-7) var(--sp-8);
+    padding-block: var(--sp-6) var(--sp-7);
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      padding-block: var(--sp-7) var(--sp-8);
+    }
   }
 
   .hero__inner {
     display: grid;
-    gap: var(--sp-7);
+    gap: var(--sp-6);
+    grid-template-areas:
+      'head'
+      'media'
+      'rest';
+  }
+
+  .hero__head {
+    grid-area: head;
+  }
+
+  .hero__media {
+    grid-area: media;
+  }
+
+  .hero__rest {
+    grid-area: rest;
   }
 
   .hero h1 {
@@ -142,17 +164,25 @@ const mobile = photo('mmm-trailer-steel-pipe-roadside');
   }
 
   .hero__lede {
-    margin-top: var(--sp-5);
-    font-size: var(--fs-h3);
+    margin-top: var(--sp-4);
+    font-size: var(--fs-body);
     line-height: 1.55;
     color: var(--on-navy-300);
+    max-width: 46ch;
+  }
+
+  @media (min-width: 900px) {
+    .hero__lede {
+      margin-top: var(--sp-5);
+      font-size: var(--fs-h3);
+    }
   }
 
   .hero__cta {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sp-3);
-    margin-top: var(--sp-6);
+    margin-top: var(--sp-5);
   }
 
   .btn--call {
@@ -198,8 +228,8 @@ const mobile = photo('mmm-trailer-steel-pipe-roadside');
   }
 
   .hero__strip {
-    margin-top: var(--sp-6);
-    padding-top: var(--sp-5);
+    margin-top: var(--sp-5);
+    padding-top: var(--sp-4);
     border-top: 1px solid rgb(255 255 255 / 12%);
     font-size: var(--fs-small);
     color: var(--on-navy-400);
@@ -297,8 +327,16 @@ const mobile = photo('mmm-trailer-steel-pipe-roadside');
   @media (min-width: 900px) {
     .hero__inner {
       grid-template-columns: 1.02fr 1fr;
-      align-items: center;
-      gap: var(--sp-7);
+      grid-template-areas:
+        'head  media'
+        'rest  media';
+      align-content: center;
+      column-gap: var(--sp-7);
+      row-gap: var(--sp-5);
+    }
+
+    .hero__media {
+      align-self: center;
     }
 
     /* Capped so the 1600px sources are never asked to upscale. */
