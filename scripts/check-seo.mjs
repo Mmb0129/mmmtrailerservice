@@ -22,7 +22,16 @@ async function htmlFiles(dir) {
 
 const pick = (html, re) => html.match(re)?.[1]?.trim() ?? null;
 
-const files = await htmlFiles(DIST);
+/**
+ * Files that are not pages and have no SEO surface. __forms.html is a
+ * machine-readable manifest that exists only for Netlify's form detection
+ * to parse; nobody visits it and it is noindex.
+ */
+const NOT_PAGES = ['__forms.html'];
+
+const files = (await htmlFiles(DIST)).filter(
+  (f) => !NOT_PAGES.some((n) => f.endsWith(n)),
+);
 const errors = [];
 const titles = new Map();
 const descriptions = new Map();
