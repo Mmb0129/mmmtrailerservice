@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import EnquiryForm from '@/components/forms/EnquiryForm.astro';
 import Field from '@/components/forms/Field.astro';
-import { disclosures } from '@/data/business';
 ---
 
 <BaseLayout
@@ -34,7 +33,6 @@ import { disclosures } from '@/data/business';
       <EnquiryForm
         name="load-enquiry"
         submitLabel="Send enquiry"
-        disclosure={disclosures.shipper}
         successHeading="We have your enquiry"
         successBody="We will come back to you to talk through your lanes and what we can cover."
       >

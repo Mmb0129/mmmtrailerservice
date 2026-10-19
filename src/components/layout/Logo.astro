@@ -16,7 +16,7 @@ interface Props {
   tone?: 'light' | 'dark';
 }
 
-const { size = 34, tone = 'light' } = Astro.props;
+const { size = 44, tone = 'light' } = Astro.props;
 const subColor = tone === 'light' ? brandColors.white : brandColors.navy;
 ---
 
@@ -40,8 +40,8 @@ const subColor = tone === 'light' ? brandColors.white : brandColors.navy;
     y="45"
     font-family="Montserrat, Arial, sans-serif"
     font-weight="700"
-    font-size="10.5"
-    letter-spacing="2.6"
+    font-size="11"
+    letter-spacing="2.3"
     fill={subColor}>TRAILER SERVICE</text>
 </svg>
 

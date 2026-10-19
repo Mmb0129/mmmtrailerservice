@@ -25,7 +25,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: 'Do you own your trucks, or arrange them?',
     answer:
-      'Both. We run our own 40 ft trailers and your load goes on one of ours first. When our vehicles are committed, we arrange a suitable truck through owners we know and coordinate the movement ourselves — and we tell you which of the two we are proposing.',
+      'Both. We run our own 40 ft trailers and your load goes on one of ours first. When our vehicles are committed, we arrange a suitable truck through owners we know and coordinate the movement ourselves.',
   },
   {
     question: 'What do you need from me to quote?',

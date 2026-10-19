@@ -12,7 +12,8 @@ import { primaryPhone, whatsappUrl } from '@/data/business';
 interface Props {
   name: string;
   submitLabel: string;
-  disclosure: string;
+  /** Optional. Only /transport-partners/ carries one. */
+  disclosure?: string;
   successHeading: string;
   successBody: string;
 }
@@ -43,7 +44,7 @@ const { name, submitLabel, disclosure, successHeading, successBody } = Astro.pro
       <slot />
     </div>
 
-    <p class="ef__disclosure">{disclosure}</p>
+    {disclosure && <p class="ef__disclosure">{disclosure}</p>}
 
     <button class="btn ef__submit" type="submit">{submitLabel}</button>
 
@@ -58,7 +59,6 @@ const { name, submitLabel, disclosure, successHeading, successBody } = Astro.pro
   <div class="ef__success" data-form-success hidden>
     <h2 tabindex="-1" data-success-heading>{successHeading}</h2>
     <p>{successBody}</p>
-    <p class="ef__disclosure">{disclosure}</p>
     <p class="ef__success-actions">
       <a class="btn btn--outline" href={primaryPhone.href} data-track="call_click">
         Call&nbsp;{primaryPhone.display}

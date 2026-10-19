@@ -17,7 +17,6 @@ import { galleryIsPublishable } from '@/content.config';
 
 const all = await getCollection('gallery');
 const items = all.filter(galleryIsPublishable).sort((a, b) => a.data.order - b.data.order);
-const withheld = all.length - items.length;
 
 const CATEGORY_LABELS: Record<string, string> = {
   machinery: 'Machinery',
@@ -88,16 +87,6 @@ const used = [...new Set(items.map((i) => i.data.category))].filter((c) => CATEG
         }
       </ul>
 
-      {
-        withheld > 0 && (
-          <p class="withheld">
-            {withheld} further photograph{withheld === 1 ? ' is' : 's are'} held back
-            pending confirmation — either someone identifiable appears in the frame and
-            we do not yet have their consent, or we have not confirmed the vehicle is
-            ours. We would rather show fewer photographs than mislabel one.
-          </p>
-        )
-      }
     </div>
   </section>
 
@@ -187,15 +176,6 @@ const used = [...new Set(items.map((i) => i.data.category))].filter((c) => CATEG
     display: none;
   }
 
-  .withheld {
-    margin-top: var(--sp-7);
-    padding: var(--sp-4) var(--sp-5);
-    background: var(--white);
-    border-left: 3px solid var(--rule);
-    font-size: var(--fs-small);
-    color: var(--ink-400);
-    max-width: 68ch;
-  }
 
   @media (min-width: 600px) {
     .grid {
