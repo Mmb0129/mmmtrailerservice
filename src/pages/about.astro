@@ -63,33 +63,6 @@ import { business } from '@/data/business';
     </div>
   </section>
 
-  <section class="section ab-name">
-    <div class="container ab-name__inner">
-      <div>
-        <h2>Where the name comes from</h2>
-        <div class="prose">
-          <p>
-            MMM stands for <strong>{business.nameMeaning}</strong>. It is painted across
-            the windscreen of the trucks in Tamil, and it is on the roundel we have used
-            since the beginning.
-          </p>
-          <p>
-            Our vehicles still carry the earlier livery they were painted in. They are
-            the same trucks, run by the same people.
-          </p>
-        </div>
-      </div>
-      <Figure
-        src={photo('mmm-ashok-leyland-cab-tamil-band')}
-        alt="Ashok Leyland tractor unit cab front with Mazhai Malai Madha lettering in Tamil"
-        caption="The name across the windscreen."
-        ratio="3/4"
-        sizes="(min-width: 900px) 320px, 70vw"
-        widths={[320, 640]}
-      />
-    </div>
-  </section>
-
   <HowWeWork heading="Our trucks, and the trucks we know" eyebrow="How the business works" />
 
   <section class="section">
@@ -143,19 +116,8 @@ import { business } from '@/data/business';
     color: var(--ink-600);
   }
 
-  .ab-name {
-    background: var(--white);
-  }
 
-  .ab-name__inner {
-    display: grid;
-    gap: var(--sp-6);
-    align-items: center;
-  }
 
-  .ab-name__inner :global(.fig) {
-    max-width: 320px;
-  }
 
   .ab-work {
     max-width: 68ch;
@@ -183,9 +145,5 @@ import { business } from '@/data/business';
       max-width: none;
     }
 
-    .ab-name__inner {
-      grid-template-columns: 1fr 320px;
-      gap: var(--sp-8);
-    }
   }
 </style>

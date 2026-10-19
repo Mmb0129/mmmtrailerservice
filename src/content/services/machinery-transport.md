@@ -1,6 +1,6 @@
 ---
 title: Machinery & Equipment Transport by Trailer
-description: Moving machinery and plant by 40 ft trailer from Chennai — boom lifts, transit mixers, crusher sections, vessels and industrial equipment across India.
+description: Moving machinery and plant by 40 ft trailer anywhere in India — boom lifts, transit mixers, crusher sections, vessels and industrial equipment.
 h1: Moving machinery and plant
 primaryKeyword: machinery transportation by trailer
 secondaryKeywords:

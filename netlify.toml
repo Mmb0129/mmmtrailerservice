@@ -48,6 +48,8 @@
 #    style-src needs 'unsafe-inline' for Astro's scoped-style injection;
 #    everything else is strict. form-action 'self' is what lets the Netlify
 #    Forms POST through while blocking exfiltration to any other origin.
+#    With the Google Maps embed removed there are no iframes and no
+#    third-party image sources left, so frame-src and img-src are tighter.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -55,7 +57,7 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleapis.com https://*.gstatic.com; font-src 'self'; frame-src https://www.google.com; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src 'none'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 
 # ── Astro emits content-hashed filenames under /_astro, so these are safe to
 #    cache forever. This is the fix for the old site's 2.47 MB hero being

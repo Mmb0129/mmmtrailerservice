@@ -1,6 +1,6 @@
 ---
 title: 40 ft High-Bed Trailer Hire in Chennai
-description: 40 ft high-bed flatbed trailers from Chennai for steel, pipe, tanks, crated cargo and palletised freight. Tell us the load and we will tell you if it fits.
+description: 40 ft high-bed flatbed trailers for steel, pipe, tanks and crated cargo, anywhere in India. Tell us the load and we will say whether it fits.
 h1: 40 ft high-bed trailer hire
 primaryKeyword: 40 feet high bed trailer hire
 secondaryKeywords:

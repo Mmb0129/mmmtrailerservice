@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
-import MapEmbed from '@/components/media/MapEmbed.astro';
 import Icon from '@/components/icons/Icons.astro';
 import { business, phones, primaryPhone, whatsappUrl } from '@/data/business';
 
@@ -118,10 +117,6 @@ const localBusiness = {
         </p>
       </div>
 
-      <div class="ct__map">
-        <h2>Finding us</h2>
-        <MapEmbed />
-      </div>
     </div>
   </section>
 </BaseLayout>
@@ -214,8 +209,7 @@ const localBusiness = {
 
   @media (min-width: 900px) {
     .ct {
-      grid-template-columns: 1.2fr 1fr;
-      gap: var(--sp-8);
+      max-width: 720px;
     }
   }
 </style>

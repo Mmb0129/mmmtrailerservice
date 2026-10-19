@@ -1,6 +1,6 @@
 ---
 title: 40 ft Low-Bed Trailer Hire in Chennai
-description: 40 ft low-bed trailers from Chennai for tall and heavy plant — transit mixers, crusher sections, construction machinery and over-dimensional project cargo.
+description: 40 ft low-bed trailers for tall and heavy plant across India — transit mixers, crusher sections, construction machinery and over-dimensional project cargo.
 h1: 40 ft low-bed trailer hire
 primaryKeyword: low bed trailer hire Chennai
 secondaryKeywords:

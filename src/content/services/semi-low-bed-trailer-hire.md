@@ -1,6 +1,6 @@
 ---
 title: 40 ft Semi-Low-Bed Trailer Hire in Chennai
-description: 40 ft semi-low-bed trailers from Chennai for wheeled and tracked machinery that drives on — boom lifts, compactors, smaller plant and access equipment.
+description: 40 ft semi-low-bed trailers for wheeled and tracked machinery that drives on — boom lifts, compactors, smaller plant and access equipment, across India.
 h1: 40 ft semi-low-bed trailer hire
 primaryKeyword: semi low bed trailer transport
 secondaryKeywords:
