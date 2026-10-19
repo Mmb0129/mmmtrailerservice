@@ -8,6 +8,7 @@ import Figure from '@/components/media/Figure.astro';
 import Faq from '@/components/sections/Faq.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { photo } from '@/data/photos';
+import { primaryPhone, whatsappUrl } from '@/data/business';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const routes = await getCollection('routes', ({ data }) => !data.draft);
@@ -56,7 +57,18 @@ const quoteHref = `/quote/?from=${encodeURIComponent(data.origin)}&to=${encodeUR
         }
         <p class="rt-hero__lede">{data.description}</p>
         <p class="rt-hero__cta">
-          <a class="btn" href={quoteHref}>Get a quote for this route</a>
+          <a class="btn" href={primaryPhone.href} data-track="call_click">
+            Call&nbsp;{primaryPhone.display}
+          </a>
+          <a
+            class="btn btn--outline"
+            href={whatsappUrl(`${data.origin} to ${data.destination}`)}
+            rel="noopener"
+            data-track="whatsapp_click">WhatsApp</a
+          >
+        </p>
+        <p class="rt-hero__alt">
+          or <a href={quoteHref}>send the details for this route</a>
         </p>
       </div>
       {
@@ -178,7 +190,16 @@ const quoteHref = `/quote/?from=${encodeURIComponent(data.origin)}&to=${encodeUR
   }
 
   .rt-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
     margin-top: var(--sp-6);
+  }
+
+  .rt-hero__alt {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
   }
 
   .rt-industry {

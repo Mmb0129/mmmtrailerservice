@@ -9,7 +9,7 @@
  * trucks to shippers (§8.1). No competitor researched offers a truck owner
  * anything at all.
  */
-import { whatsappUrl } from '@/data/business';
+import { primaryPhone, whatsappUrl } from '@/data/business';
 ---
 
 <section class="tob">
@@ -30,13 +30,16 @@ import { whatsappUrl } from '@/data/business';
     </div>
 
     <div class="tob__actions">
-      <a class="btn" href="/transport-partners/">Tell us about your truck</a>
+      <a class="btn" href={primaryPhone.href} data-track="call_click">
+        Call&nbsp;{primaryPhone.display}
+      </a>
       <a
         class="btn btn--ghost"
         href={whatsappUrl('loads for my trailer')}
         rel="noopener"
         data-track="whatsapp_click">WhatsApp us</a
       >
+      <a class="btn btn--ghost" href="/transport-partners/">About the work</a>
     </div>
   </div>
 </section>

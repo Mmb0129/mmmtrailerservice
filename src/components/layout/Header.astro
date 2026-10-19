@@ -33,7 +33,9 @@ const isCurrent = (href: string) => path === href || path.startsWith(href.replac
           ))
         }
       </ul>
-      <a class="hdr__cta on-gold" href="/quote/">Get a Quote</a>
+      <a class="hdr__cta on-gold" href={primaryPhone.href} data-track="call_click">
+        {primaryPhone.display}
+      </a>
     </nav>
 
     <div class="hdr__compact">
@@ -61,7 +63,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(href.replac
                 </li>
               ))
             }
-            <li><a class="hdr__drawer-cta" href="/quote/">Get a Quote</a></li>
+            <li>
+              <a class="hdr__drawer-cta" href={primaryPhone.href} data-track="call_click">
+                Call&nbsp;{primaryPhone.display}
+              </a>
+            </li>
+            <li><a class="hdr__drawer-quote" href="/quote/">Or send load details</a></li>
           </ul>
         </nav>
       </details>
@@ -204,6 +211,11 @@ const isCurrent = (href: string) => path === href || path.startsWith(href.replac
 
   .hdr__drawer a[aria-current='page'] {
     color: var(--gold-500);
+  }
+
+  .hdr__drawer-quote {
+    text-align: center;
+    color: var(--gold-500) !important;
   }
 
   .hdr__drawer-cta {

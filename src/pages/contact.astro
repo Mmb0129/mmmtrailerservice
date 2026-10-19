@@ -111,8 +111,10 @@ const localBusiness = {
         </ul>
 
         <p class="ct__cta">
-          <a class="btn" href="/quote/">Request a quote</a>
-          <a class="btn btn--outline" href="/transport-partners/">I run a trailer</a>
+          <a class="btn" href={primaryPhone.href} data-track="call_click">
+            Call&nbsp;{primaryPhone.display}
+          </a>
+          <a class="btn btn--outline" href="/quote/">Send load details</a>
         </p>
       </div>
 

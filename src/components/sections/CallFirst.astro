@@ -1,0 +1,112 @@
+---
+/**
+ * "Call first" panel, shown above every enquiry form.
+ *
+ * The phone is the owner's preferred channel and realistically the fastest
+ * route to an answer, so the form is framed as the fallback rather than the
+ * default. The form still works fully — this just reorders the preference.
+ */
+import Icon from '@/components/icons/Icons.astro';
+import { primaryPhone, secondaryPhone, whatsappUrl } from '@/data/business';
+
+interface Props {
+  context?: string;
+  /** Overrides the second line for a specific audience. */
+  note?: string;
+}
+
+const { context, note } = Astro.props;
+---
+
+<div class="cf">
+  <div class="cf__text">
+    <h2 class="cf__heading">Calling is quickest</h2>
+    <p>
+      {
+        note ??
+          'Tell us the load and we can usually say straight away whether we have a vehicle for it. If you would rather send the details, the form below works just as well — we will come back to you.'
+      }
+    </p>
+  </div>
+
+  <div class="cf__actions">
+    <a class="btn btn--call" href={primaryPhone.href} data-track="call_click">
+      <Icon name="phone" size={20} />
+      <span>{primaryPhone.display}</span>
+    </a>
+    <a
+      class="btn btn--outline"
+      href={whatsappUrl(context)}
+      rel="noopener"
+      data-track="whatsapp_click"
+    >
+      <Icon name="whatsapp" size={20} />
+      <span>WhatsApp</span>
+    </a>
+    <p class="cf__alt">
+      or <a href={secondaryPhone.href} data-track="call_click">{secondaryPhone.display}</a>
+    </p>
+  </div>
+</div>
+
+<style>
+  .cf {
+    display: grid;
+    gap: var(--sp-5);
+    max-width: 680px;
+    margin-bottom: var(--sp-7);
+    padding: var(--sp-6);
+    background: var(--navy-800);
+    border-radius: var(--radius-lg);
+    color: var(--on-navy-300);
+  }
+
+  .cf__heading {
+    color: var(--white);
+    font-size: var(--fs-h3);
+    margin-bottom: var(--sp-2);
+  }
+
+  .cf__text p {
+    font-size: var(--fs-small);
+  }
+
+  .cf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+
+  .cf__actions .btn--outline {
+    border-color: var(--gold-500);
+    color: var(--gold-500);
+  }
+
+  .cf__actions .btn--outline:hover {
+    background: var(--gold-500);
+    color: var(--navy-800);
+  }
+
+  .btn--call {
+    font-size: 17px;
+    letter-spacing: 0.02em;
+  }
+
+  .cf__alt {
+    margin: 0;
+    font-size: var(--fs-small);
+    color: var(--on-navy-400);
+  }
+
+  .cf__alt a {
+    color: var(--gold-500);
+    font-weight: 700;
+  }
+
+  @media (min-width: 700px) {
+    .cf {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

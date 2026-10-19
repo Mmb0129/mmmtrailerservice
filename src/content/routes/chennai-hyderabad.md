@@ -25,6 +25,8 @@ notes:
     body: On a multi-state run, permits for over-dimensional cargo take time and are specific to the route. The earlier you tell us the dimensions, the more realistic the plan.
   - title: Fabricated equipment is common on this lane
     body: Vessels, tanks and fabricated assemblies tend to be long and awkward rather than simply heavy, which changes how they are secured and how the route is chosen.
+  - title: We also run Sri City to Hyderabad
+    body: Not every Hyderabad movement starts in Chennai. We run loads to Hyderabad from the Sri City industrial area as well, including to electronics manufacturing plants. If your origin is north of Chennai, that is usually the better starting point.
 faqs:
   - question: Do you cover Chennai to Hyderabad regularly?
     answer: We accept enquiries for this corridor and will tell you honestly whether we have a suitable vehicle free, or whether we would arrange it through a truck owner we work with.

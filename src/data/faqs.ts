@@ -30,11 +30,11 @@ export const homeFaqs: FaqItem[] = [
   {
     question: 'What do you need from me to quote?',
     answer:
-      'Pickup and delivery locations, what the cargo is, roughly what it weighs, its dimensions if you know them, how it will be loaded, and when you need it. If you are not sure which trailer suits, say so and we will advise.',
+      'Pickup and delivery locations, what the cargo is, roughly what it weighs, its dimensions if you know them, how it will be loaded, and when you need it. The quickest way is to call — if you are not sure which trailer suits, we will advise.',
   },
   {
     question: 'I own a trailer — do you have loads?',
     answer:
-      'Yes. When our own trailers are committed we place loads with truck owners we know. Tell us your vehicle type, base location and the routes you run, and we will get in touch when we have work that suits.',
+      'Yes. When our own trailers are committed we place loads with truck owners we know. Give us a call with your vehicle type, base location and the routes you run, and we will come back to you when we have work that suits.',
   },
 ];

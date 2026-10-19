@@ -8,7 +8,7 @@ import Figure from '@/components/media/Figure.astro';
 import Faq from '@/components/sections/Faq.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { photo } from '@/data/photos';
-import { business } from '@/data/business';
+import { business, primaryPhone, whatsappUrl } from '@/data/business';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const services = await getCollection('services', ({ data }) => !data.draft);
@@ -60,7 +60,15 @@ const serviceSchema = {
         <h1>{data.h1}</h1>
         <div class="prose svc-hero__body"><Content /></div>
         <p class="svc-hero__cta">
-          <a class="btn" href="/quote/">Get a quote</a>
+          <a class="btn" href={primaryPhone.href} data-track="call_click">
+            Call&nbsp;{primaryPhone.display}
+          </a>
+          <a class="btn btn--outline" href={whatsappUrl(data.h1.toLowerCase())} rel="noopener" data-track="whatsapp_click">
+            WhatsApp
+          </a>
+        </p>
+        <p class="svc-hero__alt">
+          or <a href="/quote/">send your load details</a> and we will come back to you
         </p>
       </div>
       <div class="svc-hero__media">
@@ -133,7 +141,7 @@ const serviceSchema = {
 
   <section class="section ask">
     <div class="container">
-      <h2>What we will ask you</h2>
+      <h2>What we will ask when you call</h2>
       <ol class="ask__list">
         <li>Where it is loading and where it is going.</li>
         <li>What the cargo is and roughly what it weighs.</li>
@@ -142,7 +150,7 @@ const serviceSchema = {
         <li>When you need it.</li>
       </ol>
       <p class="ask__note">
-        If you do not know all of it yet, send what you have. We would rather start the
+        If you do not know all of it yet, call anyway. We would rather start the
         conversation than wait for a complete spec.
       </p>
     </div>
@@ -191,7 +199,16 @@ const serviceSchema = {
   }
 
   .svc-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
     margin-top: var(--sp-6);
+  }
+
+  .svc-hero__alt {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-small);
+    color: var(--ink-400);
   }
 
   .scenarios__list {

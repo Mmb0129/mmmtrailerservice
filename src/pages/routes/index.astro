@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
+import { primaryPhone } from '@/data/business';
 
 const routes = (await getCollection('routes', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -71,7 +72,10 @@ const labelFor = (t: string) =>
           we can cover it rather than list a route we cannot service.
         </p>
         <p class="panel__cta">
-          <a class="btn" href="/quote/">Ask about a route</a>
+          <a class="btn" href={primaryPhone.href} data-track="call_click">
+            Call&nbsp;{primaryPhone.display}
+          </a>
+          <a class="btn btn--outline" href="/quote/">Send route details</a>
         </p>
       </div>
     </div>
@@ -157,6 +161,9 @@ const labelFor = (t: string) =>
   }
 
   .panel__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
     margin-top: var(--sp-5);
   }
 </style>

@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import EnquiryForm from '@/components/forms/EnquiryForm.astro';
+import CallFirst from '@/components/sections/CallFirst.astro';
 import Field from '@/components/forms/Field.astro';
 
 // Lane pages link here with ?from=&to= so the route arrives prefilled.
@@ -26,6 +27,8 @@ const today = new Date().toISOString().slice(0, 10);
         from and to. Everything else helps us quote accurately, but leave it blank if you
         do not know it yet.
       </p>
+
+      <CallFirst context="a transport quote" />
 
       <EnquiryForm
         name="quote"

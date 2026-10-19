@@ -1,5 +1,5 @@
 ---
-import { business, phones, whatsappUrl, addressOneLine } from '@/data/business';
+import { business, phones, primaryPhone, whatsappUrl, addressOneLine } from '@/data/business';
 
 interface Props {
   context?: string;
@@ -12,8 +12,8 @@ const { context } = Astro.props;
     <div>
       <h2>Tell us about the load</h2>
       <p class="cb__note">
-        Enquiries welcome any day. We will reply as soon as we can — if it is urgent,
-        call.
+        Enquiries welcome any day. Calling is quickest — tell us the load and we can
+        usually say straight away whether we have a vehicle for it.
       </p>
     </div>
 
@@ -37,7 +37,10 @@ const { context } = Astro.props;
     </ul>
 
     <div class="cb__actions">
-      <a class="btn" href="/quote/">Request a quote</a>
+      <a class="btn" href={primaryPhone.href} data-track="call_click">
+        Call&nbsp;{primaryPhone.display}
+      </a>
+      <a class="btn btn--ghost" href="/quote/">Send details instead</a>
     </div>
   </div>
 </section>

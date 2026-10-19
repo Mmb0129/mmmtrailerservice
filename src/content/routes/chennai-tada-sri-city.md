@@ -26,6 +26,8 @@ notes:
     body: Because it crosses a border, this corridor needs the paperwork discipline of a long interstate haul on a run that looks local on a map. Getting documentation right in advance is what keeps the vehicle moving.
   - title: Suits most of our fleet
     body: We can put high-bed, semi-low-bed, low-bed or container-skeletal trailers on this corridor. Which one you need depends on the cargo, not the route.
+  - title: We run beyond the corridor, not just along it
+    body: Loads from this area do not only come back to Chennai. We run Sri City out to Hyderabad, and Tada across to Thiruvallur, among others. If your plant is here and your delivery point is somewhere else entirely, ask — the corridor is a starting point, not a boundary.
 faqs:
   - question: Is Sri City in Tamil Nadu?
     answer: No. Sri City and Tada are in Andhra Pradesh, north of Chennai, so a movement from Chennai is an interstate one. The documentation differs from a purely local run.

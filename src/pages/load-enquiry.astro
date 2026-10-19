@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import EnquiryForm from '@/components/forms/EnquiryForm.astro';
+import CallFirst from '@/components/sections/CallFirst.astro';
 import Field from '@/components/forms/Field.astro';
 ---
 
@@ -29,6 +30,8 @@ import Field from '@/components/forms/Field.astro';
           be clear about which is which.
         </p>
       </div>
+
+      <CallFirst context="regular trailer work" note="For regular volume a conversation beats a form — call and we can talk through your lanes properly. The form below is here if you would rather send the detail first." />
 
       <EnquiryForm
         name="load-enquiry"

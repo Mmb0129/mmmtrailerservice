@@ -28,11 +28,20 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
       </p>
 
       <div class="hero__cta">
-        <a class="btn" href="/quote/">Get a quote</a>
+        <a class="btn btn--call" href={primaryPhone.href} data-track="call_click">
+          <span class="hero__cta-label">Call&nbsp;us</span><span class="hero__cta-num"
+            >{primaryPhone.display}</span
+          >
+        </a>
         <a class="btn btn--ghost" href={whatsappUrl()} rel="noopener" data-track="whatsapp_click">
           WhatsApp us
         </a>
       </div>
+
+      <p class="hero__fallback">
+        Can't call right now? <a href="/quote/">Send your load details</a> and we will come
+        back to you.
+      </p>
 
       <p class="hero__tertiary">
         <a href="/load-enquiry/">Have loads to move regularly?</a>
@@ -45,9 +54,6 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
         Bengaluru · Hyderabad · Thoothukudi · pan-India
       </p>
 
-      <p class="hero__call">
-        Or call <a href={primaryPhone.href} data-track="call_click">{primaryPhone.display}</a>
-      </p>
     </div>
 
     <div class="hero__media">
@@ -109,6 +115,36 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
     margin-top: var(--sp-6);
   }
 
+  .btn--call {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: var(--sp-3) var(--sp-6);
+    line-height: 1.2;
+  }
+
+  .hero__cta-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+  }
+
+  .hero__cta-num {
+    font-size: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero__fallback {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-small);
+    color: var(--on-navy-400);
+  }
+
+  .hero__fallback a {
+    color: var(--gold-500);
+    font-weight: 700;
+  }
+
   .hero__tertiary {
     display: flex;
     flex-wrap: wrap;
@@ -128,17 +164,6 @@ const mobile = photo('mmm-tractor-cab-front-portrait');
     font-size: var(--fs-small);
     color: var(--on-navy-400);
     max-width: none;
-  }
-
-  .hero__call {
-    margin-top: var(--sp-3);
-    font-size: var(--fs-small);
-    color: var(--on-navy-400);
-  }
-
-  .hero__call a {
-    color: var(--gold-500);
-    font-weight: 700;
   }
 
   .hero__mobile {

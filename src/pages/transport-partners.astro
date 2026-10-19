@@ -9,6 +9,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import EnquiryForm from '@/components/forms/EnquiryForm.astro';
+import CallFirst from '@/components/sections/CallFirst.astro';
 import Field from '@/components/forms/Field.astro';
 import Figure from '@/components/media/Figure.astro';
 import { photo } from '@/data/photos';
@@ -51,11 +52,11 @@ const steps = [
         <!-- 7. Call / WhatsApp, ABOVE the form: most of this audience will
              never fill a form, and that is a success, not a leak. -->
         <div class="tp-hero__cta">
-          <a class="btn" href={whatsappUrl('loads for my trailer')} rel="noopener" data-track="whatsapp_click">
-            WhatsApp us now
-          </a>
-          <a class="btn btn--ghost" href={primaryPhone.href} data-track="call_click">
+          <a class="btn" href={primaryPhone.href} data-track="call_click">
             Call&nbsp;{primaryPhone.display}
+          </a>
+          <a class="btn btn--ghost" href={whatsappUrl('loads for my trailer')} rel="noopener" data-track="whatsapp_click">
+            WhatsApp us
           </a>
         </div>
       </div>
@@ -138,6 +139,8 @@ const steps = [
   <section class="section tp-form">
     <div class="container">
       <h2>Tell us about your truck</h2>
+      <CallFirst context="loads for my trailer" note="Most truck owners would rather talk than type. Call or message us and we will tell you what work we have. The form below is for anyone who prefers it." />
+
       <EnquiryForm
         name="transport-partner"
         submitLabel="Register your vehicle"
